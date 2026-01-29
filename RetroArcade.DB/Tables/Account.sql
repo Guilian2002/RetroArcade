@@ -10,5 +10,7 @@
 	[DisableDate] DATETIME2,
 	[IsActive] BIT NOT NULL,
 
-	CONSTRAINT [PK_Account] PRIMARY KEY ([Id])
+	CONSTRAINT [PK_Account] PRIMARY KEY ([Id]),
+	CONSTRAINT [UK_Account_Username] UNIQUE ([Username]),
+    CONSTRAINT [UK_Account_Email] UNIQUE ([Email])
 )
