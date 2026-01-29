@@ -11,10 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Commands\" />
-    <Folder Include="Domain\Services\" />
-    <Folder Include="Domain\Repositories\" />
-    <Folder Include="Domain\Queries\" />
+    <Folder Include="Domain\Queries\AccountQueries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BStorm.Tools.Database" Version="8.0.0" />
   </ItemGroup>
 
 </Project>
