@@ -8,17 +8,16 @@ namespace RetroArcade.Domain.Domain.Entities
 {
     public class Account
     {
-        public Guid Id { get; set; }
-        public string Firstname { get; set; } = string.Empty;
-        public string Lastname { get; set; } = string.Empty;
-
-        public string Username { get; set; } = string.Empty;
-
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
+        public Guid Id { get; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public Role Role { get; set; }
 
         internal Account (Guid id, string firstname, string lastname, 
-            string username, string email, string password)
+            string username, string email, string password, Role role = Role.User)
         {
             Id = id;
             Firstname = firstname;
@@ -26,6 +25,7 @@ namespace RetroArcade.Domain.Domain.Entities
             Username = username;
             Email = email;
             Password = password;
+            Role = role;
         }
     }
 }
