@@ -1,20 +1,20 @@
 ﻿CREATE PROCEDURE [dbo].[SP_Account_Insert]
-    @lastname NVARCHAR(32),
     @firstname NVARCHAR(32),
+    @lastname NVARCHAR(32),
     @username NVARCHAR(32),
-    @role VARCHAR(8),
     @email NVARCHAR(320),
-    @password NVARCHAR(64)
+    @password NVARCHAR(64),
+    @role VARCHAR(8)
 AS
 BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
-        IF @lastname IS NULL OR LEN(TRIM(@lastname)) = 0
-            RAISERROR (N'Le nom est requis.', 16, 1);
-
         IF @firstname IS NULL OR LEN(TRIM(@firstname)) = 0
             RAISERROR (N'Le prénom est requis.', 16, 1);
+
+        IF @lastname IS NULL OR LEN(TRIM(@lastname)) = 0
+            RAISERROR (N'Le nom est requis.', 16, 1);
 
         IF @username IS NULL OR LEN(TRIM(@username)) = 0
             RAISERROR (N'Le nom d''utilisateur est requis.', 16, 1);

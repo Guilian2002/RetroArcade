@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetroArcade.Domain", "Retro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Cqs", "Tools.Cqs\Tools.Cqs.csproj", "{33AAD985-E404-4F64-AC37-E6229418866A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroArcade.API", "RetroArcade.API\RetroArcade.API.csproj", "{492BE1ED-C956-4248-B765-DB37FE6408CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{33AAD985-E404-4F64-AC37-E6229418866A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33AAD985-E404-4F64-AC37-E6229418866A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33AAD985-E404-4F64-AC37-E6229418866A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{492BE1ED-C956-4248-B765-DB37FE6408CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{492BE1ED-C956-4248-B765-DB37FE6408CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{492BE1ED-C956-4248-B765-DB37FE6408CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{492BE1ED-C956-4248-B765-DB37FE6408CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

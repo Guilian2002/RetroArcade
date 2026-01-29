@@ -15,17 +15,18 @@ namespace RetroArcade.Domain.Domain.Commands.AccountCommands
         public string Username { get; }
         public string Email { get; }
         public string Password { get; }
-        public Role Role { get; }
+        public Role RoleEnum { get; }
+        public string Role => Role.ToString();
 
-        internal AddAccountCommand(string firstname, string lastname,
-            string username, string email, string password, Role role = Role.User)
+        public AddAccountCommand(string firstname, string lastname,
+            string username, string email, string password, Role role = 0)
         {
             Firstname = firstname;
             Lastname = lastname;
             Username = username;
             Email = email;
             Password = password;
-            Role = role;
+            RoleEnum = role;
         }
     }
 }
