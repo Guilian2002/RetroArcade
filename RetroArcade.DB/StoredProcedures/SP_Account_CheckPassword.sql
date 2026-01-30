@@ -6,14 +6,11 @@ BEGIN
     SET NOCOUNT ON;
 
     SELECT  A.[Id],
-            A.[Lastname],
             A.[Firstname],
+            A.[Lastname],
             A.[Username],
             A.[Email],
-            A.[Role],
-            A.[CreationDate],
-            A.[DisableDate],
-            A.[IsActive]
+            A.[Role]
     FROM [dbo].[Account] A
     INNER JOIN [dbo].[AccountCredential] AC ON A.[Id] = AC.[AccountId]
     WHERE A.[Email] = @email

@@ -1,5 +1,9 @@
 ﻿using BStorm.Tools.Database;
+using RetroArcade.Domain.CustomErrors;
 using RetroArcade.Domain.Domain.Commands.AccountCommands;
+using RetroArcade.Domain.Domain.Entities;
+using RetroArcade.Domain.Domain.Mappers;
+using RetroArcade.Domain.Domain.Queries.AccountQueries;
 using RetroArcade.Domain.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -19,6 +23,23 @@ namespace RetroArcade.Domain.Domain.Services
         {
             _dbConnection = dbConnection;
             _dbConnection.Open();
+        }
+
+        public CqsResult<Account> Execute(GetAccountByLoginQuery query)
+        {
+            try
+            {
+                Account? account = _dbConnection.ExecuteReader("SP_Account_CheckPassword", dr => dr.ToAccountLogin(), parameters: query).SingleOrDefault();
+
+                if (account is null)
+                    return Errors.AccountNotFound;
+
+                return account;
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
         }
 
         public CqsResult Execute(AddAccountCommand command)

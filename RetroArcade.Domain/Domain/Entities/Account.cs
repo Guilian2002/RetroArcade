@@ -13,7 +13,7 @@ namespace RetroArcade.Domain.Domain.Entities
         public string Lastname { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
+        public string Password { get; set; } = string.Empty;
         public Role Role { get; set; }
 
         internal Account (Guid id, string firstname, string lastname, 
@@ -25,6 +25,17 @@ namespace RetroArcade.Domain.Domain.Entities
             Username = username;
             Email = email;
             Password = password;
+            Role = role;
+        }
+
+        internal Account(Guid id, string firstname, string lastname,
+            string username, string email, Role role = Role.User)
+        {
+            Id = id;
+            Firstname = firstname;
+            Lastname = lastname;
+            Username = username;
+            Email = email;
             Role = role;
         }
     }
