@@ -2,6 +2,7 @@
 using RetroArcade.Domain.Domain.Repositories;
 using RetroArcade.Domain.Domain.Services;
 using System.Data.Common;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    // API documentation
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "RetroArcade API",
+        Version = "v1",
+        Description = "Interface de contrôle de la grille RetroArcade"
+    });
+
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
+});
 
 var cs = builder.Configuration.GetConnectionString("DefaultConnection")
          ?? throw new InvalidOperationException("Missing DefaultConnection");
@@ -28,8 +45,8 @@ builder.Services.AddScoped<IAccountRepository, AccountService>();
 // origine, sauf si le serveur l'autorise explicitement.
 //
 // Exemple :
-// - MVC (navigateur) : http://localhost:5188
-// - Web API          : http://localhost:5062
+// - MVC (navigateur) : http://localhost:7185
+// - Web API          : http://localhost:7184
 // → origines différentes ⇒ CORS bloqué par défaut
 //
 // Ce middleware indique AU NAVIGATEUR quelles origines

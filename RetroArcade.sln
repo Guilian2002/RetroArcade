@@ -7,11 +7,13 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RetroArcade.DB", "RetroArca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetroArcade.Domain", "RetroArcade.Domain\RetroArcade.Domain.csproj", "{628FA5C4-A05E-4970-87C9-58712D843765}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Cqs", "Tools.Cqs\Tools.Cqs.csproj", "{33AAD985-E404-4F64-AC37-E6229418866A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools.Cqs", "Tools.Cqs\Tools.Cqs.csproj", "{33AAD985-E404-4F64-AC37-E6229418866A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroArcade.API", "RetroArcade.API\RetroArcade.API.csproj", "{492BE1ED-C956-4248-B765-DB37FE6408CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetroArcade.API", "RetroArcade.API\RetroArcade.API.csproj", "{492BE1ED-C956-4248-B765-DB37FE6408CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroArcade.ASPCore", "RetroArcade.ASPCore\RetroArcade.ASPCore.csproj", "{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetroArcade.ASPCore", "RetroArcade.ASPCore\RetroArcade.ASPCore.csproj", "{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroArcade.Tests", "RetroArcade.Tests\RetroArcade.Tests.csproj", "{718133BA-D088-4BBE-B16C-6E57A1C2E050}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{718133BA-D088-4BBE-B16C-6E57A1C2E050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{718133BA-D088-4BBE-B16C-6E57A1C2E050}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{718133BA-D088-4BBE-B16C-6E57A1C2E050}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{718133BA-D088-4BBE-B16C-6E57A1C2E050}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
