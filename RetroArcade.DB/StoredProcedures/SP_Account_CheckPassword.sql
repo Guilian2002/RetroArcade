@@ -1,0 +1,23 @@
+﻿CREATE PROCEDURE [dbo].[SP_Account_CheckPassword]
+    @email NVARCHAR(320),
+    @password NVARCHAR(64)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT  A.[Id],
+            A.[Lastname],
+            A.[Firstname],
+            A.[Username],
+            A.[Email],
+            A.[Role],
+            A.[CreationDate],
+            A.[DisableDate],
+            A.[IsActive]
+    FROM [dbo].[Account] A
+    INNER JOIN [dbo].[AccountCredential] AC ON A.[Id] = AC.[AccountId]
+    WHERE A.[Email] = @email
+      AND AC.[PasswordHash] = [dbo].[SF_HashAndSalt](@password, AC.[Salt])
+      AND A.[IsActive] = 1
+      AND A.[DisableDate] IS NULL;
+END

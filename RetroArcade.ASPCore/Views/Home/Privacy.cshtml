@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "PROTOCOLE_CONFIDENTIALITÉ";
+}
+
+<div class="container">
+    <div class="arcade-card">
+        <h1 class="arcade-title blink">> @ViewData["Title"]</h1>
+
+        <div class="terminal-box" style="border-left: 6px solid var(--neon-cyan); padding: 30px; background: rgba(0, 0, 0, 0.5);">
+            <p class="text-neon-cyan" style="font-size: 18px; letter-spacing: 2px;">
+                [ STATUT : CHIFFREMENT_SÉCURITÉ_MAXIMAL ]
+            </p>
+
+            <div class="policy-content mt-5" style="font-size: 16px;">
+                <p style="color: var(--retro-orange); margin-bottom: 15px;">> COLLECTE_DONNÉES : [ RESTREINTE ]</p>
+                <p style="color: var(--retro-orange); margin-bottom: 15px;">> STATUT_COOKIES : [ ANONYMISÉS ]</p>
+                <p style="color: var(--retro-orange); margin-bottom: 15px;">> PROTOCOLE_STOCKAGE : [ COFFRE_LOCAL_CHIFFRÉ ]</p>
+            </div>
+
+            <hr class="neon-hr" style="border-top: 3px solid var(--neon-magenta); margin: 40px 0; opacity: 0.8;" />
+
+            <div class="legal-text" style="font-size: 16px; line-height: 2; color: #eee; text-align: justify;">
+                <p>
+                    LES DONNÉES UTILISATEUR SONT PROTÉGÉES PAR LA <span style="color: var(--neon-magenta);">GRILLE DE DÉFENSE RETRO_ARCADE</span>.
+                    AUCUNE TÉLÉMÉTRIE NE SERA TRANSMISE AU CLUSTER EXTERNE SANS LA COMMANDE EXPLICITE DU
+                    <span style="color: var(--neon-cyan);">JOUEUR_01</span>.
+                </p>
+                <p class="mt-4">
+                    CE PROTOCOLE ASSURE UNE CONFORMITÉ TOTALE AVEC LA DIRECTIVE GALACTIQUE DE PROTECTION DES DONNÉES (DGPD).
+                    TOUTE BRECHE ENTRAÎNERA UN VERROUILLAGE IMMÉDIAT DU SYSTÈME.
+                </p>
+            </div>
+
+            <div class="mt-5 text-center">
+                <a asp-controller="Home" asp-action="Index" class="btn-arcade btn-secondary" style="font-size: 14px;">
+                    < RETOUR_AU_HUB_PRINCIPAL
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-4 text-end" style="font-size: 10px; color: #444;">
+            DERNIÈRE_MAJ : 29.01.2026 // SIGNATURE : @Guid.NewGuid().ToString().Substring(0, 8).ToUpper()
+        </div>
+    </div>
+</div>

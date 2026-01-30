@@ -1,0 +1,75 @@
+﻿@model RetroArcade.ASPCore.Models.Authentification.CreateAccountViewModel
+
+@{
+    ViewData["Title"] = "Insérer une pièce - Nouveau_Joueur";
+}
+
+<div class="container d-flex justify-content-center">
+    <div class="arcade-card">
+        <h1 class="arcade-title blink">> Nouveau_Joueur</h1>
+        <p class="text-center mb-5" style="color: var(--neon-cyan); font-size: 14px;">
+            [ Accès au serveur... entré votre identité ]
+        </p>
+
+        <form asp-action="Create" class="retro-form">
+            <div asp-validation-summary="ModelOnly" class="text-error mb-4" style="font-size: 14px; border: 2px solid yellow; padding: 10px;"></div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Firstname" class="retro-label"></label>
+                        <input asp-for="Firstname" class="retro-input" placeholder="John" />
+                        <span asp-validation-for="Firstname" class="text-error"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Lastname" class="retro-label"></label>
+                        <input asp-for="Lastname" class="retro-input" placeholder="Doe" />
+                        <span asp-validation-for="Lastname" class="text-error"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Username" class="retro-label"></label>
+                <input asp-for="Username" class="retro-input" placeholder="Joueur1" />
+                <span asp-validation-for="Username" class="text-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="retro-label"></label>
+                <input asp-for="Email" class="retro-input" placeholder="email@retro.COM" />
+                <span asp-validation-for="Email" class="text-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="retro-label"></label>
+                <input asp-for="Password" class="retro-input" placeholder="********" />
+                <span asp-validation-for="Password" class="text-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="retro-label"></label>
+                <input asp-for="ConfirmPassword" class="retro-input" placeholder="********" />
+                <span asp-validation-for="ConfirmPassword" class="text-error"></span>
+            </div>
+
+            <div class="d-flex flex-column gap-4 mt-5">
+                <button type="submit" class="btn-arcade">
+                    [ ACTIVER LE COMPTE ]
+                </button>
+
+                <a asp-action="Index" asp-controller="Home" class="btn-arcade btn-secondary" style="font-size: 14px;">
+                    < ANNULER
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -3,7 +3,51 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RetroArcade.DB", "RetroArcade.DB\RetroArcade.DB.sqlproj", "{B43A5EFE-89FE-440A-BD66-CE72CF6C0FE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetroArcade.Domain", "RetroArcade.Domain\RetroArcade.Domain.csproj", "{628FA5C4-A05E-4970-87C9-58712D843765}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools.Cqs", "Tools.Cqs\Tools.Cqs.csproj", "{33AAD985-E404-4F64-AC37-E6229418866A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetroArcade.API", "RetroArcade.API\RetroArcade.API.csproj", "{492BE1ED-C956-4248-B765-DB37FE6408CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetroArcade.ASPCore", "RetroArcade.ASPCore\RetroArcade.ASPCore.csproj", "{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroArcade.Tests", "RetroArcade.Tests\RetroArcade.Tests.csproj", "{718133BA-D088-4BBE-B16C-6E57A1C2E050}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B43A5EFE-89FE-440A-BD66-CE72CF6C0FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B43A5EFE-89FE-440A-BD66-CE72CF6C0FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B43A5EFE-89FE-440A-BD66-CE72CF6C0FE0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B43A5EFE-89FE-440A-BD66-CE72CF6C0FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B43A5EFE-89FE-440A-BD66-CE72CF6C0FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B43A5EFE-89FE-440A-BD66-CE72CF6C0FE0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{628FA5C4-A05E-4970-87C9-58712D843765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{628FA5C4-A05E-4970-87C9-58712D843765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{628FA5C4-A05E-4970-87C9-58712D843765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{628FA5C4-A05E-4970-87C9-58712D843765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33AAD985-E404-4F64-AC37-E6229418866A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33AAD985-E404-4F64-AC37-E6229418866A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33AAD985-E404-4F64-AC37-E6229418866A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33AAD985-E404-4F64-AC37-E6229418866A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{492BE1ED-C956-4248-B765-DB37FE6408CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{492BE1ED-C956-4248-B765-DB37FE6408CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{492BE1ED-C956-4248-B765-DB37FE6408CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{492BE1ED-C956-4248-B765-DB37FE6408CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{718133BA-D088-4BBE-B16C-6E57A1C2E050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{718133BA-D088-4BBE-B16C-6E57A1C2E050}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{718133BA-D088-4BBE-B16C-6E57A1C2E050}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{718133BA-D088-4BBE-B16C-6E57A1C2E050}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
