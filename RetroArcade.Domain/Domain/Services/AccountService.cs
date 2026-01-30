@@ -29,7 +29,7 @@ namespace RetroArcade.Domain.Domain.Services
         {
             try
             {
-                Account? account = _dbConnection.ExecuteReader("SP_Account_CheckPassword", dr => dr.ToAccountLogin(), parameters: query).SingleOrDefault();
+                Account? account = _dbConnection.ExecuteReader("SP_Account_CheckPassword", dr => dr.ToAccountLogin(), true, parameters: query).SingleOrDefault();
 
                 if (account is null)
                     return Errors.AccountNotFound;
