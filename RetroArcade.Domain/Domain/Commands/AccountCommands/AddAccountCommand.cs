@@ -1,6 +1,7 @@
 ﻿using RetroArcade.Domain.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,18 +16,18 @@ namespace RetroArcade.Domain.Domain.Commands.AccountCommands
         public string Username { get; }
         public string Email { get; }
         public string Password { get; }
-        public Role RoleEnum { get; }
-        public string Role => Role.ToString();
+        [EnumDataType(typeof(Role), ErrorMessage = "Ce n\'est pas un role.")]
+        public string Role { get; }
 
         public AddAccountCommand(string firstname, string lastname,
-            string username, string email, string password, Role role = 0)
+            string username, string email, string password, string role)
         {
             Firstname = firstname;
             Lastname = lastname;
             Username = username;
             Email = email;
             Password = password;
-            RoleEnum = role;
+            Role = role;
         }
     }
 }

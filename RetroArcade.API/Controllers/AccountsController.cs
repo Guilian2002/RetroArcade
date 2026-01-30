@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RetroArcade.API.DTOs;
 using RetroArcade.Domain.Domain.Commands.AccountCommands;
+using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Repositories;
 using Tools.Cqs.Results;
 
@@ -23,7 +24,7 @@ namespace RetroArcade.API.Controllers
                 dto.Username, 
                 dto.Email, 
                 dto.Password, 
-                dto.Role);
+                dto.Role.ToString());
 
             CqsResult result = _repo.Execute(command);
 
@@ -31,7 +32,7 @@ namespace RetroArcade.API.Controllers
             {
                 return BadRequest(result.ErrorMessage);
             }
-            return StatusCode(StatusCodes.Status201Created, "Film créé avec succès");
+            return StatusCode(StatusCodes.Status201Created, "Compte créé avec succès");
         }
     }
 }

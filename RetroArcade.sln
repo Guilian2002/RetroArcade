@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Cqs", "Tools.Cqs\Tool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroArcade.API", "RetroArcade.API\RetroArcade.API.csproj", "{492BE1ED-C956-4248-B765-DB37FE6408CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroArcade.ASPCore", "RetroArcade.ASPCore\RetroArcade.ASPCore.csproj", "{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{492BE1ED-C956-4248-B765-DB37FE6408CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{492BE1ED-C956-4248-B765-DB37FE6408CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{492BE1ED-C956-4248-B765-DB37FE6408CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B310A39-4AA8-4A6B-8D9D-C3839B97781A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
