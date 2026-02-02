@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Http.Features
+
+@{
+    ITrackingConsentFeature consentFeature = Context.Features.Get<ITrackingConsentFeature>()!;
+    bool showBanner = !consentFeature.CanTrack;
+    var cookieString = consentFeature?.CreateConsentCookie();
+}
+
+@if (showBanner)
+{
+    <div id="cookieConsent" class="arcade-card" style="position: fixed; bottom: 100px; z-index: 3000;">
+        <p class="retro-label">
+            > PROTOCOLE_COOKIE : NOTRE SYSTEME NECESSITE DES JETONS POUR LE BON FONCTIONNEMENT DE LA PLATEFORME.
+            <a asp-action="Privacy" asp-controller="Home" class="btn-arcade" style="font-size: 10px;">En apprendre plus ?</a>
+        </p>
+        <button type="button"
+                class="btn-arcade"
+                data-cookie-string="@cookieString">
+            Accepter
+        </button>
+    </div>
+    <script>
+        (function () {
+            window.onload = function () {
+                const button = document.querySelector('#cookieConsent button[data-cookie-string]');
+                if (button) {
+                    button.addEventListener('click', function () {
+                        document.cookie = button.dataset.cookieString;
+                        document.getElementById('cookieConsent').style.display = 'none';
+                    }, false);
+                }
+            };
+        })();
+    </script>
+}

@@ -77,7 +77,7 @@ namespace RetroArcade.API.Controllers
 
             Account account = result.Data;
 
-            var tokenDto = new TokenAccountDTO(account.Id, account.Email, account.Role);
+            var tokenDto = new TokenAccountDTO(account.Id, account.Email, account.Username, account.Role);
 
             string token = _tokenManager.GenerateToken(tokenDto);
 
@@ -121,12 +121,14 @@ namespace RetroArcade.API.Controllers
             // Extraction des claims injectés par le middleware JWT lors de la lecture du cookie
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+            var username = User.FindFirst("username")?.Value;
             var role = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 
             return Ok(new
             {
                 Id = userId,
                 Email = email,
+                Username = username,
                 Role = role
             });
         }

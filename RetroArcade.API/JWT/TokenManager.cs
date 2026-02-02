@@ -19,10 +19,11 @@ namespace RetroArcade.API.JWT
         {
             var claims = new[]
             {
-            new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
-            new Claim(ClaimTypes.Email, account.Email),
-            new Claim(ClaimTypes.Role, account.Role.ToString())
-        };
+                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                new Claim(ClaimTypes.Email, account.Email),
+                new Claim("username", account.Username),
+                new Claim(ClaimTypes.Role, account.Role.ToString())
+            };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
 

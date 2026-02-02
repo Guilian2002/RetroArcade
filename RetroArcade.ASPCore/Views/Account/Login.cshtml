@@ -1,0 +1,45 @@
+﻿@model RetroArcade.ASPCore.Models.Authentification.LoginViewModel
+
+@{
+    ViewData["Title"] = "AUTHENTIFICATION";
+}
+
+<div class="arcade-card">
+    <h1 class="arcade-title blink">> Systéme de connexion</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <form asp-action="Login">
+                <div asp-validation-summary="ModelOnly" class="text-error mb-4"></div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Email" class="retro-label">> IDENTIFIANT_EMAIL</label>
+                    <input asp-for="Email" class="retro-input" placeholder="ENTREZ VOTRE EMAIL..." />
+                    <span asp-validation-for="Email" class="text-error"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Password" class="retro-label">> CODE_SECRET</label>
+                    <input asp-for="Password" type="password" class="retro-input" placeholder="********" />
+                    <span asp-validation-for="Password" class="text-error"></span>
+                </div>
+
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn-arcade">
+                        [ Se connecter ]
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a asp-controller="Home" asp-action="Index" class="arcade-link" style="font-size: 10px;">
+            < RETOUR_AU_MENU
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

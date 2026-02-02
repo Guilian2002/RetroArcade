@@ -30,9 +30,30 @@
                         <li class="nav-item">
                             <a class="nav-link arcade-link" asp-controller="Home" asp-action="Index">[ ACCUEIL ]</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link arcade-link" asp-controller="Account" asp-action="Create">[ S'ENREGISTRER ]</a>
-                        </li>
+
+                        @if (ViewBag.CurrentUser == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link arcade-link" asp-controller="Account" asp-action="Login">[ CONNEXION ]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link arcade-link" asp-controller="Account" asp-action="Create">[ S'ENREGISTRER ]</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="nav-link btn btn-link arcade-link" style="border:none; background:none;">
+                                        [ DECONNEXION ]
+                                    </button>
+                                </form>
+                            </li>
+                            <li class="nav-item">
+                                <span class="nav-link arcade-link text-warning">> SESSION: @ViewBag.CurrentUser.Username</span>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -40,6 +61,7 @@
     </header>
 
     <div class="container">
+        <partial name="_CookieConsentPartial" />
         <main role="main">
             @RenderBody()
         </main>
