@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RetroArcade.API.DTOs;
-using RetroArcade.API.JWT;
+using RetroArcade.API.JWT.Interfaces;
 using RetroArcade.Domain.Domain.Commands.AccountCommands;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Queries.AccountQueries;
@@ -16,9 +16,9 @@ namespace RetroArcade.API.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IAccountRepository _repo;
-        private readonly TokenManager _tokenManager;
+        private readonly ITokenManager _tokenManager;
 
-        public AccountsController(IAccountRepository repo, TokenManager tokenManager)
+        public AccountsController(IAccountRepository repo, ITokenManager tokenManager)
         {
             _repo = repo;
             _tokenManager = tokenManager;

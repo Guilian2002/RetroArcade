@@ -1,12 +1,13 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using RetroArcade.API.DTOs;
+using RetroArcade.API.JWT.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace RetroArcade.API.JWT
 {
-    public class TokenManager
+    public class TokenManager : ITokenManager
     {
         private readonly IConfiguration _config;
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using RetroArcade.API.JWT;
+using RetroArcade.API.JWT.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,7 @@ builder.Services.AddScoped<DbConnection, SqlConnection>(_ => new SqlConnection(c
 
 // --- REPOSITORIES / SERVICES ---
 builder.Services.AddScoped<IAccountRepository, AccountService>();
-builder.Services.AddScoped<TokenManager>();
+builder.Services.AddScoped<ITokenManager, TokenManager>();
 
 // ==========================================
 // CONFIGURATION AUTHENTIFICATION JWT
