@@ -47,8 +47,8 @@ namespace RetroArcade.Domain.Domain.Mappers
             return new Building(
                 (Guid)record["Id"],
                 (string)record["Name"],
-                (TimeOnly)record["OpeningHour"],
-                (TimeOnly)record["ClosingHour"],
+                (TimeSpan)record["OpeningHour"],
+                (TimeSpan)record["ClosingHour"],
                 (string)record["Street"],
                 (string)record["Number"],
                 (string)record["PostalCode"],
