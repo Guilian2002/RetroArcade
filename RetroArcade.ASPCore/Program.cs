@@ -12,6 +12,10 @@ builder.Services.AddHttpClient<AuthentificationAPIClient>(client => {
     client.BaseAddress = new Uri(apiBaseUrl);
 });
 
+builder.Services.AddHttpClient<RetroArcadeAPIClient>(client => {
+    client.BaseAddress = new Uri(apiBaseUrl);
+});
+
 builder.Services.AddScoped<SessionCheckFilter>();
 
 builder.Services.AddControllersWithViews(options =>
