@@ -57,5 +57,30 @@ namespace RetroArcade.Domain.Domain.Mappers
             );
         }
         #endregion
+        #region Room Mapper
+        public static Room ToRoom(this IDataRecord record)
+        {
+            var building = new Building(
+                (Guid)record["BuildingId"],
+                (string)record["BuildingName"],
+                default, 
+                default,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty
+            );
+
+            return new Room(
+                (Guid)record["RoomId"],
+                (string)record["Name"],
+                (int)record["Number"],
+                (Decimal)record["Price"],
+                building,
+                (int)record["MachineCapacity"]
+            );
+        }
+        #endregion
     }
 }
