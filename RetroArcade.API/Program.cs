@@ -23,6 +23,7 @@ builder.Services.AddScoped<DbConnection, SqlConnection>(_ => new SqlConnection(c
 
 // --- REPOSITORIES / SERVICES ---
 builder.Services.AddScoped<IAccountRepository, AccountService>();
+builder.Services.AddScoped<IBuildingRepository, BuildingService>();
 builder.Services.AddScoped<ITokenManager, TokenManager>();
 
 // ==========================================

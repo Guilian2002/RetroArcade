@@ -11,5 +11,7 @@ namespace RetroArcade.Domain.CustomErrors
     {
         // throw an error when the account is not found
         internal static Error AccountNotFound => Error.Create("Compte non trouvée");
+        // throw an error when the building is not found
+        internal static Error BuildingNotFound => Error.Create("Batiment non trouvée");
     }
 }
