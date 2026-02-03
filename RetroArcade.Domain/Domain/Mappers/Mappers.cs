@@ -25,5 +25,19 @@ namespace RetroArcade.Domain.Domain.Mappers
                 roleResult
             );
         }
+        internal static Account ToAccountLogin(this IDataRecord record)
+        {
+            string roleString = (string)record["Role"];
+            Enum.TryParse(roleString, out Role roleResult);
+
+            return new Account(
+                (Guid)record["Id"],
+                (string)record["Firstname"],
+                (string)record["Lastname"],
+                (string)record["Username"],
+                (string)record["Email"],
+                roleResult
+            );
+        }
     }
 }

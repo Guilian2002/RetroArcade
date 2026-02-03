@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RetroArcade.ASPCore.Clients;
 using RetroArcade.ASPCore.Models.Authentification;
-using System.Reflection;
 
 namespace RetroArcade.ASPCore.Controllers.Authentification
 {
@@ -15,8 +13,35 @@ namespace RetroArcade.ASPCore.Controllers.Authentification
             _auth = auth;
         }
 
+        // GET: AccountController/Login
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        // POST: AccountController/Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid) 
+                return View(model);
+
+            bool success = await _auth.LoginAsync(model.Email, model.Password);
+
+            if (success)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ModelState.AddModelError(string.Empty, "Email ou mot de passe incorrect.");
+            return View(model);
+        }
+
         // GET: AccountController/Create
-        public ActionResult Create()
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
         }
@@ -53,6 +78,15 @@ namespace RetroArcade.ASPCore.Controllers.Authentification
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        // POST: AccountController/Logout
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _auth.LogoutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -1,10 +1,19 @@
 ﻿@{
     ViewData["Title"] = "INTERFACE_RETRO_ARCADE_V1";
+    var currentUser = ViewBag.CurrentUser as RetroArcade.ASPCore.Models.Authentification.AccountInfoDTO;
 }
 
 <div class="container">
     <div class="arcade-card text-center">
-        <h1 class="arcade-title blink">BIENVENUE_JOUEUR SUR LE SITE RETRO ARCADE</h1>
+        @if (currentUser == null)
+        {
+            <h1 class="arcade-title blink">BIENVENUE_JOUEUR ANONYME</h1>
+        }
+        else
+        {
+            <h1 class="arcade-title blink">ACCES_AUTORISE_@currentUser.Role</h1>
+        }
+
 
         <div class="mb-5" style="background: var(--neon-magenta); color: #000; font-size: 14px; padding: 10px; font-weight: bold; box-shadow: 0 0 15px var(--neon-magenta);">
             STATUT: EN LIGNE | SECTEUR: C-137 | PUISSANCE: MAX
@@ -12,13 +21,33 @@
 
         <div class="mission-briefing mb-5" style="border-left: 4px solid var(--neon-cyan); padding-left: 20px; text-align: left;">
             <p style="color: var(--neon-cyan); font-size: 16px; text-transform: uppercase;">> OBJECTIF_DE_LA_MISSION:</p>
-            <p style="color: #ccc; font-size: 14px;">IDENTIFIEZ-VOUS. AUCUN UTILISATEUR ANONYME NE POSSEDE L'ACCES AU RESEAU.</p>
+
+            @if (currentUser == null)
+            {
+                <p style="color: #ccc; font-size: 14px;">IDENTIFIEZ-VOUS. AUCUN UTILISATEUR ANONYME NE POSSEDE L'ACCES AU RESEAU.</p>
+            }
+            else
+            {
+                <p style="color: #fff; font-size: 14px;">BIENVENUE, COMMANDANT **@currentUser.Username**. VOUS AVEZ MAINTENANT ACCES AU RESEAU. PRET A JOUER ?</p>
+            }
         </div>
 
         <div class="d-flex flex-column gap-4 align-items-center mt-5">
-            <a asp-controller="Account" asp-action="Create" class="btn-arcade">
-                [ ENREGISTRER_UN_NOUVEAU_JOUEUR ]
-            </a>
+            @if (currentUser == null)
+            {
+                <a asp-controller="Account" asp-action="Login" class="btn-arcade">
+                    [ SE_CONNECTER_AU_RESEAU ]
+                </a>
+                <a asp-controller="Account" asp-action="Create" class="btn-arcade">
+                    [ ENREGISTRER_UN_NOUVEAU_JOUEUR ]
+                </a>
+            }
+            else
+            {
+                <a href="#" class="btn-arcade" style="cursor: default; opacity: 0.7;">
+                    [ ACCES_RESEAU_AUTORISE ]
+                </a>
+            }
         </div>
 
         <div class="mt-5 pt-4" style="border-top: 1px solid rgba(0, 243, 255, 0.2); font-size: 10px; color: #444;">

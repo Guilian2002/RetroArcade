@@ -191,3 +191,16 @@ body {
         text-shadow: 0 0 30px var(--neon-cyan);
     }
 }
+
+
+/* LOGIN */
+.arcade-link:hover {
+    color: var(--neon-magenta) !important;
+    text-shadow: 0 0 10px var(--neon-magenta);
+}
+
+.text-danger.validation-summary-errors ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
