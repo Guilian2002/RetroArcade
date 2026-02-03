@@ -10,5 +10,11 @@ namespace RetroArcade.Domain.Domain.Queries.RoomQueries
 {
     public sealed class GetAllRoomsQuery : IQueryDefinition<IEnumerable<Room>>
     {
+        public Guid BuildingId { get; }
+
+        public GetAllRoomsQuery(Guid buildingId)
+        {
+            BuildingId = buildingId;
+        }
     }
 }

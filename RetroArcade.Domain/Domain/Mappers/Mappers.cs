@@ -74,7 +74,7 @@ namespace RetroArcade.Domain.Domain.Mappers
 
             return new Room(
                 (Guid)record["RoomId"],
-                (string)record["Name"],
+                (string)record["RoomName"],
                 (int)record["Number"],
                 (Decimal)record["Price"],
                 building,
