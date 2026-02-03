@@ -8,8 +8,11 @@ BEGIN
 		[Name],
 		[OpeningHour],
 		[ClosingHour],
-		[Country],
-		[City]
+		[Address_Street] as [Street],
+        [Address_Number] as [Number],
+        [PostalCode],
+        [City],
+        [Country]
 	FROM [dbo].[Building]
 	ORDER BY [Name] ASC;
 END
