@@ -18,7 +18,6 @@ body {
     line-height: 1.8;
     font-size: 18px;
     margin: 0;
-    /* On laisse de la place pour le header (100px) et le footer (80px) */
     padding-top: 110px;
     padding-bottom: 90px;
     min-height: 100vh;

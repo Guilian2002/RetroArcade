@@ -1,4 +1,5 @@
 ﻿using BStorm.Tools.Database;
+using RetroArcade.Domain.CustomErrors;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Mappers;
 using RetroArcade.Domain.Domain.Queries.BuildingQueries;
@@ -29,6 +30,24 @@ namespace RetroArcade.Domain.Domain.Services
             {
                 return _dbConnection.ExecuteReader("SP_Building_Get_All",
                     dr => dr.ToBuilding()).ToList();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult<Building> Execute(GetBuildingByIdQuery query)
+        {
+            try
+            {
+                Building? building = _dbConnection.ExecuteReader("SP_Building_Get",
+                    dr => dr.ToBuildingWithRoom(), true, parameters: query).SingleOrDefault();
+
+                if (building is null)
+                    return Errors.BuildingNotFound;
+
+                return building;
             }
             catch (Exception ex)
             {

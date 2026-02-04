@@ -5,23 +5,32 @@ using RetroArcade.ASPCore.Models.RetroArcade;
 
 namespace RetroArcade.ASPCore.Controllers.RetroArcade
 {
-    public class BuildingController : Controller
+    public class RoomController : Controller
     {
         private readonly RetroArcadeAPIClient _agency;
 
-        public BuildingController(RetroArcadeAPIClient agency)
+        public RoomController(RetroArcadeAPIClient agency)
         {
             _agency = agency;
         }
 
-        // GET: BuildingController
+        // GET: RoomController
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(Guid buildingId)
         {
             try
             {
-                List<BuildingViewModel> buildings = (List<BuildingViewModel>)await _agency.GetAllBuildingsAsync();
-                return View(buildings);
+                BuildingViewModel building = await _agency.GetBuildingByIdAsync(buildingId);
+                if (building == null)
+                {
+                    return NotFound();
+                }
+
+                List<RoomViewModel> rooms = 
+                    (List<RoomViewModel>)await _agency.GetAllRoomsByBuildingAsync(buildingId);
+
+                return View(rooms);
+
             }
             catch (Exception)
             {
@@ -29,19 +38,19 @@ namespace RetroArcade.ASPCore.Controllers.RetroArcade
             }
         }
 
-        // GET: BuildingController/Details/5
+        // GET: RoomController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: BuildingController/Create
+        // GET: RoomController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: BuildingController/Create
+        // POST: RoomController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -56,13 +65,13 @@ namespace RetroArcade.ASPCore.Controllers.RetroArcade
             }
         }
 
-        // GET: BuildingController/Edit/5
+        // GET: RoomController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: BuildingController/Edit/5
+        // POST: RoomController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -77,13 +86,13 @@ namespace RetroArcade.ASPCore.Controllers.RetroArcade
             }
         }
 
-        // GET: BuildingController/Delete/5
+        // GET: RoomController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: BuildingController/Delete/5
+        // POST: RoomController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

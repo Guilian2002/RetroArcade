@@ -1,4 +1,5 @@
 ﻿using BStorm.Tools.Database;
+using RetroArcade.Domain.CustomErrors;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Mappers;
 using RetroArcade.Domain.Domain.Queries.BuildingQueries;
@@ -30,6 +31,35 @@ namespace RetroArcade.Domain.Domain.Services
             {
                 return _dbConnection.ExecuteReader("SP_Room_Get_All",
                     dr => dr.ToRoom(), true, parameters:query).ToList();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult<Room> Execute(GetRoomByIdQuery query)
+        {
+            try
+            {
+                var room = _dbConnection.ExecuteReader("SP_Room_Get",
+                    dr => dr.ToRoomWithMachines(), true, parameters: query);
+
+                var finalRoom = room
+                    .GroupBy(r => r.Id)
+                    .Select(group => {
+                        var firstRoom = group.First();
+                        firstRoom.RoomArcadeMachines = group
+                            .SelectMany(r => r.RoomArcadeMachines)
+                            .ToList();
+                        return firstRoom;
+                    })
+                    .FirstOrDefault();
+
+                if (finalRoom is null)
+                    return Errors.RoomNotFound;
+
+                return finalRoom;
             }
             catch (Exception ex)
             {

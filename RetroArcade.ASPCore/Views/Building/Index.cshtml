@@ -33,8 +33,14 @@
                 </div>
             </div>
 
-            <div class="mt-4 d-flex gap-3">
-
+            <div class="mt-5 d-flex justify-content-center">
+                <a asp-controller="Room"
+                   asp-action="Index"
+                   asp-route-buildingId="@item.Id"
+                   class="btn-arcade"
+                   style="text-decoration: none;">
+                    VOIR LES PIECES DISPONIBLES >
+                </a>
             </div>
         </div>
     }

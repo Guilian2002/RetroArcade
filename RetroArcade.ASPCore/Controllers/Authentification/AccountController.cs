@@ -85,6 +85,7 @@ namespace RetroArcade.ASPCore.Controllers.Authentification
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
+            HttpContext.Session.Clear();
             await _auth.LogoutAsync();
             return RedirectToAction("Index", "Home");
         }

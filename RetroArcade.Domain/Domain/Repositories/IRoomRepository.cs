@@ -10,7 +10,8 @@ using Tools.Cqs.Queries;
 namespace RetroArcade.Domain.Domain.Repositories
 {
     public interface IRoomRepository :
-        IQueryHandler<GetAllRoomsQuery, IEnumerable<Room>>
+        IQueryHandler<GetAllRoomsQuery, IEnumerable<Room>>,
+        IQueryHandler<GetRoomByIdQuery, Room>
     {
     }
 }

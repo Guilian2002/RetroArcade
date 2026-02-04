@@ -24,6 +24,33 @@ namespace RetroArcade.ASPCore.Clients
 
             throw new ArgumentNullException("Pas de batiments");
         }
+
+        public async Task<BuildingViewModel> GetBuildingByIdAsync(Guid id)
+        {
+            var response = await _http.GetAsync($"/api/buildings/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadFromJsonAsync<BuildingViewModel>();
+                return content ?? throw new ArgumentNullException("Pas de bâtiment");
+            }
+
+            throw new ArgumentNullException("Pas de bâtiment");
+        }
+        #endregion
+        #region Room CRUD
+        public async Task<ICollection<RoomViewModel>> GetAllRoomsByBuildingAsync(Guid id)
+        {
+            var response = await _http.GetAsync($"/api/rooms/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadFromJsonAsync<ICollection<RoomViewModel>>();
+                return content!.ToList() ?? throw new ArgumentNullException("Pas de salles d'arcades");
+            }
+
+            throw new ArgumentNullException("Pas de salles d'arcades");
+        }
         #endregion
     }
 }

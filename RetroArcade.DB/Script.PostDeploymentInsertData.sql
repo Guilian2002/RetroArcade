@@ -41,65 +41,67 @@ END
 
 -- 4. ArcadeMachine
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Mc1Id)
-    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [State], [GameName]) VALUES (@Mc1Id, N'Cabinet-01', 'Active', 'Pac-Man');
+    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [GameName]) VALUES (@Mc1Id, N'PacClassic', 'Pac-Man');
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Mc2Id)
-    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [State], [GameName]) VALUES (@Mc2Id, N'Cabinet-02', 'Maintenance', 'Street Fighter II');
+    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [GameName]) VALUES (@Mc2Id, N'InFighter', 'Street Fighter II');
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Mc3Id)
-    INSERT INTO [dbo].[ArcadeMachine] VALUES (@Mc3Id, N'Cabinet-03', 'Active', 'Donkey Kong');
+    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [GameName]) VALUES (@Mc3Id, N'Nintendong', 'Donkey Kong');
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Mc4Id)
-    INSERT INTO [dbo].[ArcadeMachine] VALUES (@Mc4Id, N'Cabinet-04', 'Active', 'Space Invaders');
+    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [GameName]) VALUES (@Mc4Id, N'InSpace', 'Space Invaders');
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Mc5Id)
-    INSERT INTO [dbo].[ArcadeMachine] VALUES (@Mc5Id, N'Cabinet-05', 'Active', 'Metal Slug 3');
+    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [GameName]) VALUES (@Mc5Id, N'NeoGeoSlug', 'Metal Slug 3');
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Mc6Id)
-    INSERT INTO [dbo].[ArcadeMachine] VALUES (@Mc6Id, N'Cabinet-06', 'Maintenance', 'Mortal Kombat II');
+    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [GameName]) VALUES (@Mc6Id, N'MidwayKombat', 'Mortal Kombat II');
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Mc7Id)
-    INSERT INTO [dbo].[ArcadeMachine] VALUES (@Mc7Id, N'Cabinet-07', 'Active', 'Asteroids');
+    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [GameName]) VALUES (@Mc7Id, N'Atarioids', 'Asteroids');
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Mc8Id)
-    INSERT INTO [dbo].[ArcadeMachine] VALUES (@Mc8Id, N'Cabinet-08', 'Active', 'Galaga');
+    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [GameName]) VALUES (@Mc8Id, N'Namcolga', 'Galaga');
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Mc9Id)
-    INSERT INTO [dbo].[ArcadeMachine] VALUES (@Mc9Id, N'Cabinet-09', 'Active', 'Tekken 3');
+    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [GameName]) VALUES (@Mc9Id, N'3DTek', 'Tekken 3');
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Mc10Id)
-    INSERT INTO [dbo].[ArcadeMachine] VALUES (@Mc10Id, N'Cabinet-10', 'Active', 'Frogger');
+    INSERT INTO [dbo].[ArcadeMachine] ([Id], [Name], [GameName]) VALUES (@Mc10Id, N'Segagger', 'Frogger');
 
 -- 5. Liaison Room / Machine
+DECLARE @Now DATETIME2 = SYSDATETIME();
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [RoomId] = @RmId AND [ArcadeMachineId] = @Mc1Id)
-    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId]) VALUES (@RmId, @Mc1Id);
+    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId], [State], [InstallationDate]) VALUES (@RmId, @Mc1Id, 'Active', @Now);
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [RoomId] = @RmId AND [ArcadeMachineId] = @Mc2Id)
-    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId]) VALUES (@RmId, @Mc2Id);
+    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId], [State], [InstallationDate]) VALUES (@RmId, @Mc2Id, 'Maintenance', @Now);
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [ArcadeMachineId] = @Mc3Id)
-    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId]) VALUES (@RmId, @Mc3Id);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [RoomId] = @RmId AND [ArcadeMachineId] = @Mc3Id)
+    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId], [State], [InstallationDate]) VALUES (@RmId, @Mc3Id, 'Active', @Now);
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [ArcadeMachineId] = @Mc4Id)
-    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId]) VALUES (@RmId, @Mc4Id);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [RoomId] = @RmId AND [ArcadeMachineId] = @Mc4Id)
+    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId], [State], [InstallationDate]) VALUES (@RmId, @Mc4Id, 'Active', @Now);
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [ArcadeMachineId] = @Mc5Id)
-    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId]) VALUES (@RmId, @Mc5Id);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [RoomId] = @RmId AND [ArcadeMachineId] = @Mc5Id)
+    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId], [State], [InstallationDate]) VALUES (@RmId, @Mc5Id, 'Active', @Now);
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [ArcadeMachineId] = @Mc6Id)
-    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId]) VALUES (@RmId, @Mc6Id);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [RoomId] = @RmId AND [ArcadeMachineId] = @Mc6Id)
+    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId], [State], [InstallationDate]) VALUES (@RmId, @Mc6Id, 'Maintenance', @Now);
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [ArcadeMachineId] = @Mc7Id)
-    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId]) VALUES (@RmId, @Mc7Id);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [RoomId] = @RmId AND [ArcadeMachineId] = @Mc7Id)
+    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId], [State], [InstallationDate]) VALUES (@RmId, @Mc7Id, 'Active', @Now);
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [ArcadeMachineId] = @Mc8Id)
-    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId]) VALUES (@RmId, @Mc8Id);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [RoomId] = @RmId AND [ArcadeMachineId] = @Mc8Id)
+    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId], [State], [InstallationDate]) VALUES (@RmId, @Mc8Id, 'Active', @Now);
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [ArcadeMachineId] = @Mc9Id)
-    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId]) VALUES (@RmId, @Mc9Id);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [RoomId] = @RmId AND [ArcadeMachineId] = @Mc9Id)
+    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId], [State], [InstallationDate]) VALUES (@RmId, @Mc9Id, 'Active', @Now);
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [ArcadeMachineId] = @Mc10Id)
-    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId]) VALUES (@RmId, @Mc10Id);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomArcadeMachine] WHERE [RoomId] = @RmId AND [ArcadeMachineId] = @Mc10Id)
+    INSERT INTO [dbo].[RoomArcadeMachine] ([RoomId], [ArcadeMachineId], [State], [InstallationDate]) VALUES (@RmId, @Mc10Id, 'Active', @Now);
 
 -- 6. Feedbacks
 IF NOT EXISTS (SELECT 1 FROM [dbo].[RoomFeedback] WHERE [Username] = N'GamerX_2026' AND [RoomId] = @RmId)

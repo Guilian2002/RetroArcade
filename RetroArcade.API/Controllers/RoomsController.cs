@@ -41,5 +41,31 @@ namespace RetroArcade.API.Controllers
 
             return Ok(result.Data);
         }
+
+        /// <summary>
+        /// Récupère les informations complètes d'une salle d'arcade, incluant ses machines installées.
+        /// </summary>
+        /// <param name="id">L'identifiant unique (GUID) de la salle.</param>
+        /// <returns>Une pièce contenant les détails de la salle, du bâtiment et la liste des machines.</returns>
+        /// <response code="200">La salle a été trouvée et les détails sont retournés.</response>
+        /// <response code="400">Erreur lors de l'exécution de la requête (ex: format GUID invalide).</response>
+        /// <response code="404">Aucune salle ne correspond à l'identifiant fourni.</response>
+        [HttpGet("details/{id:Guid}")]
+        [ProducesResponseType(typeof(Room), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetById(Guid id)
+        {
+            var query = new GetRoomByIdQuery(id);
+
+            CqsResult<Room> result = _repo.Execute(query);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok(result.Data);
+        }
     }
 }
