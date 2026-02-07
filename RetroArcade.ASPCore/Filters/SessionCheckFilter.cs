@@ -21,7 +21,7 @@ namespace RetroArcade.ASPCore.Filters
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var session = context.HttpContext.Session;
-            AccountInfoDTO? account = null;
+            AccountInfo? account = null;
 
 
             var userJson = session.GetString(SessionKey);
@@ -30,7 +30,7 @@ namespace RetroArcade.ASPCore.Filters
             {
                 try
                 {
-                    account = JsonSerializer.Deserialize<AccountInfoDTO>(userJson);
+                    account = JsonSerializer.Deserialize<AccountInfo>(userJson);
                 }
                 catch
                 {
