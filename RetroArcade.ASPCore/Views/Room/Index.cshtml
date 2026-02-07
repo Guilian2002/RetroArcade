@@ -1,0 +1,62 @@
+﻿@model IEnumerable<RetroArcade.ASPCore.Models.RetroArcade.RoomViewModel>
+
+@{
+    ViewData["Title"] = "Index des Salles";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="arcade-title blink">INDEX_PIECES.sys</h1>
+        
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="arcade-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h2 style="color: var(--retro-orange); border-bottom: 2px solid var(--neon-cyan); padding-bottom: 10px; flex-grow: 1;">
+                            @item.Name <small class="text-muted" style="font-size: 0.5em;">#@item.Number</small>
+                        </h2>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <p>
+                                <span class="retro-label">Bâtiment:</span><br />
+                                <span style="color: var(--neon-cyan); font-size: 16px; font-weight: bold;">
+                                    @item.Building.Name
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <p>
+                                <span class="retro-label">Prix Location:</span><br />
+                                <span class="badge bg-dark border border-warning text-warning" style="font-size: 18px;">
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-2 p-2" style="background: rgba(0,0,0,0.3); border-radius: 5px;">
+                        <span class="retro-label text-white">Capacité Machines:</span>
+                        <div class="progress mt-1" style="height: 10px; background-color: #222;">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: @(item.MachineCapacity * 10)%;"></div>
+                        </div>
+                        <small class="text-info">@item.MachineCapacity Machines DISPONIBLES</small>
+                    </div>
+
+                    <div class="mt-4 d-flex gap-2">
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <div class="scanlines"></div>
+}

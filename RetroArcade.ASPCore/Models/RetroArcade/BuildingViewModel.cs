@@ -44,5 +44,7 @@ namespace RetroArcade.ASPCore.Models.RetroArcade
         public string Country { get; set; } = string.Empty;
 
         public string FullAddress => $"{Street} {Number}, {PostalCode} {City}, {Country}";
+
+        public IEnumerable<RoomViewModel> RoomViewModel { get; set; } = new List<RoomViewModel>();
     }
 }

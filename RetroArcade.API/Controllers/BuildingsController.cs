@@ -40,5 +40,31 @@ namespace RetroArcade.API.Controllers
 
             return Ok(result.Data);
         }
+
+        /// <summary>
+        /// Récupère les détails d'un bâtiment spécifique par son identifiant unique.
+        /// </summary>
+        /// <param name="id">L'identifiant unique (GUID) du bâtiment.</param>
+        /// <returns>Les informations détaillées du bâtiment.</returns>
+        /// <response code="200">Bâtiment trouvé et retourné avec succès.</response>
+        /// <response code="400">L'identifiant fourni est invalide ou une erreur de traitement est survenue.</response>
+        /// <response code="404">Aucun bâtiment trouvé pour cet identifiant.</response>
+        [HttpGet("{id:Guid}")]
+        [ProducesResponseType(typeof(Building), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetById(Guid id)
+        {
+            var query = new GetBuildingByIdQuery(id);
+
+            CqsResult<Building> result = _repo.Execute(query);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok(result.Data);
+        }
     }
 }

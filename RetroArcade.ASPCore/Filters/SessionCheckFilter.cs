@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RetroArcade.ASPCore.Clients;
+using RetroArcade.ASPCore.Models.Authentification;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace RetroArcade.ASPCore.Filters
@@ -8,6 +11,7 @@ namespace RetroArcade.ASPCore.Filters
     public class SessionCheckFilter : IAsyncActionFilter
     {
         private readonly AuthentificationAPIClient _auth;
+        private const string SessionKey = "SessionAccount";
 
         public SessionCheckFilter(AuthentificationAPIClient auth)
         {
@@ -16,28 +20,51 @@ namespace RetroArcade.ASPCore.Filters
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var user = await _auth.GetMeAsync();
-            var controllerName = context.RouteData.Values["controller"]?.ToString();
+            var session = context.HttpContext.Session;
+            AccountInfo? account = null;
 
-            if (context.Controller is Controller controller)
+
+            var userJson = session.GetString(SessionKey);
+
+            if (!string.IsNullOrEmpty(userJson))
             {
-                controller.ViewBag.CurrentUser = user;
-            }
-
-            if (user != null)
-            {
-                var action = context.RouteData.Values["action"]?.ToString();
-
-                if (controllerName == "Account" && (action == "Login" || action == "Create"))
+                try
                 {
-                    context.Result = new RedirectToActionResult("Index", "Home", null);
-                    return;
+                    account = JsonSerializer.Deserialize<AccountInfo>(userJson);
+                }
+                catch
+                {
+                    session.Remove(SessionKey);
                 }
             }
 
-            if (controllerName == "Building")
+            if (account == null)
             {
-                if (user == null || (user.Role != "Admin" && user.Role != "User"))
+                account = await _auth.GetMeAsync();
+                if (account != null)
+                {
+                    session.SetString(SessionKey, JsonSerializer.Serialize(account));
+                }
+            }
+
+            if (context.Controller is Controller controller)
+            {
+                controller.ViewBag.CurrentUser = account;
+            }
+
+            var controllerName = context.RouteData.Values["controller"]?.ToString();
+            var actionName = context.RouteData.Values["action"]?.ToString();
+
+            if (account != null && controllerName == "Account" && 
+                (actionName == "Login" || actionName == "Create"))
+            {
+                context.Result = new RedirectToActionResult("Index", "Home", null);
+                return;
+            }
+
+            if (controllerName == "Building" || controllerName == "Room")
+            {
+                if (account == null || (account.Role != "Admin" && account.Role != "User"))
                 {
                     context.Result = new RedirectToActionResult("Login", "Account", null);
                     return;

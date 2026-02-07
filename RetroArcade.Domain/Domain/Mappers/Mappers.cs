@@ -56,6 +56,110 @@ namespace RetroArcade.Domain.Domain.Mappers
                 (string)record["Country"]
             );
         }
+
+        internal static Building ToBuildingWithRoom(this IDataRecord record)
+        {
+            List<Room> rooms = new List<Room>();
+
+            if (record["RoomId"] != DBNull.Value)
+            {
+                var room = new Room(
+                    (Guid)record["RoomId"],
+                    (string)record["RoomName"],
+                    (int)record["RoomNumber"],
+                    (decimal)record["RoomPrice"],
+                    new Building(),
+                    (int)record["RoomMachineCapacity"]
+                );
+
+                rooms.Add(room);
+            }
+            return new Building(
+                (Guid)record["BuildingId"],
+                (string)record["BuildingName"],
+                (TimeSpan)record["BuildingOpeningHour"],
+                (TimeSpan)record["BuildingClosingHour"],
+                (string)record["BuildingStreet"],
+                (string)record["BuildingNumber"],
+                (string)record["BuildingPostalCode"],
+                (string)record["BuildingCity"],
+                (string)record["BuildingCountry"],
+                rooms
+            );
+        }
+        #endregion
+        #region Room Mapper
+        public static Room ToRoom(this IDataRecord record)
+        {
+            var building = new Building(
+                (Guid)record["BuildingId"],
+                (string)record["BuildingName"],
+                default, 
+                default,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty
+            );
+
+            return new Room(
+                (Guid)record["RoomId"],
+                (string)record["RoomName"],
+                (int)record["Number"],
+                (Decimal)record["Price"],
+                building,
+                (int)record["MachineCapacity"]
+            );
+        }
+
+        public static Room ToRoomWithMachines(this IDataRecord record)
+        {
+            Room room = new Room();
+            List<RoomArcadeMachine> machines = new List<RoomArcadeMachine>();
+
+            if (record["MachineId"] != DBNull.Value)
+            {
+                var arcadeMachine = new ArcadeMachine(
+                    (Guid)record["MachineId"],
+                    (string)record["MachineName"],
+                    (string)record["MachineGameName"]
+                );
+
+                var roomMachine = new RoomArcadeMachine(
+                    (string)record["ArcadeMachineState"],
+                    (DateTime)record["ArcadeMachineInstallationDate"],
+                    room,
+                    arcadeMachine
+                );
+
+                machines.Add(roomMachine);
+            }
+
+            Building building = new Building(
+                (Guid)record["BuildingId"],
+                (string)record["BuildingName"],
+                (TimeSpan)record["BuildingOpeningHour"],
+                (TimeSpan)record["BuildingClosingHour"],
+                (string)record["BuildingStreet"],
+                (string)record["BuildingNumber"],
+                (string)record["BuildingPostalCode"],
+                (string)record["BuildingCity"],
+                (string)record["BuildingCountry"]
+            );
+
+            room = new Room(
+                (Guid)record["RoomId"],
+                (string)record["RoomName"],
+                (int)record["RoomNumber"],
+                (decimal)record["RoomPrice"],
+                building,
+                machines,
+                (int)record["RoomMachineCapacity"]
+            );
+
+            return room;
+        }
         #endregion
     }
 }

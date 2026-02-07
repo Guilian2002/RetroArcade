@@ -44,7 +44,7 @@ namespace RetroArcade.ASPCore.Clients
             return false;
         }
 
-        public async Task<AccountInfoDTO?> GetMeAsync()
+        public async Task<AccountInfo?> GetMeAsync()
         {
             var jwt = _httpContextAccessor.HttpContext?.Request.Cookies["jwt"];
 
@@ -55,7 +55,7 @@ namespace RetroArcade.ASPCore.Clients
             var response = await _http.SendAsync(request);
             if (!response.IsSuccessStatusCode) return null;
 
-            return await response.Content.ReadFromJsonAsync<AccountInfoDTO>();
+            return await response.Content.ReadFromJsonAsync<AccountInfo>();
         }
 
         public async Task<bool> AccountCreateAsync(string firstname, string lastname, string username,

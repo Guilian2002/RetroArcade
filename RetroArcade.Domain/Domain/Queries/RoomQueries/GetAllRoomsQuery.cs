@@ -1,0 +1,20 @@
+﻿using RetroArcade.Domain.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Tools.Cqs.Queries;
+
+namespace RetroArcade.Domain.Domain.Queries.RoomQueries
+{
+    public sealed class GetAllRoomsQuery : IQueryDefinition<IEnumerable<Room>>
+    {
+        public Guid BuildingId { get; }
+
+        public GetAllRoomsQuery(Guid buildingId)
+        {
+            BuildingId = buildingId;
+        }
+    }
+}

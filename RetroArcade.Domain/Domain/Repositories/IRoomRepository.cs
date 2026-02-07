@@ -1,5 +1,4 @@
 ﻿using RetroArcade.Domain.Domain.Entities;
-using RetroArcade.Domain.Domain.Queries.BuildingQueries;
 using RetroArcade.Domain.Domain.Queries.RoomQueries;
 using System;
 using System.Collections.Generic;
@@ -10,9 +9,9 @@ using Tools.Cqs.Queries;
 
 namespace RetroArcade.Domain.Domain.Repositories
 {
-    public interface IBuildingRepository :
-        IQueryHandler<GetAllBuildingsQuery, IEnumerable<Building>>,
-        IQueryHandler<GetBuildingByIdQuery, Building>
+    public interface IRoomRepository :
+        IQueryHandler<GetAllRoomsQuery, IEnumerable<Room>>,
+        IQueryHandler<GetRoomByIdQuery, Room>
     {
     }
 }

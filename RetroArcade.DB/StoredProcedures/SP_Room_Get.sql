@@ -9,22 +9,28 @@ BEGIN
 		R.[Id] AS RoomId,
 		R.[Name] AS RoomName,
 		R.[Number] AS RoomNumber,
-		R.[MachineCapacity],
+		R.[MachineCapacity] AS RoomMachineCapacity,
 		R.[Price] AS RoomPrice,
 
 		-- Détails du Bâtiment (Building)
 		B.[Id] AS BuildingId,
 		B.[Name] AS BuildingName,
-		B.[Address_Street],
-		B.[Address_Number],
-		B.[City],
-		B.[PostalCode],
+		B.[OpeningHour] AS BuildingOpeningHour,
+		B.[ClosingHour] AS BuildingClosingHour,
+		B.[Address_Street] AS BuildingStreet,
+		B.[Address_Number] AS BuildingNumber,
+		B.[PostalCode] AS BuildingPostalCode,
+		B.[City] AS BuildingCity,
+		B.[Country] AS BuildingCountry,
+
+		-- Détails des Machines en activité (RoomArcadeMachine)
+		RAM.[State] AS ArcadeMachineState,
+		RAM.[InstallationDate] AS ArcadeMachineInstallationDate,
 
 		-- Détails des Machines (ArcadeMachine)
 		AM.[Id] AS MachineId,
 		AM.[Name] AS MachineName,
-		AM.[State] AS MachineState,
-		AM.[GameName] AS GameName
+		AM.[GameName] AS MachineGameName
 
 	FROM [dbo].[Room] R
 	INNER JOIN [dbo].[Building] B ON R.[BuildingId] = B.[Id]

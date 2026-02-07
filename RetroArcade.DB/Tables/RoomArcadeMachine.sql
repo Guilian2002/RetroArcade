@@ -2,6 +2,8 @@
 (
 	[RoomId] UNIQUEIDENTIFIER NOT NULL, 
     [ArcadeMachineId] UNIQUEIDENTIFIER NOT NULL,
+    [State] VARCHAR(16) NOT NULL,
+    [InstallationDate] DATETIME2 NOT NULL,
 
     CONSTRAINT [PK_RoomArcadeMachine] PRIMARY KEY ([RoomId], [ArcadeMachineId]),
 
