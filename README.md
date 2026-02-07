@@ -54,7 +54,7 @@ graph TD
     H --> I
 
     %% Style optionnel pour la clarté
-    style D fill:#f9f,stroke:#333
+    style D fill:#de2000cc,stroke:#333
     style I fill:#00d4ff,stroke:#333
 
 ```
