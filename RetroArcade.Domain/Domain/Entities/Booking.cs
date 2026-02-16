@@ -37,7 +37,7 @@ namespace RetroArcade.Domain.Domain.Entities
         #endregion
 
         #region Methods
-        public bool VerifyGroupSizeAllowed() => GroupSize > 0 && GroupSize <= Room?.MachineCapacity;
+        public bool VerifyGroupSizeAllowed() => GroupSize >= 4 && GroupSize <= 10;
         #endregion
     }
 }
