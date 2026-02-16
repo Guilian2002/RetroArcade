@@ -87,6 +87,7 @@
     <Build Include="StoredProcedures\SP_RoomFeedback_Get_All.sql" />
     <Build Include="StoredProcedures\SP_Booking_Update_Status.sql" />
     <Build Include="StoredProcedures\SP_RoomFeedback_Get_ByRoom.sql" />
+    <Build Include="StoredProcedures\SP_Booking_Get_By_Room.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeploymentInsertData.sql" />
