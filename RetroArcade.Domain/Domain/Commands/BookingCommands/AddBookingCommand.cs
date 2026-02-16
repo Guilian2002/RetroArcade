@@ -24,14 +24,25 @@ namespace RetroArcade.Domain.Domain.Commands.BookingCommands
         public AddBookingCommand(DateTime bookingDate, TimeSpan beginHour, TimeSpan endHour,
             int groupSize, string status, decimal price, Account? account, Room? room)
         {
+            Account = account ?? throw new ArgumentNullException("Le compte est requis.");
+            Room = room ?? throw new ArgumentNullException("La salle est requise.");
+
+            if (beginHour >= endHour)
+            {
+                throw new ArgumentException("L'heure de début doit etre inférieur à l'heure de fin.");
+            }
+
+            if (groupSize < 4 || groupSize > 10)
+            {
+                throw new ArgumentOutOfRangeException("La taille du groupe doit etre comprise entre 4 et 10 personnes.");
+            }
+
             BookingDate = bookingDate;
             BeginHour = beginHour;
             EndHour = endHour;
             GroupSize = groupSize;
-            Status = status;
-            Price = price;
-            Account = account;
-            Room = room;
+            Status = string.IsNullOrWhiteSpace(status) ? throw new ArgumentException("Le statut est requis.") : status;
+            Price = price >= 0 ? price : throw new ArgumentException("Le prix ne peut pas être négatif.");
         }
     }
 }

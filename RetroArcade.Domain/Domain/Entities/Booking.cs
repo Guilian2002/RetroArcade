@@ -34,6 +34,18 @@ namespace RetroArcade.Domain.Domain.Entities
             Account = account;
             Room = room;
         }
+        public Booking(Guid id, DateTime bookingDate, TimeSpan beginHour, TimeSpan endHour,
+            int groupSize, Status status, decimal price, Room? room)
+        {
+            Id = id;
+            BookingDate = bookingDate;
+            BeginHour = beginHour;
+            EndHour = endHour;
+            GroupSize = groupSize;
+            Status = status;
+            Price = price;
+            Room = room;
+        }
         #endregion
 
         #region Methods

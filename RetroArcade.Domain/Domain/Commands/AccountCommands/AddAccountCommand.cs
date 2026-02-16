@@ -22,6 +22,13 @@ namespace RetroArcade.Domain.Domain.Commands.AccountCommands
         public AddAccountCommand(string firstname, string lastname,
             string username, string email, string password, string role)
         {
+            if (string.IsNullOrWhiteSpace(firstname)) throw new ArgumentException("Le prénom est requis.");
+            if (string.IsNullOrWhiteSpace(lastname)) throw new ArgumentException("Le nom est requis.");
+            if (string.IsNullOrWhiteSpace(username)) throw new ArgumentException("Le nom d'utilisateur est requis.");
+            if (string.IsNullOrWhiteSpace(email)) throw new ArgumentException("L'email est requis.");
+            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Le mot de passe est requis.");
+            if (string.IsNullOrWhiteSpace(role)) throw new ArgumentException("Le rôle est requis.");
+
             Firstname = firstname;
             Lastname = lastname;
             Username = username;

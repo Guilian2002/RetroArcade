@@ -16,6 +16,8 @@ namespace RetroArcade.Domain.CustomErrors
 
         // throw an error when the room is not found
         internal static Error RoomNotFound => Error.Create("Pièce non trouvée");
+        // throw an error when the room is not found
+        internal static Error BookingNotFound => Error.Create("Réservation non trouvée");
 
     }
 }

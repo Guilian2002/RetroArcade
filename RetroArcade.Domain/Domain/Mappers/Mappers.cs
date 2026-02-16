@@ -2,9 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RetroArcade.Domain.Domain.Mappers
 {
@@ -161,5 +164,30 @@ namespace RetroArcade.Domain.Domain.Mappers
             return room;
         }
         #endregion
+
+        #region Booking Mapper
+        public static Booking ToBooking(this IDataRecord record)
+        {
+            string statusString = (string)record["Status"];
+            Enum.TryParse(statusString, out Status statusResult);
+
+            return new Booking(
+                (Guid)record["Id"],
+                (DateTime)record["BookingDate"],
+                (TimeSpan)record["BeginHour"],
+                (TimeSpan)record["EndHour"],
+                (int)record["GroupSize"],
+                statusResult,
+                (Decimal)record["Price"],
+                new Room(
+                    (Guid)record["RoomId"],
+                    string.Empty,
+                    default,
+                    default,
+                    new Building(),
+                    default
+                )
+            );
+        }
     }
 }
