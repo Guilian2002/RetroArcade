@@ -10,9 +10,8 @@ namespace RetroArcade.Domain.Domain.Entities
     {
         #region Attributes
         public Guid Id { get; set; }
-        public DateTime BookingDate { get; set; }
-        public TimeSpan BeginHour { get; set; }
-        public TimeSpan EndHour { get; set; }
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
         public int GroupSize { get; set; }
         public Status Status { get; set; }
         public Decimal Price { get; set; }
@@ -21,26 +20,24 @@ namespace RetroArcade.Domain.Domain.Entities
         #endregion
 
         #region CTOR
-        public Booking(Guid id, DateTime bookingDate, TimeSpan beginHour, TimeSpan endHour,
+        public Booking(Guid id, DateTime beginDate, DateTime endDate,
             int groupSize, Status status, decimal price, Account? account, Room? room)
         {
             Id = id;
-            BookingDate = bookingDate;
-            BeginHour = beginHour;
-            EndHour = endHour;
+            BeginDate = beginDate;
+            EndDate = endDate;
             GroupSize = groupSize;
             Status = status;
             Price = price;
             Account = account;
             Room = room;
         }
-        public Booking(Guid id, DateTime bookingDate, TimeSpan beginHour, TimeSpan endHour,
+        public Booking(Guid id, DateTime beginDate, DateTime endHour,
             int groupSize, Status status, decimal price, Room? room)
         {
             Id = id;
-            BookingDate = bookingDate;
-            BeginHour = beginHour;
-            EndHour = endHour;
+            BeginDate = beginDate;
+            EndDate = endHour;
             GroupSize = groupSize;
             Status = status;
             Price = price;

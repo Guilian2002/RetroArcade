@@ -6,8 +6,5 @@ BEGIN
 
 	DELETE FROM [dbo].[Booking]
 	WHERE [Id] = @bookingId
-	  AND DATETIME2FROMPARTS(
-			YEAR([BookingDate]), MONTH([BookingDate]), DAY([BookingDate]), 
-			DATEPART(HOUR, [BeginHour]), DATEPART(MINUTE, [BeginHour]), 0, 0, 0
-		  ) > SYSDATETIME();
+	  AND [EndDate] < SYSDATETIME();
 END

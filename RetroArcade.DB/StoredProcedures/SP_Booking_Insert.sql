@@ -1,7 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[SP_Booking_Insert]
-	@bookingDate DATE,
-	@beginHour TIME,
-	@endHour TIME,
+	@beginDate DATETIME2,
+	@endDate DATETIME2,
 	@groupSize INT,
 	@price DECIMAL(10,2),
 	@status NVARCHAR(16),
@@ -11,11 +10,34 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	IF @bookingDate IS NULL OR @beginHour IS NULL OR @endHour IS NULL 
+	IF @beginDate IS NULL OR @endDate IS NULL 
 	   OR @groupSize IS NULL OR @price IS NULL OR @status IS NULL 
 	   OR @roomId IS NULL OR @accountId IS NULL
 	BEGIN
 		RAISERROR('Tous les champs sont obligatoires. Aucune valeur ne peut être nulle.', 16, 1);
+		RETURN;
+	END
+
+	DECLARE @opening TIME, @closing TIME, @roomPrice DECIMAL(10,2);
+
+	SELECT @opening = B.OpeningHour, @closing = B.ClosingHour
+	FROM [dbo].[Building] B
+	JOIN [dbo].[Room] R ON B.Id = R.BuildingId
+	WHERE R.Id = @roomId;
+
+	SELECT @roomPrice = R.Price
+	FROM [dbo].[Room] R
+	WHERE R.Id = @roomId;
+
+	IF CAST(@beginDate AS TIME) < @opening OR CAST(@endDate AS TIME) > @closing
+	BEGIN
+		RAISERROR('La réservation doit être comprise dans les heures d''ouverture du bâtiment.', 16, 1);
+		RETURN;
+	END
+
+	IF @price > @roomPrice OR @price < @roomPrice
+	BEGIN
+		RAISERROR('Le prix de la réservation doit être égal au prix de la salle.', 16, 1);
 		RETURN;
 	END
 
@@ -25,33 +47,28 @@ BEGIN
 		RETURN;
 	END
 
-	IF @beginHour >= @endHour
+	IF @beginDate >= @endDate
 	BEGIN
 		RAISERROR('L''heure de début doit être strictement antérieure à l''heure de fin.', 16, 1);
 		RETURN;
 	END
 
-	-- 1. Vérification si un booking existe déjà pour cette salle sur ce créneau
-	-- La logique : (NouveauBegin < ExistantEnd) ET (NouveauEnd > ExistantBegin)
 	IF EXISTS (
-		SELECT 1 
+		SELECT 1
 		FROM [dbo].[Booking]
 		WHERE [RoomId] = @roomId
-		  AND [BookingDate] = @bookingDate
-		  AND @beginHour < [EndHour] 
-		  AND @endHour > [BeginHour]
+		  AND @beginDate < [EndDate] 
+		  AND @endDate > [BeginDate]
 	)
 	BEGIN
 		RAISERROR('La salle est déjà réservée pour ce créneau horaire.', 16, 1);
 		RETURN;
 	END
 
-	-- 2. Si le créneau est libre, on procède à l'insertion
 	INSERT INTO [dbo].[Booking] (
-		[Id], 
-		[BookingDate], 
-		[BeginHour], 
-		[EndHour], 
+		[Id],  
+		[BeginDate], 
+		[EndDate], 
 		[GroupSize], 
 		[Price], 
 		[Status], 
@@ -60,9 +77,8 @@ BEGIN
 	)
 	VALUES (
 		NEWID(),
-		@bookingDate,
-		@beginHour,
-		@endHour,
+		@beginDate,
+		@endDate,
 		@groupSize,
 		@price,
 		@status,

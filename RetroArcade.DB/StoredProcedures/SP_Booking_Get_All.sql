@@ -6,14 +6,13 @@ BEGIN
 
 	SELECT 
 		[Id],
-		[BookingDate],
-		[BeginHour],
-		[EndHour],
+		[BeginDate],
+		[EndDate],
 		[GroupSize],
 		[Price],
 		[Status],
 		[RoomId]
 	FROM [dbo].[Booking]
 	WHERE [AccountId] = @accountId
-	ORDER BY [BookingDate] DESC, [BeginHour] DESC;
+	ORDER BY [EndDate] DESC;
 END

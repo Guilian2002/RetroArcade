@@ -168,26 +168,36 @@ namespace RetroArcade.Domain.Domain.Mappers
         #region Booking Mapper
         public static Booking ToBooking(this IDataRecord record)
         {
-            string statusString = (string)record["Status"];
+            string statusString = (string)record["BookingStatus"];
             Enum.TryParse(statusString, out Status statusResult);
 
             return new Booking(
-                (Guid)record["Id"],
-                (DateTime)record["BookingDate"],
-                (TimeSpan)record["BeginHour"],
-                (TimeSpan)record["EndHour"],
-                (int)record["GroupSize"],
+                (Guid)record["BookingId"],
+                (DateTime)record["BookingBeginDate"],
+                (DateTime)record["BookingEndDate"],
+                (int)record["BookingGroupSize"],
                 statusResult,
-                (Decimal)record["Price"],
+                (Decimal)record["BookingPrice"],
                 new Room(
                     (Guid)record["RoomId"],
-                    string.Empty,
-                    default,
-                    default,
-                    new Building(),
-                    default
+                    (string)record["RoomName"],
+                    (int)record["RoomNumber"],
+                    (Decimal)record["RoomPrice"],
+                    new Building(
+                        (Guid)record["BuildingId"],
+                        (string)record["BuildingName"],
+                        (TimeSpan)record["BuildingOpeningHour"],
+                        (TimeSpan)record["BuildingClosingHour"],
+                        (string)record["BuildingStreet"],
+                        (string)record["BuildingNumber"],
+                        (string)record["BuildingPostalCode"],
+                        (string)record["BuildingCity"],
+                        (string)record["BuildingCountry"]
+                    ),
+                    (int)record["RoomMachineCapacity"]
                 )
             );
         }
+        #endregion
     }
 }
