@@ -1,12 +1,15 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
+using RetroArcade.API.JWT;
+using RetroArcade.API.JWT.Interfaces;
+using RetroArcade.Domain.Domain.Commands.AccountCommands.Validators;
+using RetroArcade.Domain.Domain.Commands.BookingCommands.Validators;
 using RetroArcade.Domain.Domain.Repositories;
 using RetroArcade.Domain.Domain.Services;
 using System.Data.Common;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using RetroArcade.API.JWT;
-using RetroArcade.API.JWT.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +28,12 @@ builder.Services.AddScoped<DbConnection, SqlConnection>(_ => new SqlConnection(c
 builder.Services.AddScoped<IAccountRepository, AccountService>();
 builder.Services.AddScoped<IBuildingRepository, BuildingService>();
 builder.Services.AddScoped<IRoomRepository, RoomService>();
+builder.Services.AddScoped<IBookingRepository, BookingService>();
 builder.Services.AddScoped<ITokenManager, TokenManager>();
+
+// --- VALIDATORS ---
+builder.Services.AddValidatorsFromAssemblyContaining<AddAccountCommandValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<AddBookingCommandValidator>();
 
 // ==========================================
 // CONFIGURATION AUTHENTIFICATION JWT

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RetroArcade.API.DTOs;
 using RetroArcade.API.JWT.Interfaces;
 using RetroArcade.Domain.Domain.Commands.AccountCommands;
+using RetroArcade.Domain.Domain.Commands.BookingCommands;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Queries.AccountQueries;
 using RetroArcade.Domain.Domain.Repositories;
@@ -31,12 +33,13 @@ namespace RetroArcade.API.Controllers
         /// Ce endpoint valide l'identité du joueur et lui assigne un rôle système.
         /// </remarks>
         /// <param name="dto">Données d'identification du joueur.</param>
+        /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
         /// <response code="201">Accès accordé : Compte créé avec succès.</response>
         /// <response code="400">Accès refusé : Données invalides ou utilisateur déjà existant.</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Create([FromBody] AccountCreateDTO dto)
+        public IActionResult Create([FromBody] AccountCreateDTO dto, [FromServices] IValidator<AddAccountCommand> validator)
         {
             var command = new AddAccountCommand(
                 dto.Firstname, 
@@ -45,6 +48,12 @@ namespace RetroArcade.API.Controllers
                 dto.Email, 
                 dto.Password, 
                 dto.Role.ToString());
+
+            var validationResult = validator.Validate(command);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
+            }
 
             CqsResult result = _repo.Execute(command);
 
