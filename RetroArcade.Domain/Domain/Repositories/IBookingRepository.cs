@@ -8,7 +8,9 @@ namespace RetroArcade.Domain.Domain.Repositories
 {
     public interface IBookingRepository :
         ICommandHandler<AddBookingCommand>,
-        IQueryHandler<GetBookingsByRoomQuery, IEnumerable<Booking>>
+        IQueryHandler<GetBookingsByRoomQuery, IEnumerable<Booking>>,
+        IQueryHandler<GetAllBookingsQuery, IEnumerable<Booking>>,
+        IQueryHandler<GetBookingQuery, Booking>
     {
     }
 }

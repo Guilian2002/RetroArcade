@@ -6,9 +6,9 @@ BEGIN
 
 	SELECT 
 		B.[Id] AS BookingId,
-		B.[BeginDate],
-		B.[EndDate],
-		B.[Status],
+		B.[BeginDate] AS BookingBeginDate,
+		B.[EndDate] AS BookingEndDate,
+		B.[Status] AS BookingStatus,
 		B.[Price] AS BookingPrice,
 
 		R.[Name] AS RoomName,

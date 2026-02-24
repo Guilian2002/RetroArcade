@@ -56,5 +56,36 @@ namespace RetroArcade.Domain.Domain.Services
                 return ex;
             }
         }
+
+        public CqsResult<IEnumerable<Booking>> Execute(GetAllBookingsQuery query)
+        {
+            try
+            {
+                return _dbConnection.ExecuteReader("SP_Booking_Get_All",
+                    dr => dr.ToBookingList(), true, parameters: query).ToList();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult<Booking> Execute(GetBookingQuery query)
+        {
+            try
+            {
+                Booking? booking = _dbConnection.ExecuteReader("SP_Booking_Get",
+                    dr => dr.ToBooking(), true, parameters: query).SingleOrDefault();
+
+                if (booking is null)
+                    return Errors.BuildingNotFound;
+
+                return booking;
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
     }
 }

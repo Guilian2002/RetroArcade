@@ -164,7 +164,6 @@ namespace RetroArcade.Domain.Domain.Mappers
             return room;
         }
         #endregion
-
         #region Booking Mapper
         public static Booking ToBooking(this IDataRecord record)
         {
@@ -195,6 +194,28 @@ namespace RetroArcade.Domain.Domain.Mappers
                         (string)record["BuildingCountry"]
                     ),
                     (int)record["RoomMachineCapacity"]
+                )
+            );
+        }
+
+        public static Booking ToBookingList(this IDataRecord record)
+        {
+            string statusString = (string)record["BookingStatus"];
+            Enum.TryParse(statusString, out Status statusResult);
+
+            return new Booking(
+                (Guid)record["BookingId"],
+                (DateTime)record["BookingBeginDate"],
+                (DateTime)record["BookingEndDate"],
+                (int)record["BookingGroupSize"],
+                statusResult,
+                (Decimal)record["BookingPrice"],
+                new Room(
+                    (Guid)record["RoomId"],
+                    string.Empty,
+                    default,
+                    default,
+                    new Building()
                 )
             );
         }
