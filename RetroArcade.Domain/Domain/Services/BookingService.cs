@@ -87,5 +87,39 @@ namespace RetroArcade.Domain.Domain.Services
                 return ex;
             }
         }
+
+        public CqsResult Execute(UpdateBookingCommand command)
+        {
+            try
+            {
+                int rows = _dbConnection.ExecuteNonQuery("SP_Booking_Update", true, parameters: command);
+
+                if (rows == 0)
+                    return Errors.BookingNotFound;
+
+                return CqsResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult Execute(DeleteBookingCommand command)
+        {
+            try
+            {
+                int rows = _dbConnection.ExecuteNonQuery("SP_Booking_Delete", true, parameters: command);
+
+                if (rows == 0)
+                    return Errors.BookingNotFound;
+
+                return CqsResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
     }
 }
