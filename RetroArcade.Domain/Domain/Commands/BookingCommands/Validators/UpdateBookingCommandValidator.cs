@@ -15,7 +15,14 @@ namespace RetroArcade.Domain.Domain.Commands.BookingCommands.Validators
                     .NotEmpty().WithMessage("L'identifiant de réservation est obligatoire.");
 
             RuleFor(x => x.GroupSize)
-                    .NotEmpty().WithMessage("La taille du groupe est requis.");
+                    .InclusiveBetween(4, 10)
+                    .NotEmpty().WithMessage("La taille du groupe est requis et comprise entre 4 et 10.");
+
+            RuleFor(x => x.AccountId)
+                    .NotEmpty().WithMessage("L'identifiant du compte est obligatoire.");
+
+            RuleFor(x => x.Role)
+                    .NotEmpty().WithMessage("Le role est obligatoire.");
         }
     }
 }

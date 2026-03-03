@@ -15,6 +15,7 @@ namespace RetroArcade.Domain.Domain.Entities
         public Decimal Price { get; set; }
         public Building Building { get; set; } = new Building();
         public IEnumerable<RoomArcadeMachine> RoomArcadeMachines { get; set; } = new List<RoomArcadeMachine>();
+        public IEnumerable<RoomFeedback> RoomFeedbacks { get; set; } = new List<RoomFeedback>();
 
         internal Room() { }
 
@@ -29,7 +30,8 @@ namespace RetroArcade.Domain.Domain.Entities
         }
 
         public Room(Guid id, string name, int number, Decimal price, 
-            Building building, IEnumerable<RoomArcadeMachine> roomArcadeMachines, int machineCapacity = 10)
+            Building building, IEnumerable<RoomArcadeMachine> roomArcadeMachines, IEnumerable<RoomFeedback> roomFeedbacks,
+            int machineCapacity = 10)
         {
             Id = id;
             Name = name;
@@ -38,6 +40,7 @@ namespace RetroArcade.Domain.Domain.Entities
             Price = price;
             Building = building;
             RoomArcadeMachines = roomArcadeMachines;
+            RoomFeedbacks = roomFeedbacks;
         }
     }
 }

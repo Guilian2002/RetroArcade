@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[Manager]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+	[Lastname] NVARCHAR(32) NOT NULL,
+	[Firstname] NVARCHAR(32) NOT NULL,
+	[Username] NVARCHAR(32) NOT NULL,
+	[Email] NVARCHAR(320) NOT NULL,
+
+	CONSTRAINT [PK_Manager] PRIMARY KEY ([Id]),
+	CONSTRAINT [UK_Manager_Username] UNIQUE ([Username]),
+    CONSTRAINT [UK_Manager_Email] UNIQUE ([Email])
+)

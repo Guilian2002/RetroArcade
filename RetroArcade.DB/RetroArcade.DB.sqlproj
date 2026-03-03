@@ -88,6 +88,26 @@
     <Build Include="StoredProcedures\SP_Booking_Update_Status.sql" />
     <Build Include="StoredProcedures\SP_RoomFeedback_Get_ByRoom.sql" />
     <Build Include="StoredProcedures\SP_Booking_Get_By_Room.sql" />
+    <Build Include="Tables\Manager.sql" />
+    <Build Include="Tables\Categorie.sql" />
+    <Build Include="StoredProcedures\SP_Building_Insert.sql" />
+    <Build Include="StoredProcedures\SP_Building_Update.sql" />
+    <Build Include="StoredProcedures\SP_Building_Delete.sql" />
+    <Build Include="StoredProcedures\SP_Room_Insert.sql" />
+    <Build Include="StoredProcedures\SP_Room_Update.sql" />
+    <Build Include="StoredProcedures\SP_Room_Delete.sql" />
+    <Build Include="StoredProcedures\SP_RoomArcadeMachine_Insert.sql" />
+    <Build Include="StoredProcedures\SP_RoomArcadeMachine_Update.sql" />
+    <Build Include="StoredProcedures\SP_RoomArcadeMachine_Delete.sql" />
+    <Build Include="StoredProcedures\SP_Manager_Insert.sql" />
+    <Build Include="StoredProcedures\SP_Manager_Update.sql" />
+    <Build Include="StoredProcedures\SP_Manager_Delete.sql" />
+    <Build Include="StoredProcedures\SP_Categorie_Insert.sql" />
+    <Build Include="StoredProcedures\SP_Categorie_Delete.sql" />
+    <Build Include="StoredProcedures\SP_ArcadeMachine_Insert.sql" />
+    <Build Include="StoredProcedures\SP_ArcadeMachine_Update.sql" />
+    <Build Include="StoredProcedures\SP_ArcadeMachine_Delete.sql" />
+    <Build Include="StoredProcedures\SP_ArcadeMachine_Get_All.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeploymentInsertData.sql" />

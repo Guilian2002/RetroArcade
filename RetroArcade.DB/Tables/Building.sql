@@ -9,6 +9,12 @@
     [PostalCode] NVARCHAR(16) NOT NULL,
     [City] NVARCHAR(50) NOT NULL,
     [Country] NVARCHAR(50) NOT NULL,
+    [ManagerId] UNIQUEIDENTIFIER,
 
-    CONSTRAINT [PK_Building] PRIMARY KEY ([Id])
+    CONSTRAINT [PK_Building] PRIMARY KEY ([Id]),
+
+    CONSTRAINT [FK_Building_Manager]
+        FOREIGN KEY ([ManagerId])
+        REFERENCES [Manager]([Id])
+        ON DELETE SET NULL
 )

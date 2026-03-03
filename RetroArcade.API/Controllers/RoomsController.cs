@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Queries.BuildingQueries;
@@ -25,6 +26,7 @@ namespace RetroArcade.API.Controllers
         /// <returns>Une collection de pièces.</returns>
         /// <response code="200">La liste des pièces a été récupérée avec succès.</response>
         /// <response code="400">Une erreur est survenue lors de l'exécution de la requête.</response>
+        [Authorize]
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(typeof(IEnumerable<Room>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -50,6 +52,7 @@ namespace RetroArcade.API.Controllers
         /// <response code="200">La salle a été trouvée et les détails sont retournés.</response>
         /// <response code="400">Erreur lors de l'exécution de la requête (ex: format GUID invalide).</response>
         /// <response code="404">Aucune salle ne correspond à l'identifiant fourni.</response>
+        [Authorize]
         [HttpGet("details/{id:Guid}")]
         [ProducesResponseType(typeof(Room), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]

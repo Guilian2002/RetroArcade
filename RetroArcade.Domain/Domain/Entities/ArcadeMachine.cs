@@ -10,16 +10,17 @@ namespace RetroArcade.Domain.Domain.Entities
     {
         public Guid Id { get; }
         public string Name { get; set; } = string.Empty;
-
         public string GameName { get; set; } = string.Empty;
+        public Categorie? Categorie { get; set; }
 
         internal ArcadeMachine() { }
 
-        public ArcadeMachine(Guid id, string name, string gameName)
+        public ArcadeMachine(Guid id, string name, string gameName, Categorie? categorie)
         {
             Id = id;
             Name = name;
             GameName = gameName;
+            Categorie = categorie;
         }
     }
 }

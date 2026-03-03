@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Queries.BuildingQueries;
@@ -24,6 +25,7 @@ namespace RetroArcade.API.Controllers
         /// <returns>Une collection de bâtiments.</returns>
         /// <response code="200">La liste des bâtiments a été récupérée avec succès.</response>
         /// <response code="400">Une erreur est survenue lors de l'exécution de la requête.</response>
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Building>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -49,6 +51,7 @@ namespace RetroArcade.API.Controllers
         /// <response code="200">Bâtiment trouvé et retourné avec succès.</response>
         /// <response code="400">L'identifiant fourni est invalide ou une erreur de traitement est survenue.</response>
         /// <response code="404">Aucun bâtiment trouvé pour cet identifiant.</response>
+        [Authorize]
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(typeof(Building), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]

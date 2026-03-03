@@ -23,6 +23,14 @@ BEGIN
 		B.[City] AS BuildingCity,
 		B.[Country] AS BuildingCountry,
 
+		
+		-- Détails du Manager (Manager)
+		M.[Id] AS ManagerId,
+		M.[Lastname] AS ManagerLastname,
+		M.[Firstname] AS ManagerFirstname,
+		M.[Username] AS ManagerUsername,
+		M.[Email] AS ManagerEmail,
+
 		-- Détails des Machines en activité (RoomArcadeMachine)
 		RAM.[State] AS ArcadeMachineState,
 		RAM.[InstallationDate] AS ArcadeMachineInstallationDate,
@@ -30,11 +38,17 @@ BEGIN
 		-- Détails des Machines (ArcadeMachine)
 		AM.[Id] AS MachineId,
 		AM.[Name] AS MachineName,
-		AM.[GameName] AS MachineGameName
+		AM.[GameName] AS MachineGameName,
+
+		-- Détails de la Catégorie (Categorie)
+		C.[Id] AS CategorieId,
+		C.[Name] AS CategorieName
 
 	FROM [dbo].[Room] R
 	INNER JOIN [dbo].[Building] B ON R.[BuildingId] = B.[Id]
+	LEFT JOIN [dbo].[Manager] M ON B.[ManagerId] = M.[Id]
 	LEFT JOIN [dbo].[RoomArcadeMachine] RAM ON R.[Id] = RAM.[RoomId]
 	LEFT JOIN [dbo].[ArcadeMachine] AM ON RAM.[ArcadeMachineId] = AM.[Id]
+	LEFT JOIN [dbo].[Categorie] C ON AM.[CategorieId] = C.[Id]
 	WHERE R.[Id] = @roomId;
 END

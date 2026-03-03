@@ -13,11 +13,16 @@ namespace RetroArcade.Domain.Domain.Commands.BookingCommands
     {
         public Guid BookingId { get; }
         public int GroupSize { get; }
+        public Guid AccountId { get; }
+        [EnumDataType(typeof(Role), ErrorMessage = "Ce n\'est pas un role.")]
+        public string Role { get; }
 
-        public UpdateBookingCommand(Guid bookingId, int groupSize,)
+        public UpdateBookingCommand(Guid bookingId, int groupSize, Guid accountId, string role)
         {
             BookingId = bookingId;
             GroupSize = groupSize;
+            AccountId = accountId;
+            Role = role;
         }
     }
 }

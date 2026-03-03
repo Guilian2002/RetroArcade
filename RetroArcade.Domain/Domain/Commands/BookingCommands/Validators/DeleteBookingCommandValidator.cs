@@ -13,6 +13,10 @@ namespace RetroArcade.Domain.Domain.Commands.BookingCommands.Validators
         {
             RuleFor(x => x.BookingId)
                     .NotEmpty().WithMessage("L'identifiant de réservation est obligatoire.");
+            RuleFor(x => x.AccountId)
+                    .NotEmpty().WithMessage("L'identifiant du compte est obligatoire.");
+            RuleFor(x => x.Role)
+                    .NotEmpty().WithMessage("Le role est obligatoire.");
         }
     }
 }
