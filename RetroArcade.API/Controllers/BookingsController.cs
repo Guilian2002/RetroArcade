@@ -96,10 +96,10 @@ namespace RetroArcade.API.Controllers
         /// <response code="200">La réservation a été récupérée avec succès.</response>
         /// <response code="400">Une erreur est survenue lors de l'exécution de la requête.</response>
         [Authorize]
-        [HttpGet("byaccount/{id:Guid}")]
+        [HttpGet("{id:Guid}")]
         [ProducesResponseType(typeof(IEnumerable<Booking>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public IActionResult GetBookingsByAccount(Guid id)
+        public IActionResult GetBooking(Guid id)
         {
             var query = new GetBookingQuery(id);
 
@@ -121,7 +121,7 @@ namespace RetroArcade.API.Controllers
         [Authorize]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Booking>), StatusCodes.Status200OK)]
-        public IActionResult GetAllBookingsByAccount()
+        public IActionResult GetAllBookingsByUserAccount()
         {
             var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             var userRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
@@ -140,7 +140,34 @@ namespace RetroArcade.API.Controllers
             return Ok(result.Data);
         }
         /// <summary>
-        /// Initialise une nouvelle réservation dans la base de données.
+        /// Récupère la liste de toutes les réservations disponibles selon le manager donné.
+        /// </summary>
+        /// <returns>Une collection de réservations.</returns>
+        /// <response code="200">La liste des réservations a été récupérée avec succès.</response>
+        /// <response code="400">Une erreur est survenue lors de l'exécution de la requête.</response>
+        [Authorize]
+        [HttpGet("bymanager")]
+        [ProducesResponseType(typeof(IEnumerable<Booking>), StatusCodes.Status200OK)]
+        public IActionResult GetAllBookingsByManagerAccount()
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var userRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+
+            if (userIdClaim == null || userRole == null)
+                return Unauthorized("Token invalide ou incomplet.");
+
+            Guid userId = Guid.Parse(userIdClaim);
+
+            var query = new GetAllBookingsByManagerQuery(userId, userRole);
+            CqsResult<IEnumerable<Booking>> result = _repo.Execute(query);
+
+            if (result.IsFailure)
+                return BadRequest(result.ErrorMessage);
+
+            return Ok(result.Data);
+        }
+        /// <summary>
+        /// Mets à jour une réservation dans la base de données.
         /// </summary>
         /// <remarks>
         /// Fais la mise à jour de la réservation par le joueur.
@@ -187,14 +214,11 @@ namespace RetroArcade.API.Controllers
         }
 
         /// <summary>
-        /// Initialise une nouvelle réservation dans la base de données.
+        /// Supprime une réservation dans la base de données.
         /// </summary>
-        /// <remarks>
-        /// Fais la mise à jour de la réservation par le joueur.
-        /// </remarks>
         /// <param name="id">Identifiant de la réservation</param>
         /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
-        /// <response code="200">Accès accordé : Réservation mis à jour avec succès.</response>
+        /// <response code="200">Accès accordé : Réservation supprimer avec succès.</response>
         /// <response code="400">Accès refusé : Données invalides.</response>
         [Authorize]
         [HttpDelete("{id:Guid}")]

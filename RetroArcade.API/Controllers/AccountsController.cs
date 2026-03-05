@@ -8,6 +8,7 @@ using RetroArcade.Domain.Domain.Commands.AccountCommands;
 using RetroArcade.Domain.Domain.Commands.BookingCommands;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Queries.AccountQueries;
+using RetroArcade.Domain.Domain.Queries.BookingQueries;
 using RetroArcade.Domain.Domain.Repositories;
 using Tools.Cqs.Results;
 
@@ -62,6 +63,26 @@ namespace RetroArcade.API.Controllers
                 return BadRequest(result.ErrorMessage);
             }
             return StatusCode(StatusCodes.Status201Created, "Compte créé avec succès");
+        }
+
+        /// <summary>
+        /// Récupère la liste de tous les comptes disponibles.
+        /// </summary>
+        /// <returns>Une collection de comptes.</returns>
+        /// <response code="200">La liste des comptes a été récupérée avec succès.</response>
+        /// <response code="400">Une erreur est survenue lors de l'exécution de la requête.</response>
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Account>), StatusCodes.Status200OK)]
+        public IActionResult GetAllAccounts()
+        {
+            var query = new GetAllAccountsQuery();
+            CqsResult<IEnumerable<Account>> result = _repo.Execute(query);
+
+            if (result.IsFailure)
+                return BadRequest(result.ErrorMessage);
+
+            return Ok(result.Data);
         }
 
         /// <summary>
@@ -140,6 +161,81 @@ namespace RetroArcade.API.Controllers
                 Username = username,
                 Role = role
             });
+        }
+
+        /// <summary>
+        /// Met à jour le compte dans la base de données.
+        /// </summary>
+        /// <remarks>
+        /// Fais la mise à jour du compte par le joueur.
+        /// </remarks>
+        /// <param name="id">Identifiant du compte</param>
+        /// <param name="dto">Données du compte à mettre à jour du joueur.</param>
+        /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
+        /// <response code="200">Accès accordé : Compte mis à jour avec succès.</response>
+        /// <response code="400">Accès refusé : Données invalides.</response>
+        /// /// <response code="401">Accès refusé : Utilisateur non identifié.</response>
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{id:Guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult Update(Guid id, [FromBody] AccountUpdateDTO dto, [FromServices] IValidator<UpdateAccountCommand> validator)
+        {
+            var command = new UpdateAccountCommand(
+                id,
+                dto.Firstname,
+                dto.Lastname,
+                dto.Username,
+                dto.Role
+            );
+
+            var validationResult = validator.Validate(command);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
+            }
+
+            CqsResult result = _repo.Execute(command);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok("Compte mis à jour avec succès");
+        }
+        /// <summary>
+        /// Supprime un compte et les comptes périmées dans la base de données.
+        /// </summary>
+        /// <param name="id">Identifiant du compte</param>
+        /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
+        /// <response code="200">Accès accordé : Compte supprimé avec succès.</response>
+        /// <response code="400">Accès refusé : Données invalides.</response>
+        /// <response code="403">Accès refusé : Utilisateur non identifié.</response>
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id:Guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public IActionResult Delete(Guid id, [FromServices] IValidator<DeleteAccountCommand> validator)
+        {
+            var command = new DeleteAccountCommand(id);
+
+            var validationResult = validator.Validate(command);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
+            }
+
+            CqsResult result = _repo.Execute(command);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok("Compte supprimée avec succès");
         }
     }
 }

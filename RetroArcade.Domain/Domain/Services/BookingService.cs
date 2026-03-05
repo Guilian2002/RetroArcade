@@ -49,7 +49,7 @@ namespace RetroArcade.Domain.Domain.Services
             try
             {
                 return _dbConnection.ExecuteReader("SP_Booking_Get_By_Room",
-                    dr => dr.ToBooking(), true, parameters: query).ToList();
+                    dr => dr.ToBookingRoom(), true, parameters: query).ToList();
             }
             catch (Exception ex)
             {
@@ -115,6 +115,19 @@ namespace RetroArcade.Domain.Domain.Services
                     return Errors.BookingNotFound;
 
                 return CqsResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult<IEnumerable<Booking>> Execute(GetAllBookingsByManagerQuery query)
+        {
+            try
+            {
+                return _dbConnection.ExecuteReader("SP_Booking_Get_By_Manager",
+                    dr => dr.ToBookingList(), true, parameters: query).ToList();
             }
             catch (Exception ex)
             {

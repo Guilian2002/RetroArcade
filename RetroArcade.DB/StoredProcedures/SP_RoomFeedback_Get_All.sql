@@ -21,12 +21,20 @@ BEGIN
 		B.[Id] AS BuildingId,
 		B.[Name] AS BuildingName,
 		B.[City] AS BuildingCity,
-		B.[Country] AS BuildingCountry
+		B.[Country] AS BuildingCountry,
+
+		--Détails du Manager
+		M.[Id] AS ManagerId,
+		M.[Lastname] AS ManagerLastname,
+		M.[Firstname] AS ManagerFirstname,
+		M.[Username] AS ManagerUsername,
+		M.[Email] AS ManagerEmail
 
 	FROM [dbo].[RoomFeedback] RF
 	INNER JOIN [dbo].[Account] A ON RF.[Username] = A.[Username]
 	INNER JOIN [dbo].[Room] R ON RF.[RoomId] = R.[Id]
 	INNER JOIN [dbo].[Building] B ON R.[BuildingId] = B.[Id]
+	INNER JOIN [dbo].[Manager] M ON M.[Id] = B.[ManagerId]
 	WHERE A.[Id] = @accountId
 	ORDER BY RF.[CommentDate] DESC;
 END

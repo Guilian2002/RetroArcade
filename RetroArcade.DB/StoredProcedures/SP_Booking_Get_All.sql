@@ -22,10 +22,9 @@ BEGIN
             [RoomId]
         FROM [dbo].[Booking]
         WHERE (@role = 'User' AND [AccountId] = @accountId)
-           OR (@role = 'Admin')
         ORDER BY [EndDate] DESC;
 
-        IF @@ROWCOUNT = 0 AND @role NOT IN ('User', 'Admin')
+        IF @@ROWCOUNT = 0 AND @role NOT IN ('User')
         BEGIN
              RAISERROR('Rôle non reconnu.', 16, 1);
         END

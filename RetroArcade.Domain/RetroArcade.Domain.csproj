@@ -15,4 +15,15 @@
     <PackageReference Include="FluentValidation" Version="12.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\Commands\ArcadeMachineCommands\Validators\" />
+    <Folder Include="Domain\Commands\BuildingCommands\Validators\" />
+    <Folder Include="Domain\Commands\CategorieCommands\Validators\" />
+    <Folder Include="Domain\Commands\RoomArcadeMachineCommands\Validators\" />
+    <Folder Include="Domain\Commands\RoomCommands\Validators\" />
+    <Folder Include="Domain\Commands\RoomFeedbackCommands\Validators\" />
+    <Folder Include="Domain\Queries\ArcadeMachineQueries\" />
+    <Folder Include="Domain\Queries\RoomFeedbackQueries\" />
+  </ItemGroup>
+
 </Project>

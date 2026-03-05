@@ -11,6 +11,7 @@ namespace RetroArcade.Domain.Domain.Repositories
         ICommandHandler<UpdateBookingCommand>,
         ICommandHandler<DeleteBookingCommand>,
         IQueryHandler<GetBookingsByRoomQuery, IEnumerable<Booking>>,
+        IQueryHandler<GetAllBookingsByManagerQuery, IEnumerable<Booking>>,
         IQueryHandler<GetAllBookingsQuery, IEnumerable<Booking>>,
         IQueryHandler<GetBookingQuery, Booking>
     {

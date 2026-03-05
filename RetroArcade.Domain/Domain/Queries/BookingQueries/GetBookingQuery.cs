@@ -11,11 +11,11 @@ namespace RetroArcade.Domain.Domain.Queries.BookingQueries
 {
     public sealed class GetBookingQuery : IQueryDefinition<Booking>
     {
-        public Guid Id { get; }
+        public Guid BookingId { get; }
 
-        public GetBookingQuery(Guid id)
+        public GetBookingQuery(Guid bookingId)
         {
-            Id = id;
+            BookingId = bookingId;
         }
     }
 }

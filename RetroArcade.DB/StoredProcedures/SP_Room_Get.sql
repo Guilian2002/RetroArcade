@@ -42,9 +42,17 @@ BEGIN
 
 		-- Détails de la Catégorie (Categorie)
 		C.[Id] AS CategorieId,
-		C.[Name] AS CategorieName
+		C.[Name] AS CategorieName,
+
+		-- Détails des commentaires de la pièce (RoomFeedback)
+		RF.[Id] AS RoomFeedbackId,
+		RF.[Stars] AS RoomFeedbackStars,
+		RF.[CommentDate] AS RoomFeedbackCommentDate,
+		RF.[Comment] AS RoomFeedbackComment,
+		RF.[Username] AS RoomFeedbackUsername
 
 	FROM [dbo].[Room] R
+	INNER JOIN [RoomFeedback] RF ON R.[Id] = RF.[RoomId]
 	INNER JOIN [dbo].[Building] B ON R.[BuildingId] = B.[Id]
 	LEFT JOIN [dbo].[Manager] M ON B.[ManagerId] = M.[Id]
 	LEFT JOIN [dbo].[RoomArcadeMachine] RAM ON R.[Id] = RAM.[RoomId]
