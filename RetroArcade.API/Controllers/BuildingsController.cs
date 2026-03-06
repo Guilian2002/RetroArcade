@@ -79,8 +79,8 @@ namespace RetroArcade.API.Controllers
         /// </summary>
         /// <param name="dto">Données du nouveau bâtiment par le manager.</param>
         /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
-        /// <response code="201">Accès accordé : Réservation créée avec succès.</response>
-        /// <response code="400">Accès refusé : Données invalides ou réservation déjà existante.</response>
+        /// <response code="201">Accès accordé : bâtiment créé avec succès.</response>
+        /// <response code="400">Accès refusé : Données invalides ou bâtiment déjà existant.</response>
         [Authorize(Roles = "Manager")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]

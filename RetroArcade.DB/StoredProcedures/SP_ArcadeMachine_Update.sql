@@ -1,34 +1,34 @@
 ﻿CREATE PROCEDURE [dbo].[SP_ArcadeMachine_Update]
-	@Id UNIQUEIDENTIFIER,
-    @Name NVARCHAR(64),
-    @GameName VARCHAR(64),
-    @CategorieId UNIQUEIDENTIFIER = NULL
+	@arcadeMachineId UNIQUEIDENTIFIER,
+    @name NVARCHAR(64),
+    @gameName VARCHAR(64),
+    @categorieId UNIQUEIDENTIFIER = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF @Id IS NULL OR NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Id)
+    IF @arcadeMachineId IS NULL OR NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @arcadeMachineId)
     BEGIN
         RAISERROR('Machine d''arcade introuvable.', 16, 1);
         RETURN;
     END
 
-    IF (@Name IS NULL OR LTRIM(@Name) = '') OR
-       (@GameName IS NULL OR LTRIM(@GameName) = '')
+    IF (@name IS NULL OR LTRIM(@name) = '') OR
+       (@gameName IS NULL OR LTRIM(@gameName) = '')
     BEGIN
         RAISERROR('Le nom de la machine et le nom du jeu ne peuvent pas être vides.', 16, 1);
         RETURN;
     END
 
-    IF @CategorieId IS NOT NULL AND NOT EXISTS (SELECT 1 FROM [dbo].[Categorie] WHERE [Id] = @CategorieId)
+    IF @CategorieId IS NOT NULL AND NOT EXISTS (SELECT 1 FROM [dbo].[Categorie] WHERE [Id] = @categorieId)
     BEGIN
         RAISERROR('La catégorie spécifiée est invalide.', 16, 1);
         RETURN;
     END
 
     UPDATE [dbo].[ArcadeMachine]
-    SET [Name] = @Name,
-        [GameName] = @GameName,
-        [CategorieId] = @CategorieId
-    WHERE [Id] = @Id;
+    SET [Name] = @name,
+        [GameName] = @gameName,
+        [CategorieId] = @categorieId
+    WHERE [Id] = @arcadeMachineId;
 END

@@ -1,44 +1,44 @@
 ﻿CREATE PROCEDURE [dbo].[SP_Room_Update]
-	@Id UNIQUEIDENTIFIER,
-    @Name NVARCHAR(50),
-    @Number INT,
-    @MachineCapacity INT,
-    @Price DECIMAL(10,2),
-    @BuildingId UNIQUEIDENTIFIER
+    @roomId UNIQUEIDENTIFIER,
+    @name NVARCHAR(50),
+    @number INT,
+    @machineCapacity INT,
+    @price DECIMAL(10,2),
+    @buildingId UNIQUEIDENTIFIER
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF @Id IS NULL OR NOT EXISTS (SELECT 1 FROM [dbo].[Room] WHERE [Id] = @Id)
+    IF @roomId IS NULL OR NOT EXISTS (SELECT 1 FROM [dbo].[Room] WHERE [Id] = @roomId)
     BEGIN
         RAISERROR('Identifiant de salle invalide ou inexistant.', 16, 1);
         RETURN;
     END
 
-    IF (@Name IS NULL OR LTRIM(@Name) = '') OR (@Number IS NULL) OR 
-       (@MachineCapacity IS NULL) OR (@Price IS NULL) OR (@BuildingId IS NULL)
+    IF (@name IS NULL OR LTRIM(@name) = '') OR (@number IS NULL) OR 
+       (@machineCapacity IS NULL) OR (@price IS NULL) OR (@buildingId IS NULL)
     BEGIN
         RAISERROR('Les données de mise à jour ne peuvent pas être nulles ou vides.', 16, 1);
         RETURN;
     END
 
-    IF @Number < 1 OR @Number > 25 OR @MachineCapacity <> 10
+    IF @number < 1 OR @number > 25 OR @machineCapacity <> 10
     BEGIN
         RAISERROR('Contraintes de numéro (1-25) ou de capacité (10) non respectées.', 16, 1);
         RETURN;
     END
 
-    IF NOT EXISTS (SELECT 1 FROM [dbo].[Building] WHERE [Id] = @BuildingId)
+    IF NOT EXISTS (SELECT 1 FROM [dbo].[Building] WHERE [Id] = @buildingId)
     BEGIN
         RAISERROR('Le bâtiment référencé n''existe pas.', 16, 1);
         RETURN;
     END
 
     UPDATE [dbo].[Room]
-    SET [Name] = @Name,
-        [Number] = @Number,
-        [MachineCapacity] = @MachineCapacity,
-        [Price] = @Price,
-        [BuildingId] = @BuildingId
-    WHERE [Id] = @Id;
+    SET [Name] = @name,
+        [Number] = @number,
+        [MachineCapacity] = @machineCapacity,
+        [Price] = @price,
+        [BuildingId] = @buildingId
+    WHERE [Id] = @roomId;
 END

@@ -58,6 +58,7 @@ builder.Services.AddScoped<IAccountRepository, AccountService>();
 builder.Services.AddScoped<IBuildingRepository, BuildingService>();
 builder.Services.AddScoped<IRoomRepository, RoomService>();
 builder.Services.AddScoped<IBookingRepository, BookingService>();
+builder.Services.AddScoped<IArcadeMachineRepository, ArcadeMachineService>();
 builder.Services.AddScoped<ITokenManager, TokenManager>();
 
 // --- VALIDATORS ---

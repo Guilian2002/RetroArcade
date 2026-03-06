@@ -1,20 +1,20 @@
 ﻿CREATE PROCEDURE [dbo].[SP_ArcadeMachine_Delete]
-	@Id UNIQUEIDENTIFIER
+	@arcadeMachineId UNIQUEIDENTIFIER
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF @Id IS NULL
+    IF @arcadeMachineId IS NULL
     BEGIN
         RAISERROR('L''identifiant est requis.', 16, 1);
         RETURN;
     END
 
-    IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @Id)
+    IF NOT EXISTS (SELECT 1 FROM [dbo].[ArcadeMachine] WHERE [Id] = @arcadeMachineId)
     BEGIN
         RAISERROR('Impossible de supprimer : machine inexistante.', 16, 1);
         RETURN;
     END
 
-    DELETE FROM [dbo].[ArcadeMachine] WHERE [Id] = @Id;
+    DELETE FROM [dbo].[ArcadeMachine] WHERE [Id] = @arcadeMachineId;
 END

@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RetroArcade.API.DTOs;
+using RetroArcade.Domain.Domain.Commands.BuildingCommands;
+using RetroArcade.Domain.Domain.Commands.RoomCommands;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Queries.BuildingQueries;
 using RetroArcade.Domain.Domain.Queries.RoomQueries;
@@ -69,6 +73,114 @@ namespace RetroArcade.API.Controllers
             }
 
             return Ok(result.Data);
+        }
+
+        /// <summary>
+        /// Crée une nouvelle pièce dans la base de données.
+        /// </summary>
+        /// <param name="dto">Données de la nouvelle pièce par le manager.</param>
+        /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
+        /// <response code="201">Accès accordé : pièce créée avec succès.</response>
+        /// <response code="400">Accès refusé : Données invalides ou pièce déjà existante.</response>
+        [Authorize(Roles = "Manager")]
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Create([FromBody] RoomCreateDTO dto, [FromServices] IValidator<AddRoomCommand> validator)
+        {
+            var command = new AddRoomCommand(
+                dto.Name,
+                dto.Number,
+                dto.MachineCapacity,
+                dto.Price,
+                dto.BuildingId
+            );
+
+            var validationResult = validator.Validate(command);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
+            }
+
+            CqsResult result = _repo.Execute(command);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+            return StatusCode(StatusCodes.Status201Created, "Pièce créée avec succès");
+        }
+        /// <summary>
+        /// Met à jour la pièce dans la base de données.
+        /// </summary>
+        /// <param name="id">Identifiant de la pièce</param>
+        /// <param name="dto">Données de la pièce à mettre à jour par le manager.</param>
+        /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
+        /// <response code="200">Accès accordé : Pièce mis à jour avec succès.</response>
+        /// <response code="400">Accès refusé : Données invalides.</response>
+        /// /// <response code="401">Accès refusé : Utilisateur non identifié.</response>
+        [Authorize(Roles = "Manager")]
+        [HttpPut("{id:Guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult Update(Guid id, [FromBody] RoomUpdateDTO dto, [FromServices] IValidator<UpdateRoomCommand> validator)
+        {
+            var command = new UpdateRoomCommand(
+                id,
+                dto.Name,
+                dto.Number,
+                dto.MachineCapacity,
+                dto.Price,
+                dto.BuildingId
+            );
+
+            var validationResult = validator.Validate(command);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
+            }
+
+            CqsResult result = _repo.Execute(command);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok("Pièce mis à jour avec succès");
+        }
+        /// <summary>
+        /// Supprime une pièce dans la base de données.
+        /// </summary>
+        /// <param name="id">Identifiant de la pièce</param>
+        /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
+        /// <response code="200">Accès accordé : Pièce supprimer avec succès.</response>
+        /// <response code="400">Accès refusé : Données invalides.</response>
+        [Authorize(Roles = "Manager")]
+        [HttpDelete("{id:Guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public IActionResult Delete(Guid id, [FromServices] IValidator<DeleteRoomCommand> validator)
+        {
+
+            var command = new DeleteRoomCommand(id);
+
+            var validationResult = validator.Validate(command);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
+            }
+
+            CqsResult result = _repo.Execute(command);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok("Pièce supprimé avec succès");
         }
     }
 }

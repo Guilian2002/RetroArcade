@@ -304,5 +304,19 @@ namespace RetroArcade.Domain.Domain.Mappers
             );
         }
         #endregion
+        #region ArcadeMachine Mappers
+        internal static ArcadeMachine ToArcadeMachineList(this IDataRecord record)
+        {
+            return new ArcadeMachine(
+                (Guid)record["ArcadeMachineId"],
+                (string)record["Name"],
+                (string)record["GameName"],
+                new Categorie(
+                    (Guid)record["CategorieId"],
+                    (string)record["CategorieName"]
+                )
+            );
+        }
+        #endregion
     }
 }
