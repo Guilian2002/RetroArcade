@@ -99,9 +99,6 @@
     <Build Include="StoredProcedures\SP_RoomArcadeMachine_Insert.sql" />
     <Build Include="StoredProcedures\SP_RoomArcadeMachine_Update.sql" />
     <Build Include="StoredProcedures\SP_RoomArcadeMachine_Delete.sql" />
-    <Build Include="StoredProcedures\SP_Manager_Insert.sql" />
-    <Build Include="StoredProcedures\SP_Manager_Update.sql" />
-    <Build Include="StoredProcedures\SP_Manager_Delete.sql" />
     <Build Include="StoredProcedures\SP_Categorie_Insert.sql" />
     <Build Include="StoredProcedures\SP_Categorie_Delete.sql" />
     <Build Include="StoredProcedures\SP_ArcadeMachine_Insert.sql" />

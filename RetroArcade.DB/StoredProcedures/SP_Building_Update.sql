@@ -1,46 +1,52 @@
 ﻿CREATE PROCEDURE [dbo].[SP_Building_Update]
-    @BuildingId UNIQUEIDENTIFIER,
-    @Name NVARCHAR(64),
-    @OpeningHour TIME,
-    @ClosingHour TIME,
-    @Address_Street NVARCHAR(256),
-    @Address_Number NVARCHAR(12),
-    @PostalCode NVARCHAR(16),
-    @City NVARCHAR(50),
-    @Country NVARCHAR(50),
-    @ManagerId UNIQUEIDENTIFIER
+    @buildingId UNIQUEIDENTIFIER,
+    @name NVARCHAR(64),
+    @openingHour TIME,
+    @closingHour TIME,
+    @addressStreet NVARCHAR(256),
+    @addressNumber NVARCHAR(12),
+    @postalCode NVARCHAR(16),
+    @city NVARCHAR(50),
+    @country NVARCHAR(50),
+    @managerId UNIQUEIDENTIFIER
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF @BuildingId IS NULL OR NOT EXISTS (SELECT 1 FROM [dbo].[Building] WHERE [Id] = @BuildingId)
+    IF @buildingId IS NULL OR NOT EXISTS (SELECT 1 FROM [dbo].[Building] WHERE [Id] = @buildingId)
     BEGIN
         RAISERROR('Identifiant invalide ou bâtiment inexistant.', 16, 1);
         RETURN;
     END
 
-    IF (@Name IS NULL OR LTRIM(@Name) = '') OR
-       (@OpeningHour IS NULL) OR
-       (@ClosingHour IS NULL) OR
-       (@Address_Street IS NULL OR LTRIM(@Address_Street) = '') OR
-       (@Address_Number IS NULL OR LTRIM(@Address_Number) = '') OR
-       (@PostalCode IS NULL OR LTRIM(@PostalCode) = '') OR
-       (@City IS NULL OR LTRIM(@City) = '') OR
-       (@Country IS NULL OR LTRIM(@Country) = '')
+    IF (@name IS NULL OR LTRIM(@name) = '') OR
+       (@openingHour IS NULL) OR
+       (@closingHour IS NULL) OR
+       (@addressStreet IS NULL OR LTRIM(@addressStreet) = '') OR
+       (@addressNumber IS NULL OR LTRIM(@addressNumber) = '') OR
+       (@postalCode IS NULL OR LTRIM(@postalCode) = '') OR
+       (@city IS NULL OR LTRIM(@city) = '') OR
+       (@country IS NULL OR LTRIM(@country) = '')
     BEGIN
         RAISERROR('Les données de mise à jour ne peuvent pas être nulles ou vides.', 16, 1);
         RETURN;
     END
 
+    IF @openingHour >= @closingHour
+    BEGIN
+        RAISERROR('L''heure d''ouverture doit être antérieure à l''heure de fermeture.', 16, 1);
+        RETURN;
+    END
+
     UPDATE [dbo].[Building]
-    SET [Name] = @Name,
-        [OpeningHour] = @OpeningHour,
-        [ClosingHour] = @ClosingHour,
-        [Address_Street] = @Address_Street,
-        [Address_Number] = @Address_Number,
-        [PostalCode] = @PostalCode,
-        [City] = @City,
-        [Country] = @Country,
-        [ManagerId] = @ManagerId
-    WHERE [Id] = @BuildingId;
+    SET [Name] = @name,
+        [OpeningHour] = @openingHour,
+        [ClosingHour] = @closingHour,
+        [Address_Street] = @addressStreet,
+        [Address_Number] = @addressNumber,
+        [PostalCode] = @postalCode,
+        [City] = @city,
+        [Country] = @country,
+        [ManagerId] = @managerId
+    WHERE [Id] = @buildingId;
 END

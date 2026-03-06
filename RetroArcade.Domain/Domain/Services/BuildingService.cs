@@ -1,5 +1,6 @@
 ﻿using BStorm.Tools.Database;
 using RetroArcade.Domain.CustomErrors;
+using RetroArcade.Domain.Domain.Commands.BuildingCommands;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Mappers;
 using RetroArcade.Domain.Domain.Queries.BuildingQueries;
@@ -48,6 +49,57 @@ namespace RetroArcade.Domain.Domain.Services
                     return Errors.BuildingNotFound;
 
                 return building;
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult Execute(AddBuildingCommand command)
+        {
+            try
+            {
+                int rows = _dbConnection.ExecuteNonQuery("SP_Building_Insert", true, command);
+
+                if (rows is 0)
+                    return Error.Create("Erreur lors de l'insertion");
+
+                return CqsResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult Execute(UpdateBuildingCommand command)
+        {
+            try
+            {
+                int rows = _dbConnection.ExecuteNonQuery("SP_Building_Update", true, parameters: command);
+
+                if (rows == 0)
+                    return Errors.BuildingNotFound;
+
+                return CqsResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult Execute(DeleteBuildingCommand command)
+        {
+            try
+            {
+                int rows = _dbConnection.ExecuteNonQuery("SP_Building_Delete", true, parameters: command);
+
+                if (rows == 0)
+                    return Errors.BookingNotFound;
+
+                return CqsResult.Success();
             }
             catch (Exception ex)
             {
