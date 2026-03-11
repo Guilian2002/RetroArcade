@@ -21,8 +21,17 @@ BEGIN
 		R.[Name] AS RoomName,
 		R.[Number] AS RoomNumber,
 		R.[MachineCapacity] AS RoomMachineCapacity,
-		R.[Price] AS RoomPrice
+		R.[Price] AS RoomPrice,
+
+		-- Détails du manager lié
+		M.[Id] AS ManagerId,
+		M.[Lastname] AS ManagerLastname,
+		M.[Firstname] AS ManagerFirstname,
+		M.[Username] AS ManagerUsername,
+		M.[Email] AS ManagerEmail
+
 	FROM [dbo].[Building] B
 	LEFT JOIN [dbo].[Room] R ON B.[Id] = R.[BuildingId]
+	LEFT JOIN [dbo].[Manager] M ON B.[ManagerId] = M.[Id]
 	WHERE B.[Id] = @buildingId;
 END

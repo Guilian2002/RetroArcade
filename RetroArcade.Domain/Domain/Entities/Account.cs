@@ -15,6 +15,9 @@ namespace RetroArcade.Domain.Domain.Entities
         public string Email { get; set; }
         public string Password { get; set; } = string.Empty;
         public Role Role { get; set; }
+        public DateTime? CreationDate { get; set; }
+		public DateTime? DisableDate { get; set; }
+        public bool IsActive { get; set; }
 
         internal Account (Guid id, string firstname, string lastname, 
             string username, string email, string password, Role role = Role.User)
@@ -37,6 +40,20 @@ namespace RetroArcade.Domain.Domain.Entities
             Username = username;
             Email = email;
             Role = role;
+        }
+
+        public Account(Guid id, string firstname, string lastname, string username, string email, 
+            Role role, DateTime? creationDate, DateTime? disableDate, bool isActive) 
+        {
+            Id = id;
+            Firstname = firstname;
+            Lastname = lastname;
+            Username = username;
+            Email = email;
+            Role = role;
+            CreationDate = creationDate;
+            DisableDate = disableDate;
+            IsActive = isActive;
         }
     }
 }

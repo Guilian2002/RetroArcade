@@ -1,6 +1,7 @@
 ﻿using BStorm.Tools.Database;
 using RetroArcade.Domain.CustomErrors;
 using RetroArcade.Domain.Domain.Commands.AccountCommands;
+using RetroArcade.Domain.Domain.Commands.BookingCommands;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Mappers;
 using RetroArcade.Domain.Domain.Queries.AccountQueries;
@@ -52,6 +53,55 @@ namespace RetroArcade.Domain.Domain.Services
                     return Error.Create("Erreur lors de l'insertion");
 
                 return CqsResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult Execute(UpdateAccountCommand command)
+        {
+            try
+            {
+                int rows = _dbConnection.ExecuteNonQuery("SP_Account_Update", true, parameters: command);
+
+                if (rows == 0)
+                    return Errors.AccountNotFound;
+
+                return CqsResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult Execute(DeleteAccountCommand command)
+        {
+            try
+            {
+                int rows = _dbConnection.ExecuteNonQuery("SP_Account_Disable", true, parameters: command);
+
+                if (rows == 0)
+                    return Errors.AccountNotFound;
+
+                _dbConnection.ExecuteNonQuery("SP_Account_Delete", true, parameters: null);
+
+                return CqsResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult<IEnumerable<Account>> Execute(GetAllAccountsQuery query)
+        {
+            try
+            {
+                return _dbConnection.ExecuteReader("SP_Account_Get_All",
+                    dr => dr.ToAccountList(), true, parameters: query).ToList();
             }
             catch (Exception ex)
             {

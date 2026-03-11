@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Categorie]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+	[Name] NVARCHAR(32) NOT NULL,
+	CONSTRAINT [PK_Categorie] PRIMARY KEY ([Id]),
+	CONSTRAINT [UK_Categorie_Name] UNIQUE ([Name])
+)

@@ -13,7 +13,10 @@ namespace RetroArcade.Domain.Domain.Repositories
 {
     public interface IAccountRepository :
         ICommandHandler<AddAccountCommand>,
-        IQueryHandler<GetAccountByLoginQuery, Account>
+        ICommandHandler<UpdateAccountCommand>,
+        ICommandHandler<DeleteAccountCommand>,
+        IQueryHandler<GetAccountByLoginQuery, Account>,
+        IQueryHandler<GetAllAccountsQuery, IEnumerable<Account>>
     {
     }
 }

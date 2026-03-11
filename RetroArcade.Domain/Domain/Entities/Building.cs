@@ -18,10 +18,11 @@ namespace RetroArcade.Domain.Domain.Entities
         public string City { get; set; } = string.Empty;
         public string Country { get; set; } = string.Empty;
         public IEnumerable<Room>? Rooms { get; set; }
+        public Manager? Manager { get; set; }
 
         internal Building() { }
         public Building(Guid id, string name, TimeSpan openingHour, TimeSpan closingHour, 
-            string street, string number, string postalCode, string city, string country)
+            string street, string number, string postalCode, string city, string country, Manager? manager)
         {
             Id = id;
             Name = name;
@@ -32,9 +33,10 @@ namespace RetroArcade.Domain.Domain.Entities
             PostalCode = postalCode;
             City = city;
             Country = country;
+            Manager = manager;
         }
         public Building(Guid id, string name, TimeSpan openingHour, TimeSpan closingHour,
-            string street, string number, string postalCode, string city, string country, IEnumerable<Room> rooms)
+            string street, string number, string postalCode, string city, string country, IEnumerable<Room> rooms, Manager? manager)
         {
             Id = id;
             Name = name;
@@ -46,6 +48,7 @@ namespace RetroArcade.Domain.Domain.Entities
             City = city;
             Country = country;
             Rooms = rooms;
+            Manager = manager;
         }
     }
 }

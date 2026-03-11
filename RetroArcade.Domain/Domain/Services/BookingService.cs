@@ -49,7 +49,85 @@ namespace RetroArcade.Domain.Domain.Services
             try
             {
                 return _dbConnection.ExecuteReader("SP_Booking_Get_By_Room",
-                    dr => dr.ToBooking(), true, parameters: query).ToList();
+                    dr => dr.ToBookingRoom(), true, parameters: query).ToList();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult<IEnumerable<Booking>> Execute(GetAllBookingsQuery query)
+        {
+            try
+            {
+                return _dbConnection.ExecuteReader("SP_Booking_Get_All",
+                    dr => dr.ToBookingList(), true, parameters: query).ToList();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult<Booking> Execute(GetBookingQuery query)
+        {
+            try
+            {
+                Booking? booking = _dbConnection.ExecuteReader("SP_Booking_Get",
+                    dr => dr.ToBooking(), true, parameters: query).SingleOrDefault();
+
+                if (booking is null)
+                    return Errors.BuildingNotFound;
+
+                return booking;
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult Execute(UpdateBookingCommand command)
+        {
+            try
+            {
+                int rows = _dbConnection.ExecuteNonQuery("SP_Booking_Update", true, parameters: command);
+
+                if (rows == 0)
+                    return Errors.BookingNotFound;
+
+                return CqsResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult Execute(DeleteBookingCommand command)
+        {
+            try
+            {
+                int rows = _dbConnection.ExecuteNonQuery("SP_Booking_Delete", true, parameters: command);
+
+                if (rows == 0)
+                    return Errors.BookingNotFound;
+
+                return CqsResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public CqsResult<IEnumerable<Booking>> Execute(GetAllBookingsByManagerQuery query)
+        {
+            try
+            {
+                return _dbConnection.ExecuteReader("SP_Booking_Get_By_Manager",
+                    dr => dr.ToBookingList(), true, parameters: query).ToList();
             }
             catch (Exception ex)
             {

@@ -5,12 +5,11 @@ BEGIN
 	SET NOCOUNT ON;
 
 	SELECT 
-		[Id],
+		[Id] AS FeedbackId,
 		[Stars],
 		[CommentDate],
 		[Comment],
-		[Username],
-		[RoomId]
+		[Username]
 	FROM [dbo].[RoomFeedback]
 	WHERE [RoomId] = @roomId
 	ORDER BY [CommentDate] DESC;

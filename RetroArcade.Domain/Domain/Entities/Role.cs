@@ -9,6 +9,7 @@ namespace RetroArcade.Domain.Domain.Entities
     public enum Role
     {
         User,
-        Admin
+        Admin,
+        Manager
     }
 }
