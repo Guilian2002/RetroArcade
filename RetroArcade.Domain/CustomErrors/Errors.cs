@@ -19,5 +19,11 @@ namespace RetroArcade.Domain.CustomErrors
         internal static Error BookingNotFound => Error.Create("Réservation non trouvée");
         // throw an error when the arcade machine is not found
         internal static Error ArcadeMachineNotFound => Error.Create("Catalogue de la machine d'arcade non trouvé");
+        // throw an error when the arcade machine is not found
+        internal static Error CategorieNotFound => Error.Create("Categorie de la machine d'arcade non trouvée");
+        // throw an error when the room's arcade machine is not found
+        internal static Error RoomArcadeMachineNotFound => Error.Create("Machine d'arcade non trouvée");
+        // throw an error when the room feedback is not found
+        internal static Error RoomFeedbackNotFound => Error.Create("Commentaire non trouvée");
     }
 }

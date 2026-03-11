@@ -97,7 +97,7 @@ namespace RetroArcade.Domain.Domain.Services
                 int rows = _dbConnection.ExecuteNonQuery("SP_Building_Delete", true, parameters: command);
 
                 if (rows == 0)
-                    return Errors.BookingNotFound;
+                    return Errors.BuildingNotFound;
 
                 return CqsResult.Success();
             }

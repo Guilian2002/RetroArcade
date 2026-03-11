@@ -107,6 +107,9 @@
     <Build Include="StoredProcedures\SP_ArcadeMachine_Get_All.sql" />
     <Build Include="StoredProcedures\SP_Account_Get_All.sql" />
     <Build Include="StoredProcedures\SP_Booking_Get_By_Manager.sql" />
+    <Build Include="StoredProcedures\SP_Categorie_Get_All.sql" />
+    <Build Include="StoredProcedures\SP_RoomArcadeMachine_Get_All.sql" />
+    <Build Include="StoredProcedures\SP_RoomFeedback_Delete.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeploymentInsertData.sql" />

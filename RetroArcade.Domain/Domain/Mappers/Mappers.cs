@@ -318,5 +318,43 @@ namespace RetroArcade.Domain.Domain.Mappers
             );
         }
         #endregion
+        #region Categorie Mappers
+        internal static Categorie ToCategorieList(this IDataRecord record)
+        {
+            return new Categorie(
+                (Guid)record["Id"],
+                (string)record["Name"]
+            );
+        }
+        #endregion
+        #region RoomArcadeMachine Mappers
+        internal static RoomArcadeMachine ToRoomArcadeMachineList(this IDataRecord record)
+        {
+            return new RoomArcadeMachine(
+                (string)record["State"],
+                (DateTime)record["InstallationDate"],
+                new Room((Guid)record["RoomId"], string.Empty, 0, 0, new Building()),
+                new ArcadeMachine(
+                    (Guid)record["ArcadeMachineId"],
+                    (string)record["MachineName"],
+                    (string)record["GameName"],
+                    record["CategorieId"] as Guid? == null ? null : new Categorie((Guid)record["CategorieId"], 
+                                                                                  (string)record["CategorieName"])
+                )
+            );
+        }
+        #endregion
+        #region RoomFeedback Mappers
+        internal static RoomFeedback ToRoomFeedback(this IDataRecord record)
+        {
+            return new RoomFeedback(
+                (Guid)record["FeedbackId"],
+                (int)record["Stars"],
+                (DateTime)record["CommentDate"],
+                (string)record["Comment"],
+                (string)record["Username"]
+            );
+        }
+        #endregion
     }
 }
