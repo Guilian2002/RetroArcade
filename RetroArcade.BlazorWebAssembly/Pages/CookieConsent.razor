@@ -1,0 +1,18 @@
+﻿@namespace RetroArcade.BlazorWebAssembly.Components
+
+@if (_showBanner)
+{
+    <div id="cookieConsent" class="arcade-card" style="position: fixed; bottom: 50px; z-index: 9999;">
+        <p class="retro-label">
+            > PROTOCOLE_COOKIE : SYSTEME_NECESSITE_JETONS_SESSION
+        </p>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <button type="button" class="btn-arcade" @onclick="AcceptCookies">
+                ACCEPTER
+            </button>
+            <NavLink href="privacy" class="btn-arcade" style="font-size: 10px; border-color: var(--neon-blue); color: var(--neon-blue) !important;">
+                EN SAVOIR PLUS
+            </NavLink>
+        </div>
+    </div>
+}

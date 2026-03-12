@@ -1,0 +1,68 @@
+﻿@page "/Account/Create"
+@namespace RetroArcade.BlazorWebAssembly.Pages.Account
+
+<PageTitle>RetroArcade - Nouveau Joueur</PageTitle>
+
+<div class="register-container">
+    <div class="cyber-header">
+        <span class="glitch-text">INSERER UNE PIECE</span>
+        <h3>Inscription</h3>
+    </div>
+
+    <EditForm Model="model" OnValidSubmit="HandleRegister">
+        <DataAnnotationsValidator />
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert-cyber">
+                <i class="bi bi-exclamation-triangle"></i> @errorMessage
+            </div>
+        }
+
+        <div class="mb-3 cyber-input-group">
+            <label><i class="bi bi-person"></i> Prénom</label>
+            <InputText @bind-Value="model.Firstname" class="form-control" placeholder="Ex: Ken" />
+            <ValidationMessage For="@(() => model.Firstname)" />
+        </div>
+
+        <div class="mb-3 cyber-input-group">
+            <label><i class="bi bi-person-vcard"></i> Nom</label>
+            <InputText @bind-Value="model.Lastname" class="form-control" placeholder="Ex: Masters" />
+            <ValidationMessage For="@(() => model.Lastname)" />
+        </div>
+
+        <div class="mb-3 cyber-input-group">
+            <label><i class="bi bi-joystick"></i> Pseudo (GamerTag)</label>
+            <InputText @bind-Value="model.Username" class="form-control" placeholder="Ex: KenMaster84" />
+            <ValidationMessage For="@(() => model.Username)" />
+        </div>
+
+        <div class="mb-3 cyber-input-group">
+            <label><i class="bi bi-envelope-at"></i> Email</label>
+            <InputText @bind-Value="model.Email" class="form-control" placeholder="ken@arcade.com" />
+            <ValidationMessage For="@(() => model.Email)" />
+        </div>
+
+        <div class="mb-3 cyber-input-group">
+            <label><i class="bi bi-key"></i> Code d'accès</label>
+            <div class="input-group">
+                <InputText @bind-Value="model.Password" type="@(showPassword ? "text" : "password")" class="form-control" />
+                <button type="button" class="btn btn-eye-fix" @onclick="TogglePassword">
+                    <i class="bi @(showPassword ? "bi-eye-slash" : "bi-eye")"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mb-3 cyber-input-group">
+            <label><i class="bi bi-shield-check"></i> Confirmation</label>
+            <div class="input-group">
+                <InputText @bind-Value="model.ConfirmPassword" type="@(showPassword ? "text" : "password")" class="form-control" />
+                <button type="button" class="btn btn-eye-fix" @onclick="TogglePassword">
+                    <i class="bi @(showPassword ? "bi-eye-slash" : "bi-eye")"></i>
+                </button>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-cyber">CRÉER LE PROFIL</button>
+    </EditForm>
+</div>

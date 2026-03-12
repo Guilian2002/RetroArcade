@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetroArcade.ASPCore", "Retr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroArcade.Tests", "RetroArcade.Tests\RetroArcade.Tests.csproj", "{718133BA-D088-4BBE-B16C-6E57A1C2E050}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroArcade.BlazorWebAssembly", "RetroArcade.BlazorWebAssembly\RetroArcade.BlazorWebAssembly.csproj", "{5E7A20B9-CFDE-45F7-9111-586DFAE164E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{718133BA-D088-4BBE-B16C-6E57A1C2E050}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{718133BA-D088-4BBE-B16C-6E57A1C2E050}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{718133BA-D088-4BBE-B16C-6E57A1C2E050}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E7A20B9-CFDE-45F7-9111-586DFAE164E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E7A20B9-CFDE-45F7-9111-586DFAE164E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E7A20B9-CFDE-45F7-9111-586DFAE164E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E7A20B9-CFDE-45F7-9111-586DFAE164E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

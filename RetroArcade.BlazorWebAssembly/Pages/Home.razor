@@ -1,0 +1,42 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+
+<PageTitle>RetroArcade - Terminal</PageTitle>
+
+<div class="home-container">
+    <AuthorizeView>
+        <Authorized>
+            <div class="welcome-box text-center">
+                <h1 class="neon-text-blue">ACCÈS AUTORISÉ</h1>
+
+                <p>BIENVENUE, <span class="highlight-yellow">@context.User.Identity?.Name</span></p>
+
+                <p>
+                    STATUT_SESSION :
+                    <span class="@GetRoleClass(context.User)">
+                        [@GetRoleName(context.User)]
+                    </span>
+                </p>
+            </div>
+        </Authorized>
+
+        <NotAuthorized>
+            <div class="intruder-box text-center">
+                <h1 class="intruder-title">SYSTÈME DE SÉCURITÉ : ALERTE</h1>
+
+                <div class="cat-container-large">
+                    <img src="img/chatrreterparlapolice.png" alt="Intrus" class="suspect-cat-full" />
+                </div>
+
+                <p class="neon-danger">
+                    INTRUS DÉTECTÉ ! <br />
+                    ALLEZ VOUS CONNECTER OU C'EST LA FOURRIÈRE !
+                </p>
+
+                <div class="mt-4">
+                    <a href="Account/Login" class="btn-terminal">ACCÉDER AU TERMINAL</a>
+                </div>
+            </div>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>

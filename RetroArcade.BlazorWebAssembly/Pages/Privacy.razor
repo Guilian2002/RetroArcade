@@ -1,0 +1,35 @@
+﻿@page "/privacy"
+@namespace RetroArcade.BlazorWebAssembly.Pages
+
+<div class="container">
+    <div class="arcade-card">
+        <h1 class="arcade-title blink">> PROTOCOLE_CONFIDENTIALITÉ</h1>
+
+        <div class="terminal-box" style="border-left: 6px solid var(--neon-cyan); padding: 30px; background: rgba(0, 0, 0, 0.5);">
+            <p class="text-neon-cyan" style="font-size: 18px; letter-spacing: 2px;">
+                [ STATUT : CHIFFREMENT_SÉCURITÉ_MAXIMAL ]
+            </p>
+
+            <div class="policy-content mt-5" style="font-size: 16px;">
+                <p style="color: var(--retro-orange); "> > COLLECTE_DONNÉES : [ RESTREINTE ]</p>
+                <p style="color: var(--retro-orange); "> > STATUT_COOKIES : [ ANONYMISÉS ]</p>
+            </div>
+
+            <hr class="neon-hr" style="border-top: 3px solid var(--neon-magenta); margin: 40px 0;" />
+
+            <div class="legal-text" style="color: #eee; text-align: justify;">
+                <p>LES DONNÉES UTILISATEUR SONT PROTÉGÉES PAR LA GRILLE DE DÉFENSE RETRO_ARCADE.</p>
+            </div>
+
+            <div class="mt-5 text-center">
+                <NavLink href="/" class="btn-arcade btn-secondary">
+                    RETOUR_AU_HUB_PRINCIPAL
+                </NavLink>
+            </div>
+        </div>
+
+        <div class="mt-4 text-end" style="font-size: 10px; color: #444;">
+            DERNIÈRE_MAJ : @_dateMaj // SIGNATURE : @_signature
+        </div>
+    </div>
+</div>

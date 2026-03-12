@@ -1,0 +1,77 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthProvider
+@inject AuthentificationAPIClient AuthClient
+@inject NavigationManager Nav
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+
+<div class="top-row ps-3 navbar navbar-dark cyber-navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand neon-text" href="">
+            <i class="bi bi-controller"></i> RETRO ARCADE
+        </a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link btn-nav-neon" href="" Match="NavLinkMatch.All">
+                <i class="bi bi-house-door-fill"></i> ACCUEIL
+            </NavLink>
+        </div>
+
+        <AuthorizeView>
+            <Authorized>
+                <AuthorizeView Roles="User, Manager" Context="innerContext">
+                    <Authorized>
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link btn-nav-neon" href="buildings">
+                                <span class="bi bi-building"></span> BÂTIMENTS
+                            </NavLink>
+                        </div>
+                    </Authorized>
+                </AuthorizeView>
+
+                <div class="nav-item px-3 mt-4">
+                    <button class="btn btn-logout w-100" @onclick="HandleLogout">
+                        <i class="bi bi-power"></i> QUITTER (@context.User.Identity?.Name)
+                    </button>
+                </div>
+            </Authorized>
+
+            <NotAuthorized>
+                <div class="nav-item px-3 mt-2">
+                    <NavLink class="nav-link btn-nav-neon" href="Account/Login">
+                        <i class="bi bi-person-fill"></i> CONNEXION
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3 mt-2">
+                    <NavLink class="nav-link btn-nav-neon pink" href="Account/Create">
+                        <i class="bi bi-person-plus-fill"></i> REJOINDRE
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu() => collapseNavMenu = !collapseNavMenu;
+
+    private async Task HandleLogout()
+    {
+        await AuthClient.LogoutAsync();
+
+        await LocalStorage.RemoveItemAsync("SessionAccount");
+
+        ((CustomAuthenticationStateProvider)AuthProvider).NotifyUserChanged();
+
+        Nav.NavigateTo("/", forceLoad: true);
+    }
+}

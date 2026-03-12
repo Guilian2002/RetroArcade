@@ -1,0 +1,53 @@
+﻿@page "/Account/Login"
+@namespace RetroArcade.BlazorWebAssembly.Pages.Account
+
+<PageTitle>RetroArcade - Connexion</PageTitle>
+
+<div class="register-container">
+    <div class="cyber-header">
+        <span class="glitch-text">ENREGISTREMENT REQUIS</span>
+        <h3>Connexion</h3>
+    </div>
+
+    <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+        <DataAnnotationsValidator />
+
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <div class="alert-cyber">
+                <i class="bi bi-shield-lock-fill"></i> @error
+            </div>
+        }
+
+        <div class="mb-4 cyber-input-group">
+            <label><i class="bi bi-envelope-at"></i> Identifiant Email</label>
+            <InputText @bind-Value="loginModel.Email" class="form-control" placeholder="user@retro.com" />
+            <div class="validation-message-container">
+                <ValidationMessage For="@(() => loginModel.Email)" />
+            </div>
+        </div>
+
+        <div class="mb-4 cyber-input-group">
+            <label>MOT DE PASSE</label>
+            <div class="input-group">
+                <InputText @bind-Value="loginModel.Password" type="@passwordType" class="form-control" />
+                <span class="input-group-text" @onclick="TogglePassword">
+                    <i class="bi @(showPassword ? "bi-eye-slash" : "bi-eye")"></i>
+                </span>
+            </div>
+            <ValidationMessage For="@(() => loginModel.Password)" />
+        </div>
+
+        <div class="text-center mt-5">
+            <button type="submit" class="btn btn-success w-100 btn-cyber">
+                <i class="bi bi-box-arrow-in-right"></i> CHARGER LE PROFIL
+            </button>
+        </div>
+
+        <div class="mt-3 text-center">
+            <a href="Account/Create" class="glitch-text" style="text-decoration:none; font-size:0.6rem;">
+                PAS DE COMPTE ? CRÉER UN NOUVEAU JOUEUR
+            </a>
+        </div>
+    </EditForm>
+</div>
