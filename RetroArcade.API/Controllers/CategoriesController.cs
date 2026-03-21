@@ -82,7 +82,7 @@ namespace RetroArcade.API.Controllers
         /// <summary>
         /// Supprime une categorie dans la base de données.
         /// </summary>
-        /// <param name="id">Identifiant de la categorie/param>
+        /// <param name="id">Identifiant de la categorie</param>
         /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
         /// <response code="200">Accès accordé : Categorie supprimer avec succès.</response>
         /// <response code="400">Accès refusé : Données invalides.</response>

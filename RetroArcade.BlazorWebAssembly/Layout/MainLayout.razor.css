@@ -1,0 +1,173 @@
+/* --- STRUCTURE ET BASE --- */
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #0d0221;
+}
+
+main {
+    flex: 1;
+}
+
+.sidebar {
+    background-image: linear-gradient(180deg, #052767 0%, #3a0647 70%);
+    border-right: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+/* --- BARRE DE NAVIGATION SUPÉRIEURE --- */
+.top-row {
+    background: rgba(13, 2, 33, 0.95);
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 2px solid #00ffff;
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+/* --- TITRE CENTRAL (OEUVRE NÉON) --- */
+.header-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.retro-arcade-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.4rem;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: 4px;
+    color: #fff;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    text-transform: uppercase;
+}
+
+    .retro-arcade-title span {
+        color: #ff00ff;
+        text-shadow: 0 0 10px #ff00ff;
+    }
+
+/* --- ÉLÉMENTS DE DÉCORATION GAUCHE --- */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cyber-scanner {
+    width: 30px;
+    height: 4px;
+    background: #00ffff;
+    box-shadow: 0 0 8px #00ffff;
+    animation: pulse-width 2s infinite ease-in-out;
+}
+
+.system-status {
+    font-family: 'Consolas', monospace;
+    font-size: 0.65rem;
+    color: #00ffff;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+/* --- ÉLÉMENTS DE DÉCORATION DROITE --- */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.top-row ::deep a.cyber-link {
+    color: #fff;
+    text-decoration: none !important;
+    font-size: 0.7rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border: 1px solid rgba(255, 0, 255, 0.5);
+    padding: 4px 12px;
+    transition: all 0.3s ease;
+    background: rgba(255, 0, 255, 0.05);
+}
+
+    .top-row ::deep a.cyber-link:hover {
+        background: #ff00ff;
+        color: #000;
+        box-shadow: 0 0 15px #ff00ff;
+        transform: translateY(-2px);
+    }
+
+.neon-separator {
+    width: 1px;
+    height: 20px;
+    background: rgba(0, 255, 255, 0.3);
+}
+
+.user-status-light {
+    width: 10px;
+    height: 10px;
+    background: #fff200;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #fff200;
+    animation: flicker 1.5s infinite;
+}
+
+/* --- ANIMATIONS CYBER --- */
+@keyframes pulse-width {
+    0%, 100% {
+        width: 10px;
+        opacity: 0.5;
+    }
+
+    50% {
+        width: 40px;
+        opacity: 1;
+    }
+}
+
+@keyframes flicker {
+    0%, 100% {
+        opacity: 1;
+        filter: brightness(1.2);
+    }
+
+    50% {
+        opacity: 0.4;
+        filter: brightness(0.8);
+    }
+}
+
+/* --- LOGIQUE RESPONSIVE --- */
+@media (min-width: 641px) {
+    .page {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row, article {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+
+@media (max-width: 640.98px) {
+    .header-left, .neon-separator {
+        display: none;
+    }
+
+    .retro-arcade-title {
+        font-size: 1rem;
+        letter-spacing: 2px;
+    }
+}

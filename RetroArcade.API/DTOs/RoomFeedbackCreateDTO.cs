@@ -3,5 +3,5 @@ using RetroArcade.Domain.Domain.Entities;
 
 namespace RetroArcade.API.DTOs
 {
-    public record RoomFeedbackCreateDTO(int Stars,string Comment, Guid AccountId, Guid RoomId);
+    public record RoomFeedbackCreateDTO(int Stars, string Comment, Guid RoomId);
 }

@@ -1,0 +1,209 @@
+﻿/* --- CONTENEUR PRINCIPAL --- */
+.teapot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #1a0533 0%, #0d0221 100%);
+}
+
+/* --- LE 418 STYLE MOTEL NÉON --- */
+.error-background {
+    font-size: 10rem;
+    font-weight: 900;
+    color: rgba(0, 255, 255, 0.8);
+    position: absolute;
+    top: 5%;
+    z-index: 0;
+    user-select: none;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue);
+    animation: motelFlicker 3s linear infinite;
+}
+
+@keyframes motelFlicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue);
+    }
+
+    20%, 24%, 55% {
+        opacity: 0.3;
+        text-shadow: none;
+    }
+}
+
+/* --- CHAT THÉIÈRE (POSITION AJUSTÉE) --- */
+.teapot-art {
+    position: relative;
+    width: 200px;
+    height: 130px;
+    z-index: 2;
+    margin-top: 140px; /* Augmenté pour descendre le chat et sa vapeur */
+    margin-bottom: 20px;
+}
+
+.teapot-main {
+    width: 150px;
+    height: 100px;
+    background: rgba(13, 2, 33, 0.95);
+    border: 3px solid var(--neon-blue);
+    border-radius: 50% 50% 45% 45%;
+    position: absolute;
+    left: 25px;
+    bottom: 0;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.cat-ears-v2 {
+    position: absolute;
+    top: -12px;
+    left: 25px;
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 5;
+}
+
+.ear-l, .ear-r {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 25px solid var(--neon-pink);
+    filter: drop-shadow(0 0 12px var(--neon-pink));
+}
+
+.ear-l {
+    transform: rotate(-15deg);
+}
+
+.ear-r {
+    transform: rotate(15deg);
+}
+
+.cat-face {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.eye-l, .eye-r {
+    width: 12px;
+    height: 12px;
+    background: var(--neon-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--neon-blue);
+    animation: catBlink 4s infinite;
+}
+
+@keyframes catBlink {
+    0%, 90%, 100% {
+        transform: scaleY(1);
+    }
+
+    93%, 97% {
+        transform: scaleY(0.1);
+    }
+}
+
+.teapot-spout {
+    position: absolute;
+    left: -5px;
+    bottom: 40px;
+    width: 45px;
+    height: 15px;
+    border: 3px solid var(--neon-blue);
+    border-bottom: none;
+    border-right: none;
+    transform: rotate(-45deg);
+    border-radius: 10px 0 0 0;
+}
+
+.teapot-handle {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    width: 45px;
+    height: 60px;
+    border: 3px solid var(--neon-blue);
+    border-left: none;
+    border-radius: 0 50% 50% 0;
+}
+
+/* --- ÉLÉMENTS DE DÉCOR --- */
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+    }
+}
+
+.steam-container {
+    position: absolute;
+    top: -35px;
+    left: 60px;
+    display: flex;
+    gap: 10px;
+}
+
+    .steam-container span {
+        width: 3px;
+        height: 20px;
+        background: var(--neon-pink);
+        opacity: 0;
+        animation: steamRise 2s infinite;
+    }
+
+@keyframes steamRise {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+}
+
+.s2 {
+    animation-delay: 0.4s;
+}
+
+.s3 {
+    animation-delay: 0.8s;
+}
+
+/* --- TEXTES & BOUTONS --- */
+.retro-title {
+    font-size: 2.2rem;
+    color: var(--neon-pink);
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+}
+
+.cyber-label {
+    font-size: 1.1rem;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}

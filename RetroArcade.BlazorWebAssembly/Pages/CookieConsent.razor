@@ -1,0 +1,25 @@
+﻿@namespace RetroArcade.BlazorWebAssembly.Components
+
+@if (_showBanner)
+{
+    <div class="cookie-wrapper">
+        <div class="sab-card cookie-box">
+
+            <div class="terminal-text">
+                <span class="role-manager">[SYSTEME]</span>
+                <span class="ms-2">> PROTOCOLE_COOKIE : REQUIS</span>
+                <span class="cursor"></span>
+            </div>
+
+            <div class="actions d-flex gap-3">
+                <button type="button" class="btn-cyber" @onclick="AcceptCookies">
+                    ACCEPTER
+                </button>
+                <NavLink href="privacy" class="btn-cyber btn-cyber-pink" style="font-size: 0.7rem;">
+                    INFO
+                </NavLink>
+            </div>
+
+        </div>
+    </div>
+}

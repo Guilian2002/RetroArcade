@@ -16,6 +16,7 @@ namespace RetroArcade.Domain.Domain.Repositories
         ICommandHandler<UpdateAccountCommand>,
         ICommandHandler<DeleteAccountCommand>,
         IQueryHandler<GetAccountByLoginQuery, Account>,
+        IQueryHandler<GetAccountByIdQuery, Account>,
         IQueryHandler<GetAllAccountsQuery, IEnumerable<Account>>
     {
     }

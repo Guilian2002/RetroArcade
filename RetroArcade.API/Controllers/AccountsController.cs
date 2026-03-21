@@ -9,6 +9,7 @@ using RetroArcade.Domain.Domain.Commands.BookingCommands;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Queries.AccountQueries;
 using RetroArcade.Domain.Domain.Queries.BookingQueries;
+using RetroArcade.Domain.Domain.Queries.BuildingQueries;
 using RetroArcade.Domain.Domain.Repositories;
 using Tools.Cqs.Results;
 
@@ -161,6 +162,33 @@ namespace RetroArcade.API.Controllers
                 Username = username,
                 Role = role
             });
+        }
+
+        /// <summary>
+        /// Récupère les détails d'un compte spécifique par son identifiant unique.
+        /// </summary>
+        /// <param name="id">L'identifiant unique (GUID) du compte.</param>
+        /// <returns>Les informations détaillées du compte.</returns>
+        /// <response code="200">Compte trouvé et retourné avec succès.</response>
+        /// <response code="400">L'identifiant fourni est invalide ou une erreur de traitement est survenue.</response>
+        /// <response code="404">Aucun compte trouvé pour cet identifiant.</response>
+        [Authorize]
+        [HttpGet("{id:Guid}")]
+        [ProducesResponseType(typeof(Account), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetById(Guid id)
+        {
+            var query = new GetAccountByIdQuery(id);
+
+            CqsResult<Account> result = _repo.Execute(query);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok(result.Data);
         }
 
         /// <summary>

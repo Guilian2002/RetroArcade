@@ -1,0 +1,74 @@
+﻿@page "/arcademachines/update/{Id:guid}"
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize(Roles = "Manager")]
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="sab-card main-form-container">
+
+                <div class="form-header-cyber mb-4">
+                    <h2 class="retro-title">
+                        <i class="bi bi-pencil-square text-cyan me-2"></i>
+                        MODIFIER <span class="text-pink">L'UNITÉ</span>
+                    </h2>
+                    <div class="cyber-line"></div>
+                </div>
+
+                @if (_isLoading)
+                {
+                    <div class="loader-container">
+                        <div class="cyber-spinner"></div>
+                        <p class="text-cyan mt-3">Interrogation du matériel...</p>
+                    </div>
+                }
+                else
+                {
+                    <EditForm Model="@_form" OnValidSubmit="HandleSubmit">
+                        <DataAnnotationsValidator />
+
+                        <div class="mb-4">
+                            <label class="cyber-label">NOM DU MODÈLE</label>
+                            <InputText @bind-Value="_form.Name" class="form-control cyber-input" placeholder="Saisir le nom du modèle..." />
+                            <ValidationMessage For="@(() => _form.Name)" class="validation-message" />
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="cyber-label">JEU PRINCIPAL</label>
+                            <InputText @bind-Value="_form.GameName" class="form-control cyber-input" placeholder="Logiciel installé..." />
+                            <ValidationMessage For="@(() => _form.GameName)" class="validation-message" />
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="cyber-label">CATÉGORIE</label>
+                            <InputSelect @bind-Value="_form.CategorieId" class="form-select cyber-input">
+                                <option value="@Guid.Empty">-- Sélectionner --</option>
+                                @foreach (var cat in _categories)
+                                {
+                                    <option value="@cat.Id">@cat.Name</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => _form.CategorieId)" class="validation-message" />
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(_errorMessage))
+                        {
+                            <div class="alert-cyber p-3 mb-4">
+                                <i class="bi bi-shield-slash me-2"></i> @_errorMessage
+                            </div>
+                        }
+
+                        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mt-5">
+                            <button type="button" class="btn-cyber flex-grow-1" @onclick='() => Nav.NavigateTo("/arcademachines")'>
+                                ABANDONNER
+                            </button>
+                            <button type="submit" class="btn-cyber btn-cyber-pink flex-grow-1" disabled="@_isSubmitting">
+                                @(_isSubmitting ? "SYNC EN COURS..." : "CONFIRMER LES MODIFS")
+                            </button>
+                        </div>
+                    </EditForm>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,175 @@
+﻿/* --- CONTENEUR ET EFFETS --- */
+.home-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- BOX TERMINAL (Connecté) --- */
+.terminal-box {
+    background: rgba(13, 2, 33, 0.9);
+    border: 1px solid var(--neon-blue);
+    border-radius: 15px;
+    max-width: 600px;
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.retro-title-lg {
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow: 0 0 10px var(--neon-blue);
+    letter-spacing: 5px;
+}
+
+.border-cyber {
+    border-left: 4px solid var(--neon-pink);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* --- ALERTE INTRUS (Non-connecté) --- */
+.intruder-container {
+    max-width: 800px;
+    position: relative;
+}
+
+.neon-danger-lg {
+    color: #ff0000;
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-shadow: 0 0 20px #ff0000;
+    letter-spacing: 8px;
+}
+
+.cat-frame {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid var(--neon-pink);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+}
+
+.suspect-image {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 4px;
+    filter: sepia(0.5) contrast(1.2);
+}
+
+/* --- BOUTONS --- */
+.btn-terminal-lg {
+    background: rgba(255, 242, 0, 0.1);
+    border: 3px solid var(--cyber-yellow);
+    color: var(--cyber-yellow) !important;
+    padding: 20px 50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+    .btn-terminal-lg:hover {
+        background: var(--cyber-yellow);
+        color: #000 !important;
+        box-shadow: 0 0 40px var(--cyber-yellow);
+        transform: scale(1.05);
+    }
+
+/* --- ANIMATIONS --- */
+.blink {
+    animation: arcade-blink 0.8s infinite;
+}
+
+@keyframes arcade-blink {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+}
+
+.scanner-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 10px var(--neon-blue);
+    animation: scan 4s linear infinite;
+    z-index: 10;
+}
+
+@keyframes scan {
+    0% {
+        top: 0;
+    }
+
+    100% {
+        top: 100%;
+    }
+}
+
+/* --- REDIMENSIONNEMENT IMAGE --- */
+.cat-frame {
+    position: relative;
+    display: inline-block;
+    max-width: 100%; /* Empêche l'image de déborder sur mobile */
+    padding: 10px;
+    border: 2px solid var(--neon-pink);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
+}
+
+.suspect-image {
+    width: 100%;
+    max-width: 650px; /* Taille maximale idéale pour l'image */
+    height: auto;
+    display: block;
+    filter: contrast(1.1) brightness(0.9);
+}
+
+/* --- BOUTON NÉON STYLISÉ --- */
+.btn-neon-auth {
+    display: inline-block;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #fff;
+    text-decoration: none;
+    border: 2px solid var(--neon-pink);
+    background: transparent;
+    position: relative;
+    transition: 0.3s all;
+    overflow: hidden;
+    /* Effet de lueur constante */
+    box-shadow: 0 0 10px var(--neon-pink), inset 0 0 5px var(--neon-pink);
+}
+
+    .btn-neon-auth:hover {
+        background: var(--neon-pink);
+        color: #fff !important;
+        box-shadow: 0 0 40px var(--neon-pink), 0 0 80px var(--neon-pink);
+        transform: scale(1.05);
+    }
+
+/* Animation de pulsation sur le texte */
+.blink-soft {
+    animation: soft-pulse 2s infinite ease-in-out;
+}
+
+@keyframes soft-pulse {
+    0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 10px var(--neon-pink);
+    }
+
+    50% {
+        opacity: 0.8;
+        text-shadow: 0 0 20px var(--neon-pink);
+    }
+}

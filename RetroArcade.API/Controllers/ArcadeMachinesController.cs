@@ -8,6 +8,7 @@ using RetroArcade.Domain.Domain.Commands.ArcadeMachineCommands;
 using RetroArcade.Domain.Domain.Commands.RoomCommands;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Queries.ArcadeMachineQueries;
+using RetroArcade.Domain.Domain.Queries.BookingQueries;
 using RetroArcade.Domain.Domain.Queries.RoomQueries;
 using RetroArcade.Domain.Domain.Repositories;
 using Tools.Cqs.Results;
@@ -40,6 +41,30 @@ namespace RetroArcade.API.Controllers
             var query = new GetAllArcadeMachinesQuery();
 
             CqsResult<IEnumerable<ArcadeMachine>> result = _repo.Execute(query);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok(result.Data);
+        }
+
+        /// <summary>
+        /// Récupère le détail d'une machine du catalogue disponible selon l'identifiant de catalogue donnée.
+        /// </summary>
+        /// <returns>Une machine du catalogue.</returns>
+        /// <response code="200">La machine du catalogue a été récupérée avec succès.</response>
+        /// <response code="400">Une erreur est survenue lors de l'exécution de la requête.</response>
+        [Authorize]
+        [HttpGet("{id:Guid}")]
+        [ProducesResponseType(typeof(ArcadeMachine), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        public IActionResult Get(Guid id)
+        {
+            var query = new GetArcadeMachineByIdQuery(id);
+
+            CqsResult<ArcadeMachine> result = _repo.Execute(query);
 
             if (result.IsFailure)
             {

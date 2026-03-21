@@ -1,0 +1,144 @@
+﻿/* Container de la page */
+.cyber-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* Card principale stylisée */
+.sab-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid var(--neon-blue);
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+/* Header de la carte */
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--neon-blue);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+/* Titres de sections */
+.cyber-h5 {
+    color: var(--neon-blue);
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--neon-blue);
+    padding-left: 10px;
+}
+
+/* Liste d'informations (lisibilité max) */
+.info-list {
+    list-style: none;
+    padding: 0;
+}
+
+    .info-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+.label {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.value {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.price-row {
+    margin-top: 10px;
+    background: rgba(0, 255, 255, 0.05);
+    padding: 15px !important;
+}
+
+.price {
+    color: var(--cyber-yellow) !important;
+    font-size: 1.4rem;
+    font-family: 'Courier New', monospace;
+}
+
+/* Localisation */
+.location-box {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 4px;
+    border-right: 2px solid var(--neon-pink);
+}
+
+.room-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.building-info {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Séparateur visuel vertical sur desktop */
+@media (min-width: 768px) {
+    .section-divider {
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Badge Statut */
+.cyber-badge {
+    padding: 6px 15px;
+    border: 1px solid;
+    font-weight: bold;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.ongoing {
+    border-color: #00ff00;
+    color: #00ff00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+/* Boutons adaptés au container */
+.action-grid .btn-cyber {
+    text-align: center;
+    display: block;
+}
+
+/* Animation Scan Line décorative */
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 255, 255, 0.2);
+    opacity: 0.3;
+    animation: scanning 4s linear infinite;
+}
+
+@keyframes scanning {
+    0% {
+        top: 0;
+    }
+
+    100% {
+        top: 100%;
+    }
+}

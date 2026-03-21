@@ -108,5 +108,22 @@ namespace RetroArcade.Domain.Domain.Services
                 return ex;
             }
         }
+
+        public CqsResult<Account> Execute(GetAccountByIdQuery query)
+        {
+            try
+            {
+                Account? account = _dbConnection.ExecuteReader("SP_Account_Get", dr => dr.ToAccountInfo(), true, parameters: query).SingleOrDefault();
+
+                if (account is null)
+                    return Errors.AccountNotFound;
+
+                return account;
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
     }
 }

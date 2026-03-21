@@ -42,11 +42,29 @@ namespace RetroArcade.Domain.Domain.Services
         {
             try
             {
-                Building? building = _dbConnection.ExecuteReader("SP_Building_Get",
-                    dr => dr.ToBuildingWithRoom(), true, parameters: query).SingleOrDefault();
+                Building? building = null;
+                List<Room> roomsList = new List<Room>();
 
-                if (building is null)
-                    return Errors.BuildingNotFound;
+                _dbConnection.ExecuteReader("SP_Building_Get", dr =>
+                {
+                    if (building == null)
+                    {
+                        building = dr.MapToBuilding();
+                    }
+
+                    var room = dr.MapToRoom();
+
+                    if (room != null)
+                    {
+                        roomsList.Add(room);
+                    }
+
+                    return building;
+                }, true, parameters: query).ToList();
+
+                if (building == null) return Errors.BuildingNotFound;
+
+                building.Rooms = roomsList;
 
                 return building;
             }
@@ -55,6 +73,7 @@ namespace RetroArcade.Domain.Domain.Services
                 return ex;
             }
         }
+
 
         public CqsResult Execute(AddBuildingCommand command)
         {

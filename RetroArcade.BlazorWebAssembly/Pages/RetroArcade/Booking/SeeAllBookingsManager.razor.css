@@ -1,0 +1,143 @@
+﻿/* Container de contrôle */
+.cyber-container {
+    padding: 20px;
+}
+
+.header-terminal {
+    border-left: 4px solid var(--neon-blue);
+    padding-left: 20px;
+    background: rgba(0, 255, 255, 0.03);
+    padding: 15px;
+}
+
+/* Tableau de données Manager */
+.cyber-table-manager {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    background: transparent;
+}
+
+    .cyber-table-manager th {
+        color: var(--text-muted);
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        padding: 15px;
+        text-transform: uppercase;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+.row-entry {
+    background: rgba(20, 0, 40, 0.4);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    transition: all 0.2s ease;
+}
+
+    .row-entry:hover {
+        background: rgba(0, 255, 255, 0.08);
+        transform: scale(1.005);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+    }
+
+    .row-entry td {
+        padding: 15px;
+        color: #fff;
+        vertical-align: middle;
+        border-top: 1px solid rgba(0, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(0, 255, 255, 0.05);
+    }
+
+/* Éléments de données */
+.client-name {
+    font-weight: bold;
+    color: var(--neon-blue);
+}
+
+.client-id {
+    font-size: 0.7rem;
+    color: var(--neon-pink);
+    opacity: 0.7;
+}
+
+.date-glow {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.building-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.room-tag {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.group-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+}
+
+/* Badges de Statut Manager */
+.manager-status {
+    background: var(--neon-blue);
+    color: var(--dark-bg) !important;
+    font-weight: 800;
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.status-online {
+    border-color: #00ff00;
+    color: #00ff00;
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.status-offline {
+    border-color: var(--text-muted);
+    color: var(--text-muted);
+}
+
+/* Bouton d'action spécifique */
+.btn-action-view {
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 6px 15px;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+    .btn-action-view:hover {
+        background: var(--neon-blue);
+        color: var(--dark-bg);
+        box-shadow: 0 0 15px var(--neon-blue);
+    }
+
+/* Animation scanline décorative */
+.scanline-horizontal {
+    height: 1px;
+    width: 100px;
+    background: var(--neon-blue);
+    margin-top: 5px;
+    box-shadow: 0 0 5px var(--neon-blue);
+    animation: extend 2s infinite alternate;
+}
+
+@keyframes extend {
+    from {
+        width: 50px;
+        opacity: 0.5;
+    }
+
+    to {
+        width: 150px;
+        opacity: 1;
+    }
+}

@@ -1,0 +1,103 @@
+﻿/* --- CONTENEUR PRINCIPAL --- */
+.register-card {
+    background: rgba(13, 2, 33, 0.98);
+    border: 2px solid var(--neon-pink);
+    border-radius: 4px; /* Look arcade plus brut */
+    padding: 3.5rem;
+    width: 100%;
+    max-width: 800px; /* Largeur augmentée pour le confort */
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 40px rgba(255, 0, 255, 0.15);
+}
+
+/* --- TYPOGRAPHIE AGRANDIE --- */
+.retro-title {
+    font-size: 3rem !important;
+    text-shadow: 0 0 15px var(--neon-pink);
+    letter-spacing: 5px;
+}
+
+.label-cyber {
+    color: var(--neon-blue);
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 1rem; /* Texte plus gros */
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* --- CHAMPS DE SAISIE ÉLITE --- */
+.input-group-cyber {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6) !important;
+    border: 1px solid var(--neon-blue);
+    padding: 15px 20px; /* Plus d'espace interne */
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 5px;
+}
+
+    /* Suppression du fond blanc Blazor/Bootstrap */
+    .input-group-cyber ::deep input {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        color: #fff !important;
+        font-family: 'Courier New', monospace;
+        font-size: 1.2rem; /* Texte saisi plus gros */
+        width: 100%;
+        outline: none;
+    }
+
+    .input-group-cyber:focus-within {
+        border-color: var(--neon-pink);
+        box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+        background: rgba(255, 0, 255, 0.05) !important;
+    }
+
+/* --- ICONES STYLE PIXEL --- */
+.pixel-icon {
+    font-size: 1.5rem;
+    color: var(--neon-blue);
+    image-rendering: pixelated; /* Force le rendu pixel si supporté */
+    margin-right: 15px;
+}
+
+/* --- BOUTON NÉON PINK --- */
+.btn-cyber-pink {
+    background: rgba(255, 0, 255, 0.05);
+    border: 3px solid var(--neon-pink);
+    color: var(--neon-pink);
+    font-weight: 900;
+    font-size: 1.3rem;
+    letter-spacing: 4px;
+    padding: 20px !important;
+    text-transform: uppercase;
+    transition: 0.4s;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+}
+
+    .btn-cyber-pink:hover:not(:disabled) {
+        background: var(--neon-pink);
+        color: #fff !important;
+        box-shadow: 0 0 40px var(--neon-pink);
+        transform: scale(1.02);
+    }
+
+/* --- VALIDATION --- */
+::deep .validation-message {
+    color: var(--cyber-yellow);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.alert-cyber {
+    background: rgba(255, 0, 0, 0.1);
+    border: 2px solid #ff3333;
+    color: #ffcccc;
+    border-radius: 0;
+}

@@ -1,0 +1,67 @@
+﻿@page "/"
+@namespace RetroArcade.BlazorWebAssembly.Pages
+@using Microsoft.AspNetCore.Components.Authorization
+
+<PageTitle>RetroArcade - Terminal</PageTitle>
+
+<div class="home-wrapper d-flex align-items-center justify-content-center min-vh-100">
+    <AuthorizeView Context="authContext">
+        <Authorized>
+            <div class="terminal-box p-5 shadow-neon-blue">
+                <div class="scanner-line"></div>
+                <div class="text-center mb-4">
+                    <div class="badge bg-success mb-2 px-3 py-2">
+                        <i class="bi bi-shield-check me-2"></i> CONNEXION ÉTABLIE
+                    </div>
+                    <h1 class="retro-title-lg">TERMINAL PRINCIPAL</h1>
+                </div>
+
+                <div class="user-profile-info p-4 border-cyber">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <i class="bi bi-person-bounding-box fs-1 text-neon-blue"></i>
+                        </div>
+                        <div class="col">
+                            <h4 class="mb-1 text-uppercase">GamerTag: <span class="text-neon-pink">@authContext.User.Identity?.Name</span></h4>
+                            <div class="role-badge-container">
+                                <span class="role-label">ACCÈS :</span>
+                                <span class="role-value @GetRoleClass(authContext.User)">
+                                    @GetRoleName(authContext.User)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-grid gap-3">
+                    <a href="buildings" class="btn-cyber text-center">
+                        <i class="bi bi-joystick me-2"></i> LANCER UNE SESSION
+                    </a>
+                </div>
+            </div>
+        </Authorized>
+
+        <NotAuthorized>
+            <div class="intruder-container text-center p-4">
+                <h1 class="neon-danger-lg blink mb-4">ALERTE_SÉCURITÉ</h1>
+
+                <div class="cat-frame mb-4">
+                    <img src="img/chatrreterparlapolice.png" alt="Intrus" class="suspect-image" />
+                    <div class="scanner-line"></div>
+                </div>
+
+                <div class="warning-text mb-5">
+                    <p class="h4 text-neon-blue mb-1">> ACCÈS_REFUSÉ : IDENTITÉ_INCONNUE</p>
+                    <p class="text-muted small">Veuillez présenter vos accréditations au terminal.</p>
+                </div>
+
+                <div class="mt-4">
+                    <a href="Account/Login" class="btn-neon-auth blink-soft">
+                        S'IDENTIFIER_ICI
+                    </a>
+                </div>
+            </div>
+        </NotAuthorized>
+
+    </AuthorizeView>
+</div>

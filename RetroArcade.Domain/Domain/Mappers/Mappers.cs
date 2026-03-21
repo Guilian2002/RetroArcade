@@ -30,6 +30,22 @@ namespace RetroArcade.Domain.Domain.Mappers
             );
         }
 
+        internal static Account ToAccountInfo(this IDataRecord record)
+        {
+            string roleString = (string)record["Role"];
+            Enum.TryParse(roleString, out Role roleResult);
+
+            return new Account(
+                (Guid)record["Id"],
+                (string)record["Firstname"],
+                (string)record["Lastname"],
+                (string)record["Username"],
+                (string)record["Email"],
+                "",
+                roleResult
+            );
+        }
+
         internal static Account ToAccountList(this IDataRecord record)
         {
             string roleString = (string)record["AccountRole"];
@@ -79,23 +95,8 @@ namespace RetroArcade.Domain.Domain.Mappers
             );
         }
 
-        internal static Building ToBuildingWithRoom(this IDataRecord record)
+        internal static Building MapToBuilding(this IDataRecord record)
         {
-            List<Room> rooms = new List<Room>();
-
-            if (record["RoomId"] != DBNull.Value)
-            {
-                var room = new Room(
-                    (Guid)record["RoomId"],
-                    (string)record["RoomName"],
-                    (int)record["RoomNumber"],
-                    (decimal)record["RoomPrice"],
-                    new Building(),
-                    (int)record["RoomMachineCapacity"]
-                );
-
-                rooms.Add(room);
-            }
             return new Building(
                 (Guid)record["BuildingId"],
                 (string)record["BuildingName"],
@@ -106,7 +107,7 @@ namespace RetroArcade.Domain.Domain.Mappers
                 (string)record["BuildingPostalCode"],
                 (string)record["BuildingCity"],
                 (string)record["BuildingCountry"],
-                rooms,
+                new List<Room>(),
                 new Manager(
                     (Guid)record["ManagerId"],
                     (string)record["ManagerFirstname"],
@@ -116,6 +117,21 @@ namespace RetroArcade.Domain.Domain.Mappers
                 )
             );
         }
+
+        internal static Room MapToRoom(this IDataRecord record)
+        {
+            if (record["RoomId"] == DBNull.Value) return null!;
+
+            return new Room(
+                (Guid)record["RoomId"],
+                (string)record["RoomName"],
+                (int)record["RoomNumber"],
+                (decimal)record["RoomPrice"],
+                null!,
+                (int)record["RoomMachineCapacity"]
+            );
+        }
+
         #endregion
         #region Room Mapper
         internal static Room ToRoom(this IDataRecord record)
@@ -305,10 +321,10 @@ namespace RetroArcade.Domain.Domain.Mappers
         }
         #endregion
         #region ArcadeMachine Mappers
-        internal static ArcadeMachine ToArcadeMachineList(this IDataRecord record)
+        internal static ArcadeMachine ToArcadeMachine(this IDataRecord record)
         {
             return new ArcadeMachine(
-                (Guid)record["ArcadeMachineId"],
+                (Guid)record["Id"],
                 (string)record["Name"],
                 (string)record["GameName"],
                 new Categorie(

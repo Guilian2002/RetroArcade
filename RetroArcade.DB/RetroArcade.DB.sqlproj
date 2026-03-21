@@ -110,6 +110,7 @@
     <Build Include="StoredProcedures\SP_Categorie_Get_All.sql" />
     <Build Include="StoredProcedures\SP_RoomArcadeMachine_Get_All.sql" />
     <Build Include="StoredProcedures\SP_RoomFeedback_Delete.sql" />
+    <Build Include="StoredProcedures\SP_ArcadeMachine_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeploymentInsertData.sql" />

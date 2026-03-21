@@ -5,6 +5,8 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+    EXEC [dbo].[SP_Booking_Update_Status];
+
 	 BEGIN TRY
         IF @accountId IS NULL OR @role IS NULL
         BEGIN

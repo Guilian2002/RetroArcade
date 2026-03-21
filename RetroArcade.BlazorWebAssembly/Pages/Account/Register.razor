@@ -1,0 +1,85 @@
+﻿@page "/Account/Create"
+@namespace RetroArcade.BlazorWebAssembly.Pages.Account
+
+<div class="d-flex justify-content-center align-items-center min-vh-100 py-5">
+    <div class="register-card">
+        <div class="text-center mb-5">
+            <i class="bi bi-controller fs-1 text-neon-pink pixel-icon"></i>
+            <h1 class="retro-title mt-2">INSCRIPTION</h1>
+            <div class="role-manager small letter-spacing-2">[ INSEREZ_UNE_PIECE_POUR_REJOINDRE ]</div>
+        </div>
+
+        <EditForm Model="model" OnValidSubmit="HandleRegister">
+            <DataAnnotationsValidator />
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <label class="label-cyber">> PRÉNOM</label>
+                    <div class="input-group-cyber">
+                        <InputText @bind-Value="model.Firstname" placeholder="KEN" />
+                    </div>
+                    <ValidationMessage For="@(() => model.Firstname)" />
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label class="label-cyber">> NOM</label>
+                    <div class="input-group-cyber">
+                        <InputText @bind-Value="model.Lastname" placeholder="MASTERS" />
+                    </div>
+                    <ValidationMessage For="@(() => model.Lastname)" />
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="label-cyber">> GAMERTAG (PSEUDO)</label>
+                <div class="input-group-cyber">
+                    <i class="bi bi-joystick pixel-icon"></i>
+                    <InputText @bind-Value="model.Username" placeholder="KEN_MASTER_84" />
+                </div>
+                <ValidationMessage For="@(() => model.Username)" />
+            </div>
+
+            <div class="mb-4">
+                <label class="label-cyber">> EMAIL_SERVEUR</label>
+                <div class="input-group-cyber">
+                    <i class="bi bi-envelope-at pixel-icon"></i>
+                    <InputText @bind-Value="model.Email" placeholder="KEN@ARCADE.COM" />
+                </div>
+                <ValidationMessage For="@(() => model.Email)" />
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <label class="label-cyber">> CODE_ACCÈS</label>
+                    <div class="input-group-cyber">
+                        <InputText @bind-Value="model.Password" type="@passwordType" />
+                        <button type="button" class="btn-eye" @onclick="TogglePassword">
+                            <i class="bi @(showPassword ? "bi-eye-slash" : "bi-eye")" style="color:var(--neon-blue)"></i>
+                        </button>
+                    </div>
+                    <ValidationMessage For="@(() => model.Password)" />
+                </div>
+                <div class="col-md-6 mb-5">
+                    <label class="label-cyber">> CONFIRMATION</label>
+                    <div class="input-group-cyber">
+                        <InputText @bind-Value="model.ConfirmPassword" type="@passwordType" />
+                    </div>
+                    <ValidationMessage For="@(() => model.ConfirmPassword)" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn-cyber-pink w-100" disabled="@isSubmitting">
+                @if (isSubmitting)
+                {
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                }
+                <i class="bi bi-person-plus-fill me-2"></i> CRÉER_MON_PROFIL
+            </button>
+
+            <div class="mt-5 text-center">
+                <a href="Account/Login" class="text-neon-blue small text-decoration-none hover-glow-blue">
+                    [ DÉJÀ UN COMPTE ? SE CONNECTER ]
+                </a>
+            </div>
+        </EditForm>
+    </div>
+</div>

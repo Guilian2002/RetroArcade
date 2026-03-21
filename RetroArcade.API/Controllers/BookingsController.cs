@@ -36,12 +36,18 @@ namespace RetroArcade.API.Controllers
         /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
         /// <response code="201">Accès accordé : Réservation créée avec succès.</response>
         /// <response code="400">Accès refusé : Données invalides ou réservation déjà existante.</response>
-        [Authorize]
+        [Authorize(Roles = "User")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create([FromBody] BookingCreateDTO dto, [FromServices] IValidator<AddBookingCommand> validator)
         {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (!Guid.TryParse(userIdClaim, out Guid userGuid))
+            {
+                return Unauthorized("Identifiant utilisateur invalide ou absent du token.");
+            }
             var command = new AddBookingCommand(
                 dto.BeginDate,
                 dto.EndDate,
@@ -49,7 +55,7 @@ namespace RetroArcade.API.Controllers
                 dto.Status.ToString(),
                 dto.Price,
                 dto.RoomId,
-                dto.AccountId
+                userGuid
             );
 
             var validationResult = validator.Validate(command);
@@ -72,7 +78,7 @@ namespace RetroArcade.API.Controllers
         /// <returns>Une collection de réservations.</returns>
         /// <response code="200">La liste des réservations a été récupérée avec succès.</response>
         /// <response code="400">Une erreur est survenue lors de l'exécution de la requête.</response>
-        [Authorize]
+        [Authorize(Roles = "Manager")]
         [HttpGet("byroom/{id:Guid}")]
         [ProducesResponseType(typeof(IEnumerable<Booking>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -118,7 +124,7 @@ namespace RetroArcade.API.Controllers
         /// <returns>Une collection de réservations.</returns>
         /// <response code="200">La liste des réservations a été récupérée avec succès.</response>
         /// <response code="400">Une erreur est survenue lors de l'exécution de la requête.</response>
-        [Authorize]
+        [Authorize(Roles = "User")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Booking>), StatusCodes.Status200OK)]
         public IActionResult GetAllBookingsByUserAccount()
@@ -145,7 +151,7 @@ namespace RetroArcade.API.Controllers
         /// <returns>Une collection de réservations.</returns>
         /// <response code="200">La liste des réservations a été récupérée avec succès.</response>
         /// <response code="400">Une erreur est survenue lors de l'exécution de la requête.</response>
-        [Authorize]
+        [Authorize(Roles = "Manager")]
         [HttpGet("bymanager")]
         [ProducesResponseType(typeof(IEnumerable<Booking>), StatusCodes.Status200OK)]
         public IActionResult GetAllBookingsByManagerAccount()
@@ -166,6 +172,7 @@ namespace RetroArcade.API.Controllers
 
             return Ok(result.Data);
         }
+
         /// <summary>
         /// Mets à jour une réservation dans la base de données.
         /// </summary>
@@ -177,7 +184,7 @@ namespace RetroArcade.API.Controllers
         /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
         /// <response code="200">Accès accordé : Réservation mis à jour avec succès.</response>
         /// <response code="400">Accès refusé : Données invalides.</response>
-        [Authorize]
+        [Authorize(Roles = "User")]
         [HttpPut("{id:Guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -220,7 +227,7 @@ namespace RetroArcade.API.Controllers
         /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
         /// <response code="200">Accès accordé : Réservation supprimer avec succès.</response>
         /// <response code="400">Accès refusé : Données invalides.</response>
-        [Authorize]
+        [Authorize(Roles = "User")]
         [HttpDelete("{id:Guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -234,7 +241,7 @@ namespace RetroArcade.API.Controllers
 
             Guid connectedUserId = Guid.Parse(userIdClaim);
 
-            var command = new DeleteBookingCommand(id, connectedUserId, userRole);
+            var command = new DeleteBookingCommand(id, connectedUserId, userRole!);
 
             var validationResult = validator.Validate(command);
             if (!validationResult.IsValid)

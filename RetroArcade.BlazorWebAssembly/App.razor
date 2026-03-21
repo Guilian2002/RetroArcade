@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    <div class="container mt-5">
+                        <div class="sab-card text-center">
+                            <h2 class="retro-title text-pink">ACCÈS REFUSÉ</h2>
+                            <p class="text-white mt-3">Identifiants insuffisants.</p>
+                            <a href="/buildings" class="btn-cyber mt-4">RETOUR AU QG</a>
+                        </div>
+                    </div>
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>418 - I'm a teapot</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <div class="teapot-container">
+                    <div class="stars-container">
+                        @for (int i = 0; i < 30; i++)
+                        {
+                            <div class="star s-@i"></div>
+                        }
+                    </div>
+
+                    <div class="error-background glitch" data-text="418">418</div>
+
+                    <div class="teapot-art">
+                        <div class="cat-ears-v2">
+                            <span class="ear-l"></span>
+                            <span class="ear-r"></span>
+                        </div>
+                        <div class="teapot-main">
+                            <div class="steam-container">
+                                <span class="s1"></span><span class="s2"></span><span class="s3"></span>
+                            </div>
+                            <div class="cat-face">
+                                <div class="eye-l"></div>
+                                <div class="eye-r"></div>
+                            </div>
+                        </div>
+                        <div class="teapot-handle"></div>
+                        <div class="teapot-spout"></div>
+                    </div>
+
+                    <div class="text-content text-center">
+                        <h2 class="retro-title text-pink mt-4">ERREUR 418 : I'M A TEAPOT</h2>
+                        <p class="cyber-label mt-2">Le serveur est une théière stellaire habitée par un félin.</p>
+                        <a href="/" class="btn-cyber mt-5">REBOOTER LA GALAXIE</a>
+                    </div>
+                </div>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

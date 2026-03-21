@@ -12,6 +12,19 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    DECLARE @actualManagerId UNIQUEIDENTIFIER;
+
+    SELECT @actualManagerId = M.[Id]
+    FROM [dbo].[Manager] M
+    INNER JOIN [dbo].[Account] A ON M.[Email] = A.[Email]
+    WHERE A.[Id] = @managerId;
+
+    IF @actualManagerId IS NULL
+    BEGIN
+        RAISERROR('Profil Manager introuvable pour ce compte.', 16, 1);
+        RETURN;
+    END
+
     IF (@name IS NULL OR LTRIM(@name) = '') OR
        (@openingHour IS NULL) OR
        (@closingHour IS NULL) OR
@@ -34,5 +47,5 @@ BEGIN
     INSERT INTO [dbo].[Building] 
         ([Name], [OpeningHour], [ClosingHour], [Address_Street], [Address_Number], [PostalCode], [City], [Country], [ManagerId])
     VALUES 
-        (@name, @openingHour, @closingHour, @addressStreet, @addressNumber, @postalCode, @city, @country, @managerId);
+        (@name, @openingHour, @closingHour, @addressStreet, @addressNumber, @postalCode, @city, @country, @actualManagerId);
 END

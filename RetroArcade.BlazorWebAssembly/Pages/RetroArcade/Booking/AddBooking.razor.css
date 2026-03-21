@@ -1,0 +1,112 @@
+﻿/* --- STRUCTURE --- */
+.main-form-container {
+    border-top: 4px solid var(--neon-blue);
+    padding: 40px;
+    background: rgba(20, 0, 40, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+}
+
+.cyber-line {
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
+    margin-top: 10px;
+}
+
+.courier {
+    font-family: 'Courier New', monospace;
+}
+
+/* --- LISIBILITÉ DES INPUTS (FORCE LE BLANC) --- */
+.cyber-label {
+    display: block;
+    color: var(--neon-blue);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* Sélecteur ultra-puissant pour écraser les thèmes sombres globaux */
+html body .main-form-container input.cyber-input {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    border: 2px solid var(--neon-blue) !important;
+    color: #000000 !important; /* Texte noir sur fond blanc */
+    border-radius: 2px;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    opacity: 1 !important;
+}
+
+    html body .main-form-container input.cyber-input:focus {
+        background-color: #ffffff !important;
+        border-color: var(--neon-pink) !important;
+        box-shadow: 0 0 15px rgba(255, 0, 255, 0.4) !important;
+        outline: none;
+    }
+
+    /* Force l'icône calendrier en noir car le fond est blanc */
+    html body .main-form-container input.cyber-input::-webkit-calendar-picker-indicator {
+        display: block !important;
+        filter: invert(0) !important;
+        cursor: pointer;
+        opacity: 1 !important;
+    }
+
+/* Cache les flèches des minutes */
+.cyber-input::-webkit-inner-spin-button,
+.cyber-input::-webkit-clear-button {
+    display: none;
+}
+
+/* --- REÇU DE PRIX --- */
+.price-receipt {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px dashed var(--neon-pink);
+    border-radius: 4px;
+}
+
+.price-value {
+    font-size: 2.2rem;
+    font-weight: 900;
+    font-family: 'Courier New', monospace;
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.label-mini {
+    font-size: 0.65rem;
+    color: #a0a0a0;
+    letter-spacing: 2px;
+}
+
+.opening-hours-info {
+    color: var(--neon-blue);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* --- UTILS --- */
+.validation-message {
+    color: var(--cyber-yellow);
+    font-size: 0.8rem;
+    margin-top: 5px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.alert-cyber {
+    background: rgba(255, 0, 0, 0.15);
+    border: 1px solid #ff3333;
+    color: #ffcccc;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+.no-decoration {
+    text-decoration: none;
+}
