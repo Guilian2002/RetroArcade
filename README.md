@@ -8,6 +8,7 @@ Retro’s Arcade Room n'est pas qu'un simple outil de gestion. C'est un écosyst
 🏛️ Architecture de la Solution
 Le projet est segmenté en 6 modules spécialisés pour garantir une séparation stricte des responsabilités :
 
+    RetroArcade.Blazor : Le Front-end Framework Blazor et ses composants. Un théme Retro arcade Cyberpunk minimaliste
     RetroArcade.ASPCore : Le Front-end MVC. Une interface utilisateur sombre, néon et dynamique, conçue pour l'immersion.
     RetroArcade.API : La couche de services exposant les endpoints sécurisés.
     RetroArcade.Domain : Le cœur métier (Entités, Logique de prix, Gestion des origines des machines).
@@ -73,7 +74,7 @@ graph TD
     Booking System : Réservation de bornes ou de salles privées (min. 4 personnes).
     Profil Tech : Historique des parties, notes sur les machines et consultation de la popularité "Live".
 
-💼 Manager (Succursale) (coming soon)
+💼 Manager (Succursale) (ongoing)
 
     Mission Control : Gestion locale des salles, des machines et des disponibilités.
     Data Insights : Suivi des revenus et statistiques de fréquentation par plage horaire.
@@ -98,13 +99,15 @@ Partie 1 (implémentation des utilisateurs) (ongoing):
 
 ```mermaid
 erDiagram
-    ACCOUNT ||--|| ACCOUNTCREDENTIAL : "possède"
+    ACCOUNT ||--|| ACCOUNT_CREDENTIAL : "possède"
     ACCOUNT ||--o{ BOOKING : "effectue"
     BUILDING ||--o{ ROOM : "contient"
+    BUILDING ||--|| MANAGER : "est géré par"
     ROOM ||--o{ BOOKING : "est réservée"
-    ROOM ||--o{ ROOMFEEDBACK : "reçoit"
-    ROOM ||--o{ ROOMARCADEMACHINE : "héberge"
-    ARCADEMACHINE ||--o{ ROOMARCADEMACHINE : "est installée dans"
+    ROOM ||--o{ ROOM_FEEDBACK : "reçoit"
+    ROOM ||--o{ ROOM_ARCADE_MACHINE : "héberge"
+    ARCADE_MACHINE ||--o{ ROOM_ARCADE_MACHINE : "est installée dans"
+    ARCADE_MACHINE }o--|| CATEGORIE : "appartient à"
 
     ACCOUNT {
         Guid AccountId PK
@@ -112,11 +115,13 @@ erDiagram
         Varchar Firstname
         Varchar Username
         Varchar Email
+        Varchar Role
         Date CreationDate
+        Date DisableDate
         Logical IsActive
     }
 
-    ACCOUNTCREDENTIAL {
+    ACCOUNT_CREDENTIAL {
         Guid AccountCredentialId PK
         Varbinary PasswordHash
         Guid Salt
@@ -125,9 +130,8 @@ erDiagram
 
     BOOKING {
         Guid BookingId PK
-        Date BookingDate
-        Time BeginHour
-        Time EndHour
+        DateTime BeginDate
+        DateTime EndDate
         Int GroupSize
         Varchar Status
         Currency Price
@@ -154,9 +158,18 @@ erDiagram
         Varchar PostalCode
         Varchar City
         Varchar Country
+        Guid ManagerId FK
     }
 
-    ROOMFEEDBACK {
+    MANAGER {
+        Guid ManagerId PK
+        Varchar Lastname
+        Varchar Firstname
+        Varchar Username
+        Varchar Email
+    }
+
+    ROOM_FEEDBACK {
         Guid RoomFeedbackId PK
         Int Stars
         Date CommentDate
@@ -165,20 +178,26 @@ erDiagram
         Guid RoomId FK
     }
 
-    ROOMARCADEMACHINE {
+    ROOM_ARCADE_MACHINE {
         Guid RoomId FK
         Guid ArcadeMachineId FK
         Varchar State
         DateTime InstallationDate
     }
 
-    ARCADEMACHINE {
+    ARCADE_MACHINE {
         Guid ArcadeMachineId PK
         Varchar Name
         Varchar GameName
+        Guid CategorieId FK
+    }
+
+    CATEGORIE {
+        Guid CategorieId PK
+        Varchar Name
     }
 ```
-<img width="1414" height="530" alt="image" src="https://github.com/user-attachments/assets/49f0330e-d11b-459d-b183-fdb36e2ec867" />
+<img width="1375" height="675" alt="image" src="https://github.com/user-attachments/assets/8b50e36d-c5cd-44dd-9f2c-33f28b6c2428" />
 
 Partie 2 (implémentation des managers) (coming soon):
 
