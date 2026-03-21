@@ -1,53 +1,59 @@
 ﻿@page "/Account/Login"
 @namespace RetroArcade.BlazorWebAssembly.Pages.Account
 
-<PageTitle>RetroArcade - Connexion</PageTitle>
+<div class="login-container">
+    <div class="login-card">
+        <div class="text-center mb-5">
+            <h1 class="retro-title" style="font-size: 2.5rem;">> CONNEXION</h1>
+            <div class="role-manager small mt-2">[ VEUILLEZ_CHARGER_VOTRE_PROFIL ]</div>
+        </div>
 
-<div class="register-container">
-    <div class="cyber-header">
-        <span class="glitch-text">ENREGISTREMENT REQUIS</span>
-        <h3>Connexion</h3>
-    </div>
+        <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
 
-    <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
-        <DataAnnotationsValidator />
+            @if (!string.IsNullOrEmpty(error))
+            {
+                <div class="alert alert-cyber mb-4">
+                    <i class="bi bi-exclamation-octagon me-2"></i> @error
+                </div>
+            }
 
-        @if (!string.IsNullOrEmpty(error))
-        {
-            <div class="alert-cyber">
-                <i class="bi bi-shield-lock-fill"></i> @error
-            </div>
-        }
-
-        <div class="mb-4 cyber-input-group">
-            <label><i class="bi bi-envelope-at"></i> Identifiant Email</label>
-            <InputText @bind-Value="loginModel.Email" class="form-control" placeholder="user@retro.com" />
-            <div class="validation-message-container">
+            <div class="mb-4">
+                <label class="role-user small">> IDENTIFIANT_EMAIL</label>
+                <div class="input-group-cyber">
+                    <InputText @bind-Value="loginModel.Email" class="form-control-cyber" placeholder="JOUEUR@RETRO.COM" />
+                </div>
                 <ValidationMessage For="@(() => loginModel.Email)" />
             </div>
-        </div>
 
-        <div class="mb-4 cyber-input-group">
-            <label>MOT DE PASSE</label>
-            <div class="input-group">
-                <InputText @bind-Value="loginModel.Password" type="@passwordType" class="form-control" />
-                <span class="input-group-text" @onclick="TogglePassword">
-                    <i class="bi @(showPassword ? "bi-eye-slash" : "bi-eye")"></i>
-                </span>
+            <div class="mb-5">
+                <label class="role-user small">> CODE_ACCÈS</label>
+                <div class="input-group-cyber">
+                    <InputText @bind-Value="loginModel.Password" type="@passwordType" class="form-control-cyber" placeholder="********" />
+                    <button type="button" class="btn-eye" @onclick="TogglePassword" tabindex="-1">
+                        <i class="bi @(showPassword ? "bi-eye-slash" : "bi-eye")" style="color: var(--neon-blue)"></i>
+                    </button>
+                </div>
+                <ValidationMessage For="@(() => loginModel.Password)" />
             </div>
-            <ValidationMessage For="@(() => loginModel.Password)" />
-        </div>
 
-        <div class="text-center mt-5">
-            <button type="submit" class="btn btn-success w-100 btn-cyber">
-                <i class="bi bi-box-arrow-in-right"></i> CHARGER LE PROFIL
+            <button type="submit" class="btn-neon-submit w-100" disabled="@isSubmitting">
+                @if (isSubmitting)
+                {
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    <span>CHARGEMENT...</span>
+                }
+                else
+                {
+                    <span>INITIALISER_SESSION</span>
+                }
             </button>
-        </div>
 
-        <div class="mt-3 text-center">
-            <a href="Account/Create" class="glitch-text" style="text-decoration:none; font-size:0.6rem;">
-                PAS DE COMPTE ? CRÉER UN NOUVEAU JOUEUR
-            </a>
-        </div>
-    </EditForm>
+            <div class="mt-5 text-center">
+                <a href="Account/Create" class="text-neon-pink small text-decoration-none hover-glow">
+                    [ CRÉER_UN_NOUVEAU_COMPTE ]
+                </a>
+            </div>
+        </EditForm>
+    </div>
 </div>

@@ -1,15 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RetroArcade.BlazorWebAssembly.Models.RetroArcade.Manager;
+using RetroArcade.BlazorWebAssembly.Models.RetroArcade.Room;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
-namespace RetroArcade.BlazorWebAssembly.Models.RetroArcade
+namespace RetroArcade.BlazorWebAssembly.Models.RetroArcade.Building
 {
     public class BuildingViewModel
     {
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; } = Guid.Empty;
 
         [Required(ErrorMessage = "Le nom est obligatoire")]
         [Display(Name = "Nom du bâtiment")]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "L'heure d'ouverture est requise")]
         [Display(Name = "Heure d'ouverture")]
@@ -45,6 +48,10 @@ namespace RetroArcade.BlazorWebAssembly.Models.RetroArcade
 
         public string FullAddress => $"{Street} {Number}, {PostalCode} {City}, {Country}";
 
-        public IEnumerable<RoomViewModel> RoomViewModel { get; set; } = new List<RoomViewModel>();
+        [JsonPropertyName("rooms")]
+        public IEnumerable<RoomViewModel> Rooms { get; set; } = new List<RoomViewModel>();
+
+        [JsonPropertyName("manager")]
+        public ManagerViewModel? Manager { get; set; }
     }
 }

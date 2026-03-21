@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using RetroArcade.BlazorWebAssembly;
 using RetroArcade.BlazorWebAssembly.Clients;
+using System.Globalization;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

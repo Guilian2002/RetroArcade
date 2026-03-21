@@ -1,0 +1,119 @@
+﻿/* --- NAVIGATION & FIL D'ARIANE --- */
+.cyber-breadcrumb {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-left: 3px solid var(--neon-blue);
+}
+
+    .cyber-breadcrumb a {
+        color: var(--neon-blue);
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
+
+    .cyber-breadcrumb .active {
+        color: #fff;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
+/* --- TYPOGRAPHIE --- */
+.retro-title-sm {
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.cyber-label-small {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--neon-blue);
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.text-muted-cyber {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* --- CARTES & BORDURES --- */
+.border-cyan {
+    border: 1px solid var(--neon-blue) !important;
+}
+
+.cyber-divider {
+    height: 1px;
+    background: rgba(0, 255, 255, 0.2);
+}
+
+.badge-neon {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    background: rgba(0, 255, 255, 0.1);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* --- SALLES (ROOM ITEMS) --- */
+.room-item-cyber {
+    background: rgba(20, 0, 40, 0.6);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-left: 4px solid var(--neon-blue);
+    transition: 0.3s ease;
+}
+
+    .room-item-cyber:hover {
+        border-left-color: var(--neon-pink);
+        background: rgba(255, 0, 255, 0.05);
+        transform: translateX(5px);
+    }
+
+/* --- BOUTONS MINI --- */
+.btn-mini-cyber {
+    padding: 5px 15px;
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
+/* --- UTILS --- */
+.text-pink {
+    color: var(--neon-pink) !important;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+.text-cyan {
+    color: var(--neon-blue) !important;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.no-decoration {
+    text-decoration: none;
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 0;
+}
+
+.cyber-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid transparent;
+    border-top-color: var(--neon-blue);
+    border-bottom-color: var(--neon-pink);
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

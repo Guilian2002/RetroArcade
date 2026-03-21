@@ -5,7 +5,7 @@ using RetroArcade.BlazorWebAssembly.Models.Authentification;
 
 namespace RetroArcade.BlazorWebAssembly.Pages.Account
 {
-    public partial class Login
+    public partial class Login : ComponentBase
     {
         [Inject] public AuthentificationAPIClient AuthClient { get; set; } = default!;
         [Inject] public NavigationManager Navigation { get; set; } = default!;
@@ -13,18 +13,17 @@ namespace RetroArcade.BlazorWebAssembly.Pages.Account
 
         protected LoginViewModel loginModel = new();
         protected string? error;
+        protected bool isSubmitting = false;
 
-        // Gestion de la visibilité
         protected bool showPassword = false;
         protected string passwordType => showPassword ? "text" : "password";
+
         protected void TogglePassword() => showPassword = !showPassword;
 
         protected override async Task OnInitializedAsync()
         {
             var authState = await AuthProvider.GetAuthenticationStateAsync();
-            var user = authState.User;
-
-            if (user.Identity is not null && user.Identity.IsAuthenticated)
+            if (authState.User.Identity?.IsAuthenticated ?? false)
             {
                 Navigation.NavigateTo("/");
             }
@@ -32,17 +31,36 @@ namespace RetroArcade.BlazorWebAssembly.Pages.Account
 
         protected async Task HandleLogin()
         {
-            error = null;
-            bool success = await AuthClient.LoginAsync(loginModel.Email, loginModel.Password);
+            if (isSubmitting) return;
 
-            if (success)
+            error = null;
+            isSubmitting = true;
+
+            try
             {
-                ((CustomAuthenticationStateProvider)AuthProvider).NotifyUserChanged();
-                Navigation.NavigateTo("/");
+                bool success = await AuthClient.LoginAsync(loginModel.Email, loginModel.Password);
+
+                if (success)
+                {
+                    if (AuthProvider is CustomAuthenticationStateProvider customProvider)
+                    {
+                        customProvider.NotifyUserChanged();
+                    }
+
+                    Navigation.NavigateTo("/");
+                }
+                else
+                {
+                    error = "ACCÈS REFUSÉ : Identifiants ou accès invalides.";
+                }
             }
-            else
+            catch (Exception)
             {
-                error = "ACCÈS REFUSÉ : Identifiants invalides.";
+                error = "ERREUR SYSTÈME : Serveur d'authentification injoignable.";
+            }
+            finally
+            {
+                isSubmitting = false;
             }
         }
     }

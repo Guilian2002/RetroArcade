@@ -84,7 +84,6 @@ namespace RetroArcade.API.Controllers
         /// <summary>
         /// Met à jour la machine d'arcade dans une pièce dans la base de données.
         /// </summary>
-        /// <param name="id">Identifiant de la machine d'arcade</param>
         /// <param name="dto">Données de la machine d'arcade dans une pièce à mettre à jour du manager.</param>
         /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
         /// <response code="200">Accès accordé : Machine d'arcade dans une pièce mis à jour avec succès.</response>

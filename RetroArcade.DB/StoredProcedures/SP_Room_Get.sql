@@ -52,7 +52,7 @@ BEGIN
 		RF.[Username] AS RoomFeedbackUsername
 
 	FROM [dbo].[Room] R
-	INNER JOIN [RoomFeedback] RF ON R.[Id] = RF.[RoomId]
+	LEFT JOIN [RoomFeedback] RF ON R.[Id] = RF.[RoomId]
 	INNER JOIN [dbo].[Building] B ON R.[BuildingId] = B.[Id]
 	LEFT JOIN [dbo].[Manager] M ON B.[ManagerId] = M.[Id]
 	LEFT JOIN [dbo].[RoomArcadeMachine] RAM ON R.[Id] = RAM.[RoomId]

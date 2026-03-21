@@ -1,0 +1,242 @@
+﻿/* --- BADGES DE STATUS NÉON --- */
+.badge-status {
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+/* Vert - Fonctionnelle */
+.badge-status.active {
+    background: rgba(0, 255, 136, 0.1);
+    color: #00ff88;
+    border: 1px solid #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+}
+
+/* Orange - Maintenance */
+.badge-status.maintenance {
+    background: rgba(255, 166, 0, 0.1);
+    color: #ffa600;
+    border: 1px solid #ffa600;
+    box-shadow: 0 0 10px rgba(255, 166, 0, 0.2);
+}
+
+/* Rouge/Rose - Hors Service (Broken) */
+.badge-status.broken {
+    background: rgba(255, 0, 85, 0.1);
+    color: var(--neon-pink);
+    border: 1px solid var(--neon-pink);
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);
+}
+
+/* --- GRILLE DES MACHINES --- */
+.machine-item-cyber {
+    background: rgba(20, 0, 40, 0.6);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-left: 5px solid var(--neon-blue);
+    transition: 0.3s ease;
+    min-height: 90px;
+}
+
+.machine-item-cyber:hover {
+    border-left-color: var(--neon-pink);
+    background: rgba(255, 0, 255, 0.05);
+    transform: translateY(-2px);
+}
+
+/* --- BOUTONS MINI --- */
+.btn-mini-cyber {
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 4px 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-mini-pink { border-color: var(--neon-pink) !important; color: var(--neon-pink) !important; }
+.btn-mini-pink:hover { background: var(--neon-pink); color: #fff !important; }
+
+/* --- UTILS --- */
+.text-cyan { color: var(--neon-blue); text-shadow: 0 0 8px rgba(0, 255, 255, 0.3); }
+.text-pink { color: var(--neon-pink); text-shadow: 0 0 8px rgba(255, 0, 255, 0.3); }
+.retro-title-sm { font-weight: 800; color: #fff; text-transform: uppercase; }
+.italic { font-style: italic; }
+.blur-content { filter: blur(12px); pointer-events: none; }
+.loader-container { display: flex; flex-direction: column; align-items: center; padding: 100px 0; }
+.cyber-spinner { width: 40px; height: 40px; border: 3px solid transparent; border-top-color: var(--neon-blue); border-bottom-color: var(--neon-pink); border-radius: 50%; animation: spin 1s infinite linear; }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* --- BADGES DE STATUS NÉON --- */
+.badge-status {
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+    /* Vert - Fonctionnelle */
+    .badge-status.active {
+        background: rgba(0, 255, 136, 0.1);
+        color: #00ff88;
+        border: 1px solid #00ff88;
+        box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+    }
+
+    /* Orange - Maintenance */
+    .badge-status.maintenance {
+        background: rgba(255, 166, 0, 0.1);
+        color: #ffa600;
+        border: 1px solid #ffa600;
+        box-shadow: 0 0 10px rgba(255, 166, 0, 0.2);
+    }
+
+    /* Rouge/Rose - Hors Service (Broken) */
+    .badge-status.broken {
+        background: rgba(255, 0, 85, 0.1);
+        color: var(--neon-pink);
+        border: 1px solid var(--neon-pink);
+        box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);
+    }
+
+/* --- GRILLE DES MACHINES --- */
+.machine-item-cyber {
+    background: rgba(20, 0, 40, 0.6);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-left: 5px solid var(--neon-blue);
+    transition: 0.3s ease;
+    min-height: 90px;
+}
+
+    .machine-item-cyber:hover {
+        border-left-color: var(--neon-pink);
+        background: rgba(255, 0, 255, 0.05);
+        transform: translateY(-2px);
+    }
+
+/* --- BOUTONS MINI --- */
+.btn-mini-cyber {
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    min-width: 125px; /* Largeur pour SUPPRIMER */
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 15px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.btn-mini-pink {
+    border-color: var(--neon-pink) !important;
+    color: var(--neon-pink) !important;
+}
+
+    .btn-mini-pink:hover {
+        background: var(--neon-pink);
+        color: #fff !important;
+    }
+
+/* --- UTILS --- */
+.text-cyan {
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+}
+
+.text-pink {
+    color: var(--neon-pink);
+    text-shadow: 0 0 8px rgba(255, 0, 255, 0.3);
+}
+
+.retro-title-sm {
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.blur-content {
+    filter: blur(12px);
+    pointer-events: none;
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 0;
+}
+
+.cyber-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid transparent;
+    border-top-color: var(--neon-blue);
+    border-bottom-color: var(--neon-pink);
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+.feedback-item-cyber {
+    background: rgba(20, 0, 40, 0.4);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-left: 3px solid var(--neon-blue);
+    padding: 15px;
+    border-radius: 0 4px 4px 0;
+    transition: 0.3s ease;
+}
+
+    .feedback-item-cyber:hover {
+        background: rgba(0, 255, 255, 0.03);
+        border-left-color: var(--neon-pink);
+        box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
+    }
+
+/* Pseudo du client */
+.username {
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Étoiles Néon */
+.stars-neon {
+    font-size: 1.1rem;
+    line-height: 1;
+    margin-top: 5px;
+}
+
+.text-muted-dark {
+    color: rgba(255, 255, 255, 0.1); /* Étoiles vides sombres */
+}
+
+/* Corps du commentaire (Lisibilité Max) */
+.comment-text {
+    color: #ffffff;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

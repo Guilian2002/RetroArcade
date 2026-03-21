@@ -1,35 +1,48 @@
 ﻿@page "/privacy"
 @namespace RetroArcade.BlazorWebAssembly.Pages
 
-<div class="container">
-    <div class="arcade-card">
-        <h1 class="arcade-title blink">> PROTOCOLE_CONFIDENTIALITÉ</h1>
+<div class="privacy-container">
+    <div class="sab-card">
 
-        <div class="terminal-box" style="border-left: 6px solid var(--neon-cyan); padding: 30px; background: rgba(0, 0, 0, 0.5);">
-            <p class="text-neon-cyan" style="font-size: 18px; letter-spacing: 2px;">
+        <header class="terminal-header">
+            <h1 class="retro-title">> PROTOCOLE_CONFIDENTIALITÉ</h1>
+            <div class="status-badge">
                 [ STATUT : CHIFFREMENT_SÉCURITÉ_MAXIMAL ]
+            </div>
+        </header>
+
+        <section class="policy-grid">
+            <div class="policy-item">
+                <div class="policy-label">> COLLECTE_DONNÉES</div>
+                <div class="text-main">[ RESTREINTE ]</div>
+            </div>
+            <div class="policy-item">
+                <div class="policy-label">> STATUT_COOKIES</div>
+                <div class="text-main">[ ANONYMISÉS ]</div>
+            </div>
+        </section>
+
+        <hr class="neon-divider" />
+
+        <div class="legal-body mb-5">
+            <p class="role-user">ARCHIVE_SÉCURISÉE :</p>
+            <p>
+                LES DONNÉES UTILISATEUR SONT PROTÉGÉES PAR LA GRILLE DE DÉFENSE
+                <span class="role-manager">RETRO_ARCADE_SHIELD</span>.
+                AUCUNE EXTRACTION EXTERNE N'EST AUTORISÉE SANS ACCRÉDITATION NIVEAU 5.
             </p>
-
-            <div class="policy-content mt-5" style="font-size: 16px;">
-                <p style="color: var(--retro-orange); "> > COLLECTE_DONNÉES : [ RESTREINTE ]</p>
-                <p style="color: var(--retro-orange); "> > STATUT_COOKIES : [ ANONYMISÉS ]</p>
-            </div>
-
-            <hr class="neon-hr" style="border-top: 3px solid var(--neon-magenta); margin: 40px 0;" />
-
-            <div class="legal-text" style="color: #eee; text-align: justify;">
-                <p>LES DONNÉES UTILISATEUR SONT PROTÉGÉES PAR LA GRILLE DE DÉFENSE RETRO_ARCADE.</p>
-            </div>
-
-            <div class="mt-5 text-center">
-                <NavLink href="/" class="btn-arcade btn-secondary">
-                    RETOUR_AU_HUB_PRINCIPAL
-                </NavLink>
-            </div>
         </div>
 
-        <div class="mt-4 text-end" style="font-size: 10px; color: #444;">
-            DERNIÈRE_MAJ : @_dateMaj // SIGNATURE : @_signature
+        <div class="text-center mt-4">
+            <NavLink href="/" class="btn-cyber btn-cyber-pink">
+                RETOUR_AU_HUB_PRINCIPAL
+            </NavLink>
         </div>
+
+        <footer class="terminal-footer mt-5 d-flex justify-content-between">
+            <span>DERNIÈRE_MAJ : @_dateMaj</span>
+            <span>SIGNATURE_SYSTÈME : @_signature</span>
+        </footer>
+
     </div>
 </div>

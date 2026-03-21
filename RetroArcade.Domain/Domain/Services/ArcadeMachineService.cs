@@ -4,6 +4,7 @@ using RetroArcade.Domain.Domain.Commands.ArcadeMachineCommands;
 using RetroArcade.Domain.Domain.Entities;
 using RetroArcade.Domain.Domain.Mappers;
 using RetroArcade.Domain.Domain.Queries.ArcadeMachineQueries;
+using RetroArcade.Domain.Domain.Queries.BookingQueries;
 using RetroArcade.Domain.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -81,7 +82,19 @@ namespace RetroArcade.Domain.Domain.Services
             try
             {
                 return _dbConnection.ExecuteReader("SP_ArcadeMachine_Get_All",
-                    dr => dr.ToArcadeMachineList()).ToList();
+                    dr => dr.ToArcadeMachine()).ToList();
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+        public CqsResult<ArcadeMachine> Execute(GetArcadeMachineByIdQuery query)
+        {
+            try
+            {
+                return _dbConnection.ExecuteReader("SP_ArcadeMachine_Get",
+                    dr => dr.ToArcadeMachine(), true, parameters: query).SingleOrDefault()!;
             }
             catch (Exception ex)
             {

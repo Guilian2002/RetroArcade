@@ -84,10 +84,16 @@ namespace RetroArcade.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create([FromBody] RoomFeedbackCreateDTO dto, [FromServices] IValidator<AddRoomFeedbackCommand> validator)
         {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (!Guid.TryParse(userIdClaim, out Guid userGuid))
+            {
+                return Unauthorized("Identifiant utilisateur invalide ou absent du token.");
+            }
             var command = new AddRoomFeedbackCommand(
                 dto.Stars,
                 dto.Comment,
-                dto.AccountId,
+                userGuid,
                 dto.RoomId
             );
 
@@ -108,8 +114,7 @@ namespace RetroArcade.API.Controllers
         /// <summary>
         /// Supprime un commentaire dans la base de données.
         /// </summary>
-        /// <param name="roomId">Identifiant du commentaire</param>
-        /// <param name="arcadeMachineId">Identifiant du commentaire</param>
+        /// <param name="id">Identifiant du commentaire</param>
         /// <param name="validator">Vérifie que les données sont correctes avant l'envoi</param>
         /// <response code="200">Accès accordé : Commentaire supprimer avec succès.</response>
         /// <response code="400">Accès refusé : Données invalides.</response>

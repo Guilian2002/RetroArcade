@@ -81,3 +81,173 @@
         overflow-y: auto;
     }
 }
+/* Fond sombre avec une touche de violet rétro */
+.bg-retro-dark {
+    background-color: #0d0221 !important;
+    border-bottom: 2px solid #ff00ff;
+}
+
+/* Titre avec effet néon */
+.retro-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 0 0 8px #00ffff;
+    letter-spacing: 1px;
+}
+
+/* Image du logo arcade */
+.arcade-img {
+    width: 32px;
+    height: 32px;
+    filter: drop-shadow(0 0 5px #ff00ff);
+}
+
+/* Style des liens de navigation */
+.nav-link {
+    color: #e0e0e0 !important;
+    border-radius: 8px;
+    transition: all 0.3s;
+    margin-bottom: 2px;
+}
+
+    .nav-link:hover, .nav-link.active {
+        background: rgba(255, 0, 255, 0.15) !important;
+        color: #ff00ff !important;
+        box-shadow: inset 0 0 5px rgba(255, 0, 255, 0.5);
+    }
+
+/* Headers de section */
+.nav-header {
+    letter-spacing: 2px;
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+/* Icônes */
+.bi {
+    font-size: 1.1rem;
+}
+
+/* --- BARRE DE NAVIGATION (TOP) --- */
+.bg-retro-dark {
+    background-color: #0d0221 !important;
+    border-bottom: 2px solid #ff00ff !important;
+    height: 4.5rem; /* Légèrement plus grand pour le style */
+    display: flex !important;
+    align-items: center;
+}
+
+.shadow-neon {
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+}
+
+/* --- LOGO "ART DE LA BARRE" --- */
+.logo-container {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 255, 255, 0.1);
+    border: 2px solid #00ffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #00ffff, inset 0 0 5px #00ffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.arcade-icon-font {
+    font-size: 1.5rem !important;
+    color: #ff00ff !important;
+    text-shadow: 0 0 8px #ff00ff;
+    animation: flicker-icon 3s infinite;
+}
+
+/* Effet de balayage sur le logo */
+.logo-container::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: rotate(45deg);
+    animation: shine 4s infinite;
+}
+
+/* --- TITRE NÉON --- */
+.retro-title {
+    font-family: 'Courier New', monospace;
+    font-weight: 900;
+    color: #00ffff !important;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0, 255, 255, 0.5);
+    letter-spacing: 2px;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+}
+
+/* --- NAVIGATION GÉNÉRALE --- */
+.nav-scrollable {
+    background-color: #0d0221;
+}
+
+.nav-item {
+    font-size: 0.9rem;
+    padding: 0.2rem 0.5rem;
+}
+
+.nav-item ::deep a {
+    color: #d1d1d1 !important;
+    border-radius: 4px;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.nav-item ::deep a:hover, 
+.nav-item ::deep a.active {
+    background: rgba(0, 255, 255, 0.1) !important;
+    color: #00ffff !important;
+    border-left: 4px solid #ff00ff !important;
+    text-shadow: 0 0 5px #00ffff;
+    transform: translateX(5px);
+}
+
+/* --- EN-TÊTES (ADMIN, GESTION...) --- */
+.nav-header {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    padding: 1.5rem 1.5rem 0.5rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes flicker-icon {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.5; }
+    94% { opacity: 1; }
+    95% { opacity: 0.2; }
+    96% { opacity: 1; }
+}
+
+@keyframes shine {
+    0% { left: -100%; top: -100%; }
+    20% { left: 100%; top: 100%; }
+    100% { left: 100%; top: 100%; }
+}
+
+/* --- RESPONSIVE --- */
+@media (min-width: 641px) {
+    .nav-scrollable {
+        height: calc(100vh - 4.5rem);
+        overflow-y: auto;
+    }
+}

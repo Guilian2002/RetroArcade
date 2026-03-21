@@ -87,6 +87,12 @@ namespace RetroArcade.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create([FromBody] BuildingCreateDTO dto, [FromServices] IValidator<AddBuildingCommand> validator)
         {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (!Guid.TryParse(userIdClaim, out Guid userGuid))
+            {
+                return Unauthorized("Identifiant utilisateur invalide ou absent du token.");
+            }
             var command = new AddBuildingCommand(
                 dto.Name,
                 dto.OpeningHour,
@@ -96,7 +102,7 @@ namespace RetroArcade.API.Controllers
                 dto.PostalCode,
                 dto.City,
                 dto.Country,
-                dto.ManagerId
+                userGuid
             );
 
             var validationResult = validator.Validate(command);
@@ -129,6 +135,12 @@ namespace RetroArcade.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult Update(Guid id, [FromBody] BuildingUpdateDTO dto, [FromServices] IValidator<UpdateBuildingCommand> validator)
         {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (!Guid.TryParse(userIdClaim, out Guid userGuid))
+            {
+                return Unauthorized("Identifiant utilisateur invalide ou absent du token.");
+            }
             var command = new UpdateBuildingCommand(
                 id,
                 dto.Name,
@@ -139,7 +151,7 @@ namespace RetroArcade.API.Controllers
                 dto.PostalCode,
                 dto.City,
                 dto.Country,
-                dto.ManagerId
+                userGuid
             );
 
             var validationResult = validator.Validate(command);

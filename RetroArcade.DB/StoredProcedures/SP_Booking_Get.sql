@@ -4,6 +4,8 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    EXEC [dbo].[SP_Booking_Update_Status];
+
     SELECT 
         B.[Id] AS BookingId,
         B.[BeginDate] AS BookingBeginDate,

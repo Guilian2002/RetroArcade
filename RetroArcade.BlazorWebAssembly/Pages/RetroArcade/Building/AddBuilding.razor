@@ -1,0 +1,74 @@
+﻿@page "/buildings/add"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Manager")]
+
+<div class="container mt-5">
+    <div class="sab-card main-form-container">
+        <div class="form-header-cyber mb-4">
+            <h2 class="retro-title">
+                <i class="bi bi-plus-square text-cyan me-2"></i>
+                NOUVEAU <span class="text-pink">COMPLEXE</span>
+            </h2>
+            <div class="cyber-line"></div>
+        </div>
+
+        <EditForm Model="@_form" OnValidSubmit="HandleSubmit">
+            <DataAnnotationsValidator />
+
+            <div class="mb-4">
+                <label class="cyber-label">NOM DU CENTRE</label>
+                <InputText @bind-Value="_form.Name" class="form-control cyber-input" placeholder="Saisir le nom..." />
+                <ValidationMessage For="@(() => _form.Name)" class="validation-message" />
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-6">
+                    <label class="cyber-label">OUVERTURE</label>
+                    <input type="time" @bind="_form.OpeningHour" class="form-control cyber-input" />
+                </div>
+                <div class="col-6">
+                    <label class="cyber-label">FERMETURE</label>
+                    <input type="time" @bind="_form.ClosingHour" class="form-control cyber-input" />
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-9 col-8">
+                    <label class="cyber-label">RUE / VOIE</label>
+                    <InputText @bind-Value="_form.AddressStreet" class="form-control cyber-input" placeholder="Ex: Boulevard du Neon" />
+                </div>
+                <div class="col-md-3 col-4">
+                    <label class="cyber-label">N°</label>
+                    <InputText @bind-Value="_form.AddressNumber" class="form-control cyber-input" placeholder="42" />
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-4 col-12 mb-3 mb-md-0">
+                    <label class="cyber-label">CODE POSTAL</label>
+                    <InputText @bind-Value="_form.PostalCode" class="form-control cyber-input" placeholder="75000" />
+                </div>
+                <div class="col-md-8 col-12">
+                    <label class="cyber-label">VILLE</label>
+                    <InputText @bind-Value="_form.City" class="form-control cyber-input" placeholder="Cyber-City" />
+                </div>
+            </div>
+
+            @if (_errorMessage != null)
+            {
+                <div class="alert-cyber p-3 mb-4">
+                    <i class="bi bi-shield-slash me-2"></i> @_errorMessage
+                </div>
+            }
+
+            <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mt-5">
+                <button type="button" class="btn-cyber flex-grow-1" @onclick='() => Nav.NavigateTo("/buildings")'>
+                    ABANDONNER
+                </button>
+                <button type="submit" class="btn-cyber btn-cyber-pink flex-grow-1" disabled="@_isSubmitting">
+                    @(_isSubmitting ? "TRANSMISSION..." : "ENREGISTRER LE COMPLEXE")
+                </button>
+            </div>
+        </EditForm>
+    </div>
+</div>

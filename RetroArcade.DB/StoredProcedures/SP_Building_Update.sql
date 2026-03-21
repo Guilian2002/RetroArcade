@@ -13,9 +13,22 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF @buildingId IS NULL OR NOT EXISTS (SELECT 1 FROM [dbo].[Building] WHERE [Id] = @buildingId)
+    DECLARE @actualManagerId UNIQUEIDENTIFIER;
+
+    SELECT @actualManagerId = M.[Id]
+    FROM [dbo].[Manager] M
+    INNER JOIN [dbo].[Account] A ON M.[Email] = A.[Email]
+    WHERE A.[Id] = @managerId;
+
+    IF NOT EXISTS (SELECT 1 FROM [dbo].[Building] WHERE [Id] = @buildingId)
     BEGIN
         RAISERROR('Identifiant invalide ou bâtiment inexistant.', 16, 1);
+        RETURN;
+    END
+
+    IF @actualManagerId IS NULL
+    BEGIN
+        RAISERROR('Le compte spécifié n''est pas lié à un profil Manager valide.', 16, 1);
         RETURN;
     END
 
@@ -47,6 +60,6 @@ BEGIN
         [PostalCode] = @postalCode,
         [City] = @city,
         [Country] = @country,
-        [ManagerId] = @managerId
+        [ManagerId] = @actualManagerId
     WHERE [Id] = @buildingId;
 END

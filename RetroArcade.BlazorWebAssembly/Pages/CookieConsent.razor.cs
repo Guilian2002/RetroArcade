@@ -7,7 +7,7 @@ namespace RetroArcade.BlazorWebAssembly.Components
     {
         [Inject] public ILocalStorageService LocalStorage { get; set; } = default!;
 
-        private bool _showBanner = false; // Par défaut invisible
+        private bool _showBanner = false;
         private const string ConsentKey = "cookie_consent_accepted";
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -17,14 +17,13 @@ namespace RetroArcade.BlazorWebAssembly.Components
                 try
                 {
                     var hasAccepted = await LocalStorage.GetItemAsync<bool>(ConsentKey);
-
                     if (!hasAccepted)
                     {
                         _showBanner = true;
                         StateHasChanged();
                     }
                 }
-                catch (Exception)
+                catch
                 {
                     _showBanner = true;
                     StateHasChanged();

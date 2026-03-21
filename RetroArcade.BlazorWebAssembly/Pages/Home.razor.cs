@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
 
 namespace RetroArcade.BlazorWebAssembly.Pages
 {
-    public partial class Home
+    public partial class Home : ComponentBase
     {
         protected string GetRoleClass(ClaimsPrincipal user)
         {
@@ -15,9 +14,9 @@ namespace RetroArcade.BlazorWebAssembly.Pages
 
         protected string GetRoleName(ClaimsPrincipal user)
         {
-            if (user.IsInRole("Admin")) return "ADMINISTRATEUR_SYSTÈME";
-            if (user.IsInRole("Manager")) return "MANAGER";
-            return "UTILISATEUR_STANDARD";
+            if (user.IsInRole("Admin")) return "ADMIN_SYS_MASTER";
+            if (user.IsInRole("Manager")) return "CENTRE_MANAGER";
+            return "RECRUE_JOUEUR";
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿@using RetroArcade.BlazorWebAssembly.Pages
 @inherits LayoutComponentBase
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -7,7 +8,19 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+            <div class="header-left">
+                <div class="cyber-scanner"></div>
+                <span class="system-status">SYSTÈME_ACTIF</span>
+            </div>
+
+            <div class="header-center">
+                <h1 class="retro-arcade-title">Retro<span>Arcade</span></h1>
+            </div>
+
+            <div class="header-right">
+                <div class="neon-separator"></div>
+                <div class="user-status-light"></div>
+            </div>
         </div>
 
         <article class="content px-4">

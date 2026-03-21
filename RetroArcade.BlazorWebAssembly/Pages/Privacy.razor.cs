@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-
-namespace RetroArcade.BlazorWebAssembly.Pages
+﻿namespace RetroArcade.BlazorWebAssembly.Pages
 {
     public partial class Privacy
     {
@@ -9,7 +7,6 @@ namespace RetroArcade.BlazorWebAssembly.Pages
 
         protected override void OnInitialized()
         {
-            // Génère une signature unique pour la session
             _signature = Guid.NewGuid().ToString().Substring(0, 8).ToUpper();
         }
     }

@@ -1,0 +1,86 @@
+﻿/* --- STRUCTURE --- */
+.main-form-container {
+    border-top: 4px solid var(--neon-blue);
+    padding: 40px;
+    background: rgba(20, 0, 40, 0.6);
+}
+
+.cyber-line {
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
+    margin-top: 10px;
+}
+
+/* --- LABELS ET INPUTS (LISIBILITÉ MAXIMALE) --- */
+.cyber-label {
+    display: block;
+    color: var(--neon-blue);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.cyber-input {
+    background: #000000 !important; /* Fond noir pur pour un contraste parfait */
+    border: 1px solid var(--neon-blue) !important;
+    color: #ffffff !important; /* Texte blanc pur */
+    border-radius: 2px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+    .cyber-input:focus {
+        border-color: var(--neon-pink) !important;
+        box-shadow: 0 0 15px rgba(255, 0, 255, 0.3) !important;
+        outline: none;
+    }
+
+/* --- ÉLÉMENTS SPÉCIFIQUES --- */
+.validation-message {
+    color: var(--cyber-yellow);
+    font-size: 0.8rem;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+.text-pink {
+    color: var(--neon-pink);
+}
+
+.text-cyan {
+    color: var(--neon-blue);
+}
+
+.alert-cyber {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid #ff3333;
+    color: #ffcccc;
+    border-radius: 4px;
+}
+
+/* --- ÉTATS --- */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+.cyber-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid transparent;
+    border-top-color: var(--neon-blue);
+    border-bottom-color: var(--neon-pink);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

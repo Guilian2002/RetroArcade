@@ -1,0 +1,83 @@
+﻿@page "/manager/bookings"
+@namespace RetroArcade.BlazorWebAssembly.Pages.RetroArcade.Booking
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Manager")]
+
+<div class="cyber-container mt-4">
+    @* En-tête de contrôle *@
+    <div class="d-flex justify-content-between align-items-center mb-4 header-terminal">
+        <div>
+            <h2 class="retro-title m-0"><i class="bi bi-shield-lock me-2"></i>Terminal de Gestion</h2>
+            <div class="scanline-horizontal"></div>
+        </div>
+        <span class="cyber-badge manager-status">
+            <i class="bi bi-person-badge me-2"></i>VUE MANAGER ACTIVÉE
+        </span>
+    </div>
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="alert-cyber mb-4">
+            <i class="bi bi-terminal-x me-2"></i> ERREUR SYSTÈME : @_errorMessage
+        </div>
+    }
+
+    @if (_isLoading)
+    {
+        <div class="text-center py-5">
+            <div class="cyber-spinner"></div>
+            <p class="mt-3 text-muted tracking-widest">SCAN DU RÉSEAU EN COURS...</p>
+        </div>
+    }
+    else if (_bookings == null || !_bookings.Any())
+    {
+        <div class="sab-card text-center py-5">
+            <i class="bi bi-database-exclamation fs-1 text-muted"></i>
+            <p class="mt-3">AUCUN FLUX DE RÉSERVATION DÉTECTÉ DANS VOS SECTEURS.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="cyber-table-manager">
+                <thead>
+                    <tr>
+                        <th>ID CLIENT / LOG</th>
+                        <th>SÉQUENCE TEMPORELLE</th>
+                        <th class="text-center">CAPACITÉ</th>
+                        <th>STATUT</th>
+                        <th class="text-end px-4">ACCÈS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var b in _bookings)
+                    {
+                        <tr class="row-entry">
+                            <td>
+                                <div class="client-name">@(b.Account?.Username ?? "USER_UNKNOWN")</div>
+                                <code class="client-id">#@b.Id.ToString().Substring(0, 8)</code>
+                            </td>
+                            <td>
+                                <span class="date-glow">@b.BeginDate.ToString("dd/MM/yyyy")</span><br />
+                                <small class="text-muted">@b.BeginDate.ToString("HH:mm") > @b.EndDate.ToString("HH:mm")</small>
+                            </td>
+                            <td class="text-center">
+                                <span class="group-pill">@b.GroupSize PX</span>
+                            </td>
+                            <td>
+                                <span class="cyber-badge @(b.Status == Status.OnGoing ? "status-online" : "status-offline")">
+                                    @b.Status.ToString().ToUpper()
+                                </span>
+                            </td>
+                            <td class="text-end px-4">
+                                <a href="/bookings/details/@b.Id" class="btn-action-view">
+                                    <i class="bi bi-eye"></i> DETAIL
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

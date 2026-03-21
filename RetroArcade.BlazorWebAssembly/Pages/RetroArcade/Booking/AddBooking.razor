@@ -1,0 +1,81 @@
+﻿@page "/booking/add"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "User")]
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="sab-card main-form-container">
+
+                <div class="form-header-cyber mb-4">
+                    <h2 class="retro-title">
+                        <i class="bi bi-joystick text-cyan me-2"></i>
+                        INSERT <span class="text-pink">COIN</span>
+                    </h2>
+                    <div class="cyber-line"></div>
+                </div>
+
+                @if (_room != null)
+                {
+                    <EditForm Model="@_form" OnValidSubmit="HandleSubmit">
+                        <DataAnnotationsValidator />
+
+                        <div class="mb-4">
+                            <label class="cyber-label">SESSION : HEURE DE DÉBUT</label>
+                            <div class="opening-hours-info mb-2">
+                                <i class="bi bi-clock-history me-1"></i>
+                                HORAIRES : @($"{_room.Building.OpeningHour.Hours:D2}:{_room.Building.OpeningHour.Minutes:D2}") — @($"{_room.Building.ClosingHour.Hours:D2}:{_room.Building.ClosingHour.Minutes:D2}")
+                            </div>
+
+                            <InputDate Type="InputDateType.DateTimeLocal"
+                                       Value="_form.BeginDate"
+                                       ValueChanged="@((DateTime value) => _form.BeginDate = value)"
+                                       ValueExpression="@(() => _form.BeginDate)"
+                                       class="form-control cyber-input"
+                                       step="3600" />
+
+                            <div class="text-muted small mt-2">
+                                <i class="bi bi-info-square me-1"></i> Durée fixe : 1 Heure (Fin à @_form.BeginDate.AddHours(1).ToString("HH:mm"))
+                            </div>
+                            <ValidationMessage For="@(() => _form.BeginDate)" class="validation-message" />
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="cyber-label">TAILLE DU GROUPE</label>
+                            <InputNumber @bind-Value="_form.GroupSize" class="form-control cyber-input" placeholder="0" />
+                            <ValidationMessage For="@(() => _form.GroupSize)" class="validation-message" />
+                        </div>
+
+                        <div class="price-receipt p-3 mb-4 text-center">
+                            <span class="label-mini d-block mb-1">TOTAL CRÉDITS</span>
+                            <div class="price-value text-pink">@_room.Price.ToString("C2", new System.Globalization.CultureInfo("fr-FR"))</div>
+                        </div>
+
+                        @if (_errorMessage != null)
+                        {
+                            <div class="alert-cyber p-3 mb-4">
+                                <i class="bi bi-exclamation-triangle me-2"></i> @_errorMessage
+                            </div>
+                        }
+
+                        <div class="d-grid gap-3">
+                            <button type="submit" class="btn-cyber btn-cyber-pink py-3" disabled="@_isSubmitting">
+                                @(_isSubmitting ? "TRANSMISSION..." : "CONFIRMER LA RÉSERVATION")
+                            </button>
+                            <button type="button" class="btn-cyber no-decoration text-center" @onclick='() => Navigation.NavigateTo("/buildings")'>
+                                ANNULER
+                            </button>
+                        </div>
+                    </EditForm>
+                }
+                else
+                {
+                    <div class="text-center p-5">
+                        <div class="spinner-border text-cyan" role="status"></div>
+                        <p class="mt-3 text-muted courier">CHARGEMENT DU SYSTÈME...</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+﻿@page "/categories/add"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Manager")]
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="sab-card main-form-container">
+                <div class="form-header-cyber mb-4">
+                    <h2 class="retro-title">
+                        <i class="bi bi-tag text-cyan me-2"></i>
+                        NOUVELLE <span class="text-pink">CATÉGORIE</span>
+                    </h2>
+                    <div class="cyber-line"></div>
+                </div>
+
+                <div class="card-body p-0">
+                    <EditForm Model="@_form" OnValidSubmit="HandleSubmit">
+                        <DataAnnotationsValidator />
+
+                        <div class="mb-5">
+                            <label class="cyber-label">NOM DE LA CATÉGORIE</label>
+                            @* Input sombre avec texte blanc pour une lisibilité maximale *@
+                            <InputText @bind-Value="_form.Name" class="form-control cyber-input" placeholder="ex: Shoot 'em up" />
+                            <ValidationMessage For="@(() => _form.Name)" class="validation-message" />
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(_errorMessage))
+                        {
+                            <div class="alert-cyber p-3 mb-4">
+                                <i class="bi bi-exclamation-triangle me-2"></i> @_errorMessage
+                            </div>
+                        }
+
+                        <div class="d-grid gap-3">
+                            <button type="submit" class="btn-cyber btn-cyber-pink" disabled="@_isSubmitting">
+                                @if (_isSubmitting)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                    <span>SYNCHRONISATION...</span>
+                                }
+                                else
+                                {
+                                    <span>ENREGISTRER LA CATÉGORIE</span>
+                                }
+                            </button>
+                            <a href="/categories/list" class="btn-cyber text-center no-decoration">
+                                RETOUR À LA LISTE
+                            </a>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,7 @@ using RetroArcade.BlazorWebAssembly.Models.Authentification;
 
 namespace RetroArcade.BlazorWebAssembly.Pages.Account
 {
-    public partial class Register
+    public partial class Register : ComponentBase
     {
         [Inject] public AuthenticationStateProvider AuthProvider { get; set; } = default!;
         [Inject] public AuthentificationAPIClient AuthClient { get; set; } = default!;
@@ -13,8 +13,8 @@ namespace RetroArcade.BlazorWebAssembly.Pages.Account
 
         protected CreateAccountViewModel model = new();
         protected string? errorMessage;
+        protected bool isSubmitting = false;
 
-        // Gestion de la visibilité du mot de passe
         protected bool showPassword = false;
         protected string passwordType => showPassword ? "text" : "password";
 
@@ -23,9 +23,7 @@ namespace RetroArcade.BlazorWebAssembly.Pages.Account
         protected override async Task OnInitializedAsync()
         {
             var authState = await AuthProvider.GetAuthenticationStateAsync();
-            var user = authState.User;
-
-            if (user.Identity is not null && user.Identity.IsAuthenticated)
+            if (authState.User.Identity?.IsAuthenticated ?? false)
             {
                 Navigation.NavigateTo("/");
             }
@@ -33,24 +31,32 @@ namespace RetroArcade.BlazorWebAssembly.Pages.Account
 
         protected async Task HandleRegister()
         {
+            if (isSubmitting) return;
+
             errorMessage = null;
+            isSubmitting = true;
+
             try
             {
-                bool response = await AuthClient.AccountCreateAsync(
+                bool success = await AuthClient.AccountCreateAsync(
                     model.Firstname, model.Lastname, model.Username, model.Email, model.Password);
 
-                if (response)
+                if (success)
                 {
                     Navigation.NavigateTo("/Account/Login");
                 }
                 else
                 {
-                    errorMessage = "ERREUR : L'API a refusé la création (Email déjà utilisé ?).";
+                    errorMessage = "ACCÈS REFUSÉ : Les données sont invalides ou l'email est déjà utilisé.";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                errorMessage = $"CRASH : {ex.Message}";
+                errorMessage = "ERREUR SYSTÈME : Connexion au serveur impossible.";
+            }
+            finally
+            {
+                isSubmitting = false;
             }
         }
     }

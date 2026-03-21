@@ -2,17 +2,24 @@
 
 @if (_showBanner)
 {
-    <div id="cookieConsent" class="arcade-card" style="position: fixed; bottom: 50px; z-index: 9999;">
-        <p class="retro-label">
-            > PROTOCOLE_COOKIE : SYSTEME_NECESSITE_JETONS_SESSION
-        </p>
-        <div style="display: flex; gap: 15px; align-items: center;">
-            <button type="button" class="btn-arcade" @onclick="AcceptCookies">
-                ACCEPTER
-            </button>
-            <NavLink href="privacy" class="btn-arcade" style="font-size: 10px; border-color: var(--neon-blue); color: var(--neon-blue) !important;">
-                EN SAVOIR PLUS
-            </NavLink>
+    <div class="cookie-wrapper">
+        <div class="sab-card cookie-box">
+
+            <div class="terminal-text">
+                <span class="role-manager">[SYSTEME]</span>
+                <span class="ms-2">> PROTOCOLE_COOKIE : REQUIS</span>
+                <span class="cursor"></span>
+            </div>
+
+            <div class="actions d-flex gap-3">
+                <button type="button" class="btn-cyber" @onclick="AcceptCookies">
+                    ACCEPTER
+                </button>
+                <NavLink href="privacy" class="btn-cyber btn-cyber-pink" style="font-size: 0.7rem;">
+                    INFO
+                </NavLink>
+            </div>
+
         </div>
     </div>
 }

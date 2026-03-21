@@ -20,11 +20,8 @@ namespace RetroArcade.BlazorWebAssembly.Clients
 
         public async Task<bool> LoginAsync(string email, string password)
         {
-            // Utilisation de PostAsJsonAsync (plus simple que StringContent)
             var response = await _http.PostAsJsonAsync("api/accounts/login", new { email, password });
 
-            // En Blazor WASM, on ne touche PAS aux headers Set-Cookie. 
-            // Le navigateur s'en occupe tout seul si l'API est configurée avec CORS "AllowCredentials".
             return response.IsSuccessStatusCode;
         }
 
@@ -32,7 +29,6 @@ namespace RetroArcade.BlazorWebAssembly.Clients
         {
             try
             {
-                // Pas besoin de chercher le JWT manuellement, le navigateur l'envoie via le cookie.
                 var response = await _http.GetAsync("api/accounts/me");
 
                 if (!response.IsSuccessStatusCode) return null;
@@ -63,11 +59,61 @@ namespace RetroArcade.BlazorWebAssembly.Clients
 
         public async Task LogoutAsync()
         {
-            // 1. Prévenir l'API pour supprimer le cookie côté serveur
             await _http.PostAsync("api/accounts/logout", null);
 
-            // 2. Nettoyer le LocalStorage côté client
             await _localStorage.RemoveItemAsync(SessionKey);
         }
+
+        #region Admin Account CRUD
+        public async Task<ICollection<AccountDetailsViewModel>> GetAllAccountsAsync()
+        {
+            try
+            {
+                var result = await _http.GetFromJsonAsync<ICollection<AccountDetailsViewModel>>("api/accounts");
+                return result ?? new List<AccountDetailsViewModel>();
+            }
+            catch { throw new Exception("Erreur lors de la récupération des comptes."); }
+        }
+
+
+        public async Task<AccountDetailsViewModel> GetAccountByIdAsync(Guid id)
+        {
+            try
+            {
+                var result = await _http.GetFromJsonAsync<AccountDetailsViewModel>($"api/accounts/{id}");
+
+                if (result == null)
+                {
+                    throw new Exception("Le compte récupéré est vide.");
+                }
+
+                return result;
+            }
+            catch (HttpRequestException)
+            {
+                throw new Exception("Impossible de trouver ce compte ou l'identifiant est invalide.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Une erreur est survenue : {ex.Message}");
+            }
+        }
+
+        public async Task UpdateAccountAsync(Guid id, UpdateAccountForm form)
+        {
+            var response = await _http.PutAsJsonAsync($"api/accounts/{id}", form);
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception(error);
+            }
+        }
+
+        public async Task DeleteAccountAsync(Guid id)
+        {
+            var response = await _http.DeleteAsync($"api/accounts/{id}");
+            if (!response.IsSuccessStatusCode) throw new Exception("Erreur lors de la suppression.");
+        }
+        #endregion
     }
 }

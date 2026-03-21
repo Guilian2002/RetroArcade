@@ -1,0 +1,380 @@
+﻿/* --- TYPOGRAPHIE & COULEURS --- */
+.building-name {
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+.address-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.text-pink {
+    color: var(--neon-pink);
+}
+
+.text-cyan {
+    color: var(--neon-blue);
+}
+
+.no-decoration {
+    text-decoration: none;
+}
+
+/* --- COMPOSANTS DE CARTE --- */
+.badge-neon {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    border-radius: 4px;
+    background: rgba(0, 255, 255, 0.05);
+}
+
+.card-header-cyber {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.btn-mini {
+    padding: 6px;
+    font-size: 0.9rem;
+}
+
+/* --- ANIMATION DE VIBRATION (ALARME) --- */
+.btn-delete-alarm:hover {
+    animation: shake 0.2s cubic-bezier(.36,.07,.19,.97) both infinite;
+    background: rgba(255, 0, 85, 0.2) !important;
+    border-color: #ff0055 !important;
+    box-shadow: 0 0 15px #ff0055;
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(1px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(-2px, 0, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(2px, 0, 0);
+    }
+}
+
+/* --- MODALE CYBER --- */
+.cyber-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(13, 2, 33, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.cyber-modal-container {
+    width: 90%;
+    max-width: 400px;
+    background: var(--dark-bg);
+    border: 2px solid var(--neon-pink);
+    padding: 40px;
+    box-shadow: 0 0 40px rgba(255, 0, 85, 0.3);
+    animation: modalScale 0.2s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Effet Scanline sur la modale */
+    .cyber-modal-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+        background-size: 100% 4px;
+        pointer-events: none;
+    }
+
+.blur-content {
+    filter: blur(10px);
+    transition: filter 0.3s ease;
+}
+
+@keyframes modalScale {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* --- LOADER --- */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+}
+
+.cyber-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid transparent;
+    border-top-color: var(--neon-blue);
+    border-bottom-color: var(--neon-pink);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* --- TYPOGRAPHIE --- */
+.building-name {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.address-text {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.text-pink {
+    color: var(--neon-pink);
+}
+
+.text-cyan {
+    color: var(--neon-blue);
+}
+
+.no-decoration {
+    text-decoration: none;
+}
+
+/* --- CARTES & BADGES --- */
+.badge-neon {
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+}
+
+.card-header-cyber {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Correction des boutons d'actions */
+.btn-mini {
+    font-size: 0.7rem;
+    padding: 10px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+}
+
+.btn-delete-alarm:hover {
+    animation: shake 0.2s infinite;
+    background: rgba(255, 0, 85, 0.2) !important;
+    border-color: #ff0055 !important;
+}
+
+/* --- MODALE (CORRECTION POSITIONNEMENT) --- */
+.cyber-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 2, 20, 0.95); /* Plus sombre pour masquer le fond */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Devant tout le reste */
+    backdrop-filter: blur(5px);
+}
+
+.cyber-modal-container {
+    width: 90%;
+    max-width: 450px;
+    background: #0d0221;
+    border: 2px solid var(--neon-pink);
+    padding: 35px;
+    box-shadow: 0 0 35px rgba(255, 0, 85, 0.4);
+    animation: modalPop 0.25s ease-out;
+}
+
+.blur-content {
+    filter: blur(8px);
+    pointer-events: none;
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px);
+    }
+
+    50% {
+        transform: translate(-1px, -1px);
+    }
+
+    100% {
+        transform: translate(1px, -1px);
+    }
+}
+
+/* --- LOADER --- */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 0;
+}
+
+.cyber-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid transparent;
+    border-top-color: var(--neon-blue);
+    border-bottom-color: var(--neon-pink);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- BOUTON INFOS CENTRE (DÉTAILS) --- */
+.btn-details {
+    border-color: #fff200 !important; /* Jaune cyber pour le différencier */
+    color: #fff200 !important;
+    text-shadow: 0 0 8px rgba(255, 242, 0, 0.4);
+}
+
+    .btn-details:hover {
+        background: #fff200 !important;
+        color: #000 !important;
+        box-shadow: 0 0 20px rgba(255, 242, 0, 0.6);
+    }
+
+/* --- RESTE DU CSS LISIBLE --- */
+.building-name {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.address-text {
+    color: #a0a0a0;
+    font-size: 0.85rem;
+}
+
+.text-pink {
+    color: var(--neon-pink);
+}
+
+.text-cyan {
+    color: var(--neon-blue);
+}
+
+.badge-neon {
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+}
+
+.btn-mini {
+    font-size: 0.7rem;
+    padding: 10px 5px;
+    min-height: 40px;
+}
+
+.btn-delete-alarm:hover {
+    animation: shake 0.2s infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px);
+    }
+
+    50% {
+        transform: translate(-1px, -1px);
+    }
+
+    100% {
+        transform: translate(1px, -1px);
+    }
+}
+
+.cyber-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 2, 20, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+.cyber-modal-container {
+    width: 450px;
+    background: #0d0221;
+    border: 2px solid var(--neon-pink);
+    padding: 35px;
+    box-shadow: 0 0 35px rgba(255, 0, 85, 0.4);
+}
+
+.blur-content {
+    filter: blur(8px);
+    pointer-events: none;
+}

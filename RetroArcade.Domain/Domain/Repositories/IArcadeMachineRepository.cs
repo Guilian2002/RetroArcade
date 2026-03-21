@@ -15,7 +15,8 @@ namespace RetroArcade.Domain.Domain.Repositories
         ICommandHandler<AddArcadeMachineCommand>,
         ICommandHandler<UpdateArcadeMachineCommand>,
         ICommandHandler<DeleteArcadeMachineCommand>,
-        IQueryHandler<GetAllArcadeMachinesQuery, IEnumerable<ArcadeMachine>>
+        IQueryHandler<GetAllArcadeMachinesQuery, IEnumerable<ArcadeMachine>>,
+        IQueryHandler<GetArcadeMachineByIdQuery, ArcadeMachine>
     {
     }
 }

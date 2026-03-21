@@ -1,0 +1,65 @@
+﻿@page "/admin/accounts/update/{Id:guid}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin")]
+
+<div class="container mt-4">
+    <div class="card shadow border-0">
+        <div class="card-header bg-danger text-white py-3">
+            <h4 class="mb-0"><i class="bi bi-person-gear me-2"></i>Modifier le compte</h4>
+        </div>
+        <div class="card-body p-4">
+            @if (_isLoading)
+            {
+                <div class="text-center py-5"><div class="spinner-border text-danger"></div></div>
+            }
+            else
+            {
+                <EditForm Model="@_form" OnValidSubmit="HandleSubmit">
+                    <DataAnnotationsValidator />
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Prénom</label>
+                            <InputText @bind-Value="_form.Firstname" class="form-control" />
+                            <ValidationMessage For="@(() => _form.Firstname)" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Nom</label>
+                            <InputText @bind-Value="_form.Lastname" class="form-control" />
+                            <ValidationMessage For="@(() => _form.Lastname)" />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Nom d'utilisateur (Pseudo)</label>
+                        <InputText @bind-Value="_form.Username" class="form-control" />
+                        <ValidationMessage For="@(() => _form.Username)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Rôle de l'utilisateur</label>
+                        <InputSelect @bind-Value="_form.Role" class="form-select border-primary">
+                            @foreach (var role in Enum.GetNames(typeof(Role)))
+                            {
+                                <option value="@role">@role</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => _form.Role)" />
+                    </div>
+
+                    @if (_errorMessage != null)
+                    {
+                        <div class="alert alert-warning">@_errorMessage</div>
+                    }
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-outline-secondary" @onclick='() => Nav.NavigateTo("/admin/accounts")'>Annuler</button>
+                        <button type="submit" class="btn btn-danger px-4" disabled="@_isSubmitting">
+                            @(_isSubmitting ? "Mise à jour..." : "Enregistrer les modifications")
+                        </button>
+                    </div>
+                </EditForm>
+            }
+        </div>
+    </div>
+</div>

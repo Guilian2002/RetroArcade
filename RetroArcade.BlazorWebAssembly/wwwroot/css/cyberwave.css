@@ -1,375 +1,155 @@
-﻿/* --- 1. IMPORTS & VARIABLES --- */
-@import url("https://cdn.jsdelivr.net");
-
+﻿/* --- 1. VARIABLES & THÈME --- */
 :root {
-    --neon-pink: #ff00ff;
     --neon-blue: #00ffff;
+    --neon-pink: #ff00ff;
     --cyber-yellow: #fff200;
-    --velvet-purple: #6a0dad;
     --dark-bg: #0d0221;
-    --grid-color: rgba(255, 0, 255, 0.1);
+    --card-bg: rgba(20, 0, 40, 0.6);
+    --text-main: #f0f0f0;
+    --text-muted: #a0a0a0;
+    --grid-color: rgba(0, 255, 255, 0.05);
 }
 
 /* --- 2. STYLE GÉNÉRAL --- */
 body {
     background-color: var(--dark-bg);
+    /* Grille rétro discrète */
     background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-    background-size: 30px 30px;
-    color: #fff;
+    background-size: 40px 40px;
+    color: var(--text-main);
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     min-height: 100vh;
     margin: 0;
+    line-height: 1.6;
 }
 
 /* Suppression de la barre blanche Bootstrap par défaut */
-.top-row {
+/*.top-row {
     display: none !important;
+}*/
+
+/* --- 3. NAVBAR & TITRES --- */
+.bg-retro-dark {
+    background-color: var(--dark-bg) !important;
+    border-bottom: 2px solid var(--neon-blue);
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
 }
 
-/* --- 3. NAVBAR NÉON VELVET --- */
-.cyber-navbar {
-    border-right: 2px solid var(--neon-blue);
-    background: var(--dark-bg) !important;
-    box-shadow: 5px 0 15px rgba(0, 255, 255, 0.2);
-}
-
-.nav-link.btn-nav-neon {
-    border: 2px solid var(--neon-blue) !important;
-    color: var(--neon-blue) !important;
-    margin: 10px 15px;
-    text-align: center;
-    transition: 0.3s;
+.retro-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #fff;
     text-shadow: 0 0 10px var(--neon-blue);
-    background: rgba(0, 255, 255, 0.05);
-    border-radius: 5px;
-    display: block;
-    /* Agrandissement du bouton HOME et des autres */
-    padding: 15px 10px !important;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-    .nav-link.btn-nav-neon:hover {
-        background: var(--neon-blue) !important;
-        color: var(--dark-bg) !important;
-        box-shadow: 0 0 20px var(--neon-blue);
-    }
-
-    .nav-link.btn-nav-neon.pink {
-        border-color: var(--neon-pink) !important;
-        color: var(--neon-pink) !important;
-        text-shadow: 0 0 10px var(--neon-pink);
-        box-shadow: inset 0 0 8px var(--velvet-purple);
-    }
-
-        .nav-link.btn-nav-neon.pink:hover {
-            background: var(--neon-pink) !important;
-            color: white !important;
-            box-shadow: 0 0 20px var(--neon-pink);
-        }
-
-/* --- 4. CONTENEUR FORMULAIRES --- */
-.register-container {
-    max-width: 450px;
-    margin: 80px auto;
-    padding: 35px;
-    background: rgba(13, 2, 33, 0.95);
-    border: 2px solid var(--neon-blue);
-    border-radius: 15px;
-    box-shadow: 0 0 30px var(--neon-blue);
-}
-
-/* Titres jaunes, centrés et fixes */
-.cyber-header h3 {
-    text-align: center;
-    color: var(--cyber-yellow) !important;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-shadow: 0 0 10px var(--cyber-yellow);
-    margin-bottom: 20px;
-}
-
-.glitch-text {
-    text-align: center;
-    display: block;
-    color: var(--neon-blue);
-    letter-spacing: 3px;
-    font-size: 0.8rem;
-    animation: none !important; /* Arrêt du clignotement */
-}
-
-/* --- 5. CHAMPS DE SAISIE & OEIL --- */
-.cyber-input-group label {
-    color: var(--neon-blue);
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    margin-bottom: 8px;
-    display: block;
-}
-
-.form-control {
-    background: rgba(0, 0, 0, 0.4) !important;
-    border: 1px solid var(--cyber-yellow) !important;
-    color: white !important;
-    box-shadow: 0 0 5px rgba(255, 242, 0, 0.1);
-}
-
-.input-group {
-    display: flex !important;
-}
-
-    .input-group .form-control {
-        border-top-right-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
-    }
-
-/* Style de l'oeil corrigé */
-.input-group-text, .btn-eye-fix {
-    background: rgba(255, 242, 0, 0.15) !important;
-    border: 1px solid var(--cyber-yellow) !important;
-    border-left: none !important;
-    color: white !important;
-    border-radius: 0 5px 5px 0 !important;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-}
-
-    .input-group-text:hover {
-        background: var(--cyber-yellow) !important;
-        color: var(--dark-bg) !important;
-    }
-
-/* --- 6. BOUTON CHARGER LE PROFIL --- */
-.btn-cyber {
-    background: transparent !important;
-    border: 2px solid var(--cyber-yellow) !important;
-    color: var(--cyber-yellow) !important;
-    font-weight: bold;
-    text-transform: uppercase;
     letter-spacing: 2px;
-    box-shadow: 0 0 15px var(--cyber-yellow);
+    text-transform: uppercase;
+}
+
+.arcade-logo {
+    width: 32px;
+    height: 32px;
+    filter: drop-shadow(0 0 5px var(--neon-blue));
+}
+
+.nav-header {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 1.5rem;
+}
+
+/* --- 4. CARTES & CONTENEURS --- */
+.sab-card {
+    background: var(--card-bg);
+    border: 1px solid var(--neon-blue);
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px); /* Effet verre dépoli moderne */
+}
+
+    .sab-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--neon-pink);
+        box-shadow: 0 8px 25px rgba(255, 0, 255, 0.2), inset 0 0 10px rgba(255, 0, 255, 0.1);
+    }
+
+/* --- 5. BOUTONS CYBER --- */
+.btn-cyber {
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 20px;
     transition: 0.4s;
-    width: 100%;
-    padding: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
 }
 
     .btn-cyber:hover {
-        background: var(--cyber-yellow) !important;
-        color: var(--dark-bg) !important;
-        box-shadow: 0 0 30px var(--cyber-yellow);
+        background: var(--neon-blue);
+        color: var(--dark-bg);
+        box-shadow: 0 0 20px var(--neon-blue);
+        transform: scale(1.02);
     }
 
-/* --- 7. IMAGE CHAT (GRAND FORMAT SANS FILTRE) --- */
-.cat-container {
-    width: 300px; /* Taille augmentée */
-    height: auto;
-    margin: 20px auto;
-    border: 4px solid var(--neon-pink);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 0 20px var(--neon-pink);
+.btn-cyber-pink {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
 }
 
-.suspect-cat-local {
-    width: 100%;
-    height: auto;
-    display: block;
-    filter: none !important; /* Suppression du filtre bleu */
+    .btn-cyber-pink:hover {
+        background: var(--neon-pink);
+        color: #fff;
+        box-shadow: 0 0 20px var(--neon-pink);
+    }
+
+/* --- 6. FORMULAIRES & INPUTS --- */
+.form-control {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--neon-blue) !important;
+    color: white !important;
+    border-radius: 4px;
+}
+
+    .form-control:focus {
+        border-color: var(--neon-pink) !important;
+        box-shadow: 0 0 10px rgba(255, 0, 255, 0.3) !important;
+    }
+
+/* --- 7. ÉTATS & RÔLES --- */
+.role-admin {
+    color: #ff3333;
+    text-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
+    font-weight: bold;
+}
+
+.role-manager {
+    color: var(--neon-blue);
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    font-weight: bold;
+}
+
+.role-user {
+    color: var(--cyber-yellow);
+    text-shadow: 0 0 5px rgba(255, 242, 0, 0.5);
+    font-weight: bold;
 }
 
 /* --- 8. VALIDATION & ALERTES --- */
 .validation-message {
     color: var(--cyber-yellow);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     margin-top: 5px;
-    text-align: left;
 }
 
 .alert-cyber {
-    background: rgba(255, 0, 0, 0.15);
-    border: 1px solid #ff0000;
-    color: #ffcccc;
-    padding: 12px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* --- AMÉLIORATION HOME : MODE INTRUS MAX --- */
-
-.home-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 90vh; /* Prend presque toute la hauteur */
-}
-
-/* Titre Haut */
-.intruder-title {
-    color: #00ffff;
-    text-shadow: 0 0 15px #00ffff;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-}
-
-/* Image Agrandie avec Cadre Magenta */
-.cat-container-large {
-    width: 650px; /* Taille augmentée */
-    max-width: 95vw;
-    margin: 0 auto;
-    border: 6px solid #ff00ff;
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 0 40px #ff00ff;
-}
-
-.suspect-cat-full {
-    width: 100%;
-    height: auto;
-    display: block;
-    filter: none !important; /* Image naturelle */
-}
-
-/* Texte NÉON ROUGE IMPOSANT */
-.neon-danger {
-    color: #ff0000 !important;
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
-    font-size: 2rem; /* Très grand */
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-top: 30px;
-    line-height: 1.2;
-    font-family: 'Arial Black', sans-serif;
-}
-
-/* Bouton Jaune Néon */
-.btn-terminal {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 15px 40px;
-    border: 3px solid var(--cyber-yellow);
-    color: var(--cyber-yellow) !important;
-    background: rgba(255, 242, 0, 0.1);
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
-    text-transform: uppercase;
-    box-shadow: 0 0 20px var(--cyber-yellow);
-    transition: 0.4s;
-}
-
-.btn-terminal:hover {
-    background: var(--cyber-yellow);
-    color: #000 !important;
-    box-shadow: 0 0 40px var(--cyber-yellow);
-    transform: scale(1.05);
-}
-
-/* --- 9. MODALE COOKIE ARCADE --- */
-.arcade-card {
-    background: rgba(13, 2, 33, 0.95);
-    border: 3px solid var(--neon-pink);
-    box-shadow: 0 0 20px var(--neon-pink), inset 0 0 10px var(--velvet-purple);
-    padding: 20px;
-    border-radius: 10px;
-    color: white;
-    max-width: 600px;
-    left: 50%;
-    transform: translateX(-50%); /* Centre horizontalement */
-    font-family: 'Courier New', Courier, monospace;
-}
-
-.retro-label {
-    color: var(--neon-blue);
-    text-shadow: 0 0 5px var(--neon-blue);
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.btn-arcade {
-    background: transparent;
-    border: 2px solid var(--cyber-yellow);
-    color: var(--cyber-yellow) !important;
-    padding: 8px 15px;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    transition: 0.3s;
-    display: inline-block;
-}
-
-.btn-arcade:hover {
-    background: var(--cyber-yellow);
-    color: var(--dark-bg) !important;
-    box-shadow: 0 0 15px var(--cyber-yellow);
-}
-
-/* Animation de clignotement pour le titre de la page Privacy */
-.blink {
-    animation: arcade-blink 1s infinite;
-}
-
-@keyframes arcade-blink {
-    0%, 100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.3;
-    }
-}
-
-.btn-logout {
     background: rgba(255, 0, 0, 0.1);
-    border: 2px solid #ff0000;
-    color: #ff0000 !important;
-    text-shadow: 0 0 10px #ff0000;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 10px;
-    transition: 0.3s;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: inset 0 0 5px rgba(255, 0, 0, 0.2);
-}
-
-.btn-logout:hover {
-    background: #ff0000;
-    color: white !important;
-    box-shadow: 0 0 20px #ff0000;
-}
-
-/* Couleurs par Rôle */
-
-.role-admin {
-    color: #ff0000 !important;
-    text-shadow: 0 0 10px #ff0000;
-    font-weight: bold;
-}
-/* Rouge Néon */
-
-.role-manager {
-    color: #00ffff !important;
-    text-shadow: 0 0 10px #00ffff;
-    font-weight: bold;
-}
-/* Cyan */
-
-.role-user {
-    color: #fff200 !important;
-    text-shadow: 0 0 10px #fff200;
-}
-/* Jaune Cyber */
-
-.role-badge {
-    border: 1px solid currentColor;
-    padding: 2px 8px;
-    font-size: 0.8rem;
-    margin-left: 10px;
-    text-transform: uppercase;
+    border: 1px solid #ff3333;
+    color: #ffcccc;
+    border-radius: 4px;
 }

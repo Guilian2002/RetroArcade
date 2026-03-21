@@ -1,11 +1,13 @@
 ﻿CREATE PROCEDURE [dbo].[SP_Booking_Get_By_Manager]
-	@accountId UNIQUEIDENTIFIER,
-	@role VARCHAR(8)
+    @accountId UNIQUEIDENTIFIER,
+    @role VARCHAR(8)
 AS
 BEGIN
-	SET NOCOUNT ON;
+    SET NOCOUNT ON;
 
-	 BEGIN TRY
+    EXEC [dbo].[SP_Booking_Update_Status];
+
+    BEGIN TRY
         IF @accountId IS NULL OR @role IS NULL
         BEGIN
             RAISERROR('Paramètres manquants.', 16, 1);
@@ -21,13 +23,15 @@ BEGIN
             BK.[Status] AS BookingStatus,
             BK.[RoomId] AS RoomId
         FROM [dbo].[Booking] BK
-        LEFT JOIN [dbo].[Room] R ON BK.[RoomId] = R.[Id]
-	    LEFT JOIN [dbo].[Building] B ON R.[BuildingId] = B.[Id]
-	    LEFT JOIN [dbo].[Manager] M ON B.[ManagerId] = M.[Id]
-        WHERE (@role = 'Manager' AND M.[Id] = @accountId)
-        ORDER BY [EndDate] DESC;
+        INNER JOIN [dbo].[Room] R ON BK.[RoomId] = R.[Id]
+        INNER JOIN [dbo].[Building] B ON R.[BuildingId] = B.[Id]
+        INNER JOIN [dbo].[Manager] M ON B.[ManagerId] = M.[Id]
+        INNER JOIN [dbo].[Account] A ON M.[Username] = A.[Username] 
+        WHERE @role = 'Manager' 
+          AND A.[Id] = @accountId
+        ORDER BY BK.[EndDate] DESC;
 
-        IF @@ROWCOUNT = 0 AND @role NOT IN ('Manager')
+        IF @@ROWCOUNT = 0 AND @role <> 'Manager'
         BEGIN
              RAISERROR('Rôle non reconnu.', 16, 1);
         END

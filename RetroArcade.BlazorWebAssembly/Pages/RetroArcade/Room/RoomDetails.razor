@@ -1,0 +1,130 @@
+﻿@page "/rooms/details/{Id:guid}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<div class="container mt-5 @(showDeleteModal ? "blur-content" : "")">
+    @if (_isLoading)
+    {
+        <div class="loader-container">
+            <div class="cyber-spinner"></div>
+            <p class="text-cyan mt-3">Initialisation du secteur...</p>
+        </div>
+    }
+    else if (_room == null)
+    {
+        <div class="alert-cyber p-3">@_errorMessage</div>
+    }
+    else
+    {
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="sab-card mb-4 border-cyan">
+                    <h4 class="retro-title-sm mb-4">@_room.Name</h4>
+                    <div class="stats-box p-3 mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="label-mini">PRIX SESSION</span>
+                            <span class="text-pink fw-bold">@_room.Price.ToString("C2", new System.Globalization.CultureInfo("fr-FR"))</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="label-mini">CAPACITÉ</span>
+                            <span class="text-cyan">@_room.Machines.Count / @_room.MachineCapacity</span>
+                        </div>
+                    </div>
+                    <a href="/booking/add?roomId=@_room.Id&price=@_room.Price.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                       class="btn-cyber btn-cyber-pink w-100 text-center no-decoration">
+                        RÉSERVER MAINTENANT
+                    </a>
+                </div>
+
+                <div class="sab-card border-pink">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="label-mini">AVIS CLIENTS</span>
+                    </div>
+                    <div class="feedback-list">
+                        @if (_room.Feedbacks == null || !_room.Feedbacks.Any())
+                        {
+                            <p class="text-muted small italic p-2 text-center">Aucun log d'avis détecté pour ce secteur.</p>
+                        }
+                        else
+                        {
+                            @if (_room.Feedbacks != null && _room.Feedbacks.Any())
+                            {
+                                <div class="cyber-feedback-list">
+                                    @foreach (var f in _room.Feedbacks)
+                                    {
+                                        <div class="feedback-item-cyber mb-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="username text-cyan">@f.Username</span>
+                                            </div>
+                                            <div class="stars-neon">
+                                                @for (int i = 0; i < 5; i++)
+                                                {
+                                                    <span class="@(i < f.Stars ? "text-pink" : "text-muted-dark")">★</span>
+                                                }
+                                            </div>
+                                            <p class="comment-text mt-2">@f.Comment</p>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="retro-title-sm">MACHINES INSTALLÉES <span class="text-cyan">(@_room.Machines.Count / 10)</span></h4>
+
+                    @if (_room.Machines.Count < 10)
+                    {
+                        <AuthorizeView Roles="Manager">
+                            <button class="btn-cyber" @onclick="NavigateToAddMachine">
+                                <i class="bi bi-plus-lg me-2"></i>INSTALLER
+                            </button>
+                        </AuthorizeView>
+                    }
+                </div>
+
+                <div class="row row-cols-1 row-cols-xl-2 g-3">
+                    @foreach (var m in _room.Machines)
+                    {
+                        <div class="col">
+                            <div class="machine-item-cyber p-3 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="machine-name-text text-white fw-bold mb-2">@m.ArcadeMachine.Name</div>
+                                    <span class="badge-status @(m.State.ToLower())">@m.State.ToUpper()</span>
+                                </div>
+                                <AuthorizeView Roles="Manager">
+                                    <div class="d-flex gap-1">
+                                        <button class="btn-mini-cyber btn-mini-pink btn-delete-alarm"
+                                                @onclick="() => OpenDeleteModal(m.ArcadeMachine.Id, m.ArcadeMachine.Name, false)">
+                                            <i class="bi bi-trash3 me-2"></i>SUPPRIMER
+                                        </button>
+                                    </div>
+                                </AuthorizeView>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (showDeleteModal)
+{
+    <div class="cyber-modal-overlay">
+        <div class="cyber-modal-container">
+            <div class="cyber-modal-content text-center">
+                <h3 class="text-pink mb-4">CONFIRMATION</h3>
+                <p>Voulez-vous supprimer @(isDeletingFeedback ? "cet avis de" : "la borne") :</p>
+                <p class="text-cyan fw-bold mt-2">[@targetName]</p>
+                <div class="d-flex gap-3 mt-5">
+                    <button class="btn-cyber flex-grow-1" @onclick="CloseDeleteModal">ANNULER</button>
+                    <button class="btn-cyber btn-cyber-pink flex-grow-1" @onclick="ConfirmDelete">EFFACER</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
