@@ -10,6 +10,7 @@ using RetroArcade.Domain.Domain.Commands.BookingCommands.Validators;
 using RetroArcade.Domain.Domain.Repositories;
 using RetroArcade.Domain.Domain.Services;
 using System.Data.Common;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -87,7 +88,9 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = jwtSettings["Issuer"],
         ValidAudience = jwtSettings["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]!))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]!)),
+
+        RoleClaimType = ClaimTypes.Role
     };
 
     options.Events = new JwtBearerEvents

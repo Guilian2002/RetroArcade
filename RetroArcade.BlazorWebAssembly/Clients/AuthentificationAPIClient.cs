@@ -3,6 +3,7 @@ using RetroArcade.BlazorWebAssembly.Models.Authentification;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace RetroArcade.BlazorWebAssembly.Clients
 {
@@ -69,10 +70,20 @@ namespace RetroArcade.BlazorWebAssembly.Clients
         {
             try
             {
-                var result = await _http.GetFromJsonAsync<ICollection<AccountDetailsViewModel>>("api/accounts");
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                options.Converters.Add(new JsonStringEnumConverter());
+
+                var result = await _http.GetFromJsonAsync<ICollection<AccountDetailsViewModel>>("api/accounts", options);
                 return result ?? new List<AccountDetailsViewModel>();
             }
-            catch { throw new Exception("Erreur lors de la récupération des comptes."); }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERREUR DÉTAILLÉE : {ex}");
+                throw new Exception($"Erreur : {ex.Message}");
+            }
         }
 
 
@@ -80,22 +91,23 @@ namespace RetroArcade.BlazorWebAssembly.Clients
         {
             try
             {
-                var result = await _http.GetFromJsonAsync<AccountDetailsViewModel>($"api/accounts/{id}");
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                options.Converters.Add(new JsonStringEnumConverter());
+
+                var result = await _http.GetFromJsonAsync<AccountDetailsViewModel>($"api/accounts/{id}", options);
 
                 if (result == null)
-                {
                     throw new Exception("Le compte récupéré est vide.");
-                }
 
                 return result;
             }
-            catch (HttpRequestException)
-            {
-                throw new Exception("Impossible de trouver ce compte ou l'identifiant est invalide.");
-            }
             catch (Exception ex)
             {
-                throw new Exception($"Une erreur est survenue : {ex.Message}");
+                Console.WriteLine($"Erreur désérialisation : {ex.Message}");
+                throw new Exception($"Impossible de charger le compte : {ex.Message}");
             }
         }
 

@@ -15,6 +15,11 @@ namespace RetroArcade.BlazorWebAssembly.Pages.Account
         protected bool _isLoading = true;
         protected string? _errorMessage;
 
+        // Gestion de la modale
+        protected bool _showDeleteModal = false;
+        private Guid _accountIdToDelete;
+        protected string? _targetUsername;
+
         protected override async Task OnInitializedAsync()
         {
             await LoadAccounts();
@@ -28,18 +33,31 @@ namespace RetroArcade.BlazorWebAssembly.Pages.Account
                 var result = await ApiClient.GetAllAccountsAsync();
                 _accounts = result.ToList();
             }
-            catch (Exception ex) { _errorMessage = ex.Message; }
+            catch (Exception ex) { _errorMessage = "ERREUR DE SYNC : " + ex.Message; }
             finally { _isLoading = false; }
         }
 
-        protected async Task HandleDelete(Guid id)
+        protected void OpenDeleteModal(Guid id, string username)
+        {
+            _accountIdToDelete = id;
+            _targetUsername = username;
+            _showDeleteModal = true;
+        }
+
+        protected void CloseDeleteModal()
+        {
+            _showDeleteModal = false;
+        }
+
+        protected async Task ConfirmDelete()
         {
             try
             {
-                await ApiClient.DeleteAccountAsync(id);
+                _showDeleteModal = false;
+                await ApiClient.DeleteAccountAsync(_accountIdToDelete);
                 await LoadAccounts();
             }
-            catch (Exception ex) { _errorMessage = ex.Message; }
+            catch (Exception ex) { _errorMessage = "ECHEC SUPPRESSION : " + ex.Message; }
         }
     }
 }
