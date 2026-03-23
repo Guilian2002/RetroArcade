@@ -1,0 +1,67 @@
+﻿@page "/rooms/machines/add"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Manager")]
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="sab-card main-form-container">
+
+                <div class="form-header-cyber mb-4">
+                    <h2 class="retro-title">
+                        <i class="bi bi-plus-square text-cyan me-2"></i>
+                        INSTALLER UNE <span class="text-pink">MACHINE</span>
+                    </h2>
+                    <div class="cyber-line"></div>
+                </div>
+
+                <EditForm Model="@_form" OnValidSubmit="HandleSubmit">
+                    <DataAnnotationsValidator />
+
+                    <div class="mb-4">
+                        <label class="cyber-label">CHOISIR UNE MACHINE DU CATALOGUE</label>
+                        <InputSelect @bind-Value="_form.ArcadeMachineId" class="form-select cyber-input">
+                            <option value="">-- SÉLECTIONNER UNE BORNE --</option>
+                            @foreach (var machine in _catalogMachines)
+                            {
+                                <option value="@machine.Id">@machine.Name (@machine.GameName)</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => _form.ArcadeMachineId)" class="validation-message" />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="cyber-label">ÉTAT INITIAL</label>
+                            <InputSelect @bind-Value="_form.State" class="form-select cyber-input">
+                                <option value="Active">Active / Fonctionnelle</option>
+                                <option value="Maintenance">En Maintenance</option>
+                                <option value="Broken">Hors-service</option>
+                            </InputSelect>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="cyber-label">DATE D'INSTALLATION</label>
+                            <InputDate @bind-Value="_form.InstallationDate" class="form-control cyber-input" />
+                        </div>
+                    </div>
+
+                    @if (_errorMessage != null)
+                    {
+                        <div class="alert-cyber p-3 mt-3">
+                            <i class="bi bi-exclamation-octagon me-2"></i> @_errorMessage
+                        </div>
+                    }
+
+                    <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mt-5">
+                        <button type="button" class="btn-cyber flex-grow-1" @onclick='() => Nav.NavigateTo($"/rooms/details/{RoomId}")'>
+                            ANNULER
+                        </button>
+                        <button type="submit" class="btn-cyber btn-cyber-pink flex-grow-1" disabled="@_isSubmitting">
+                            @(_isSubmitting ? "SYNC EN COURS..." : "CONFIRMER L'INSTALLATION")
+                        </button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>

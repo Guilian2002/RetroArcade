@@ -1,0 +1,83 @@
+﻿/* --- CONTAINER ET STRUCTURE --- */
+.main-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    border-top: 4px solid var(--neon-blue);
+}
+
+.form-header-cyber {
+    position: relative;
+}
+
+.cyber-line {
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
+    margin-top: 10px;
+}
+
+/* --- LABELS ET INPUTS (Correction de la lisibilité) --- */
+.cyber-label {
+    display: block;
+    color: var(--neon-blue);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.cyber-input {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(0, 255, 255, 0.3) !important;
+    color: white !important; /* Texte forcé en blanc */
+    border-radius: 4px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+    .cyber-input:focus {
+        border-color: var(--neon-pink) !important;
+        box-shadow: 0 0 15px rgba(255, 0, 255, 0.2) !important;
+        background: rgba(0, 0, 0, 0.6) !important;
+        outline: none;
+    }
+
+/* Couleurs spécifiques */
+.text-cyan {
+    color: var(--neon-blue);
+}
+
+.text-pink {
+    color: var(--neon-pink);
+}
+
+/* --- ÉTATS --- */
+.validation-message {
+    color: var(--cyber-yellow);
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+.cyber-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid transparent;
+    border-top-color: var(--neon-blue);
+    border-bottom-color: var(--neon-pink);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

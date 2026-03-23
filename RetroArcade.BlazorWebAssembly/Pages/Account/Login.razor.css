@@ -1,0 +1,132 @@
+﻿/* --- CONTENEUR PRINCIPAL --- */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: transparent; /* Utilise le fond étoilé du body */
+    padding: 20px;
+}
+
+/* --- CARTE DE CONNEXION --- */
+.login-card {
+    background: rgba(13, 2, 33, 0.95);
+    border: 2px solid var(--neon-blue);
+    border-radius: 4px;
+    padding: 3.5rem;
+    width: 100%;
+    max-width: 550px; /* Formulaire agrandi */
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+    position: relative;
+}
+
+/* --- ÉTIQUETTES (LABELS) --- */
+.role-user {
+    color: var(--cyber-yellow);
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* --- GROUPES D'ENTRÉE (CHAMPS) --- */
+.input-group-cyber {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5) !important; /* Fond noir profond */
+    border: 1px solid var(--neon-blue);
+    padding: 12px 15px;
+    margin-top: 8px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+    /* Suppression forcée du style par défaut de Blazor/Bootstrap */
+    .input-group-cyber ::deep input,
+    .form-control-cyber {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        color: #fff !important;
+        width: 100%;
+        outline: none;
+        font-family: 'Courier New', monospace;
+        font-size: 1.1rem;
+        padding: 5px 0;
+    }
+
+    /* Effet au survol/focus du champ */
+    .input-group-cyber:focus-within {
+        border-color: var(--neon-pink) !important;
+        box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+        background: rgba(255, 0, 255, 0.05) !important;
+    }
+
+/* --- BOUTON NÉON --- */
+.btn-neon-submit {
+    background: rgba(0, 255, 255, 0.05);
+    border: 2px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 18px;
+    font-weight: 900;
+    width: 100%;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    transition: 0.4s;
+    cursor: pointer;
+    margin-top: 30px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+    .btn-neon-submit:hover:not(:disabled) {
+        background: var(--neon-blue);
+        color: #0d0221 !important; /* Fond sombre au survol */
+        box-shadow: 0 0 30px var(--neon-blue);
+        transform: translateY(-2px);
+    }
+
+    .btn-neon-submit:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        border-color: var(--text-muted);
+    }
+
+/* --- LIENS ET ALERTES --- */
+.hover-glow:hover {
+    text-shadow: 0 0 10px var(--neon-pink);
+    color: #fff !important;
+}
+
+.alert-cyber {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid #ff3333;
+    color: #ffcccc;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    border-radius: 0;
+}
+
+.btn-eye {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes blink-soft {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.blink-soft {
+    animation: blink-soft 2s infinite;
+}

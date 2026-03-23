@@ -1,0 +1,102 @@
+﻿@page "/rooms/{BuildingId:guid}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<div class="container mt-5 @(showDeleteModal ? "blur-content" : "")">
+
+    <div class="d-flex justify-content-between align-items-center mb-5 section-header">
+        <h3 class="retro-title"><i class="bi bi-door-open me-3"></i>Salles du bâtiment</h3>
+        <AuthorizeView Roles="Manager">
+            <button class="btn-cyber btn-cyber-pink no-decoration" @onclick='() => Nav.NavigateTo($"/rooms/add?buildingId={BuildingId}")'>
+                <i class="bi bi-plus-lg me-1"></i> AJOUTER UNE SALLE
+            </button>
+        </AuthorizeView>
+    </div>
+
+    @if (_isLoading)
+    {
+        <div class="loader-container">
+            <div class="cyber-spinner"></div>
+            <p class="mt-3 text-cyan">Scan des secteurs en cours...</p>
+        </div>
+    }
+    else if (_rooms == null || !_rooms.Any())
+    {
+        <div class="sab-card text-center py-5">
+            <p class="text-muted">Aucune salle détectée dans ce bâtiment.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var room in _rooms)
+            {
+                <div class="col">
+                    <div class="sab-card h-100 d-flex flex-column">
+                        <div class="card-header-cyber mb-3">
+                            <h5 class="room-name">@room.Name</h5>
+                            <span class="badge-neon">N° @room.Number</span>
+                        </div>
+
+                        <div class="flex-grow-1">
+                            <div class="room-stats d-flex justify-content-between align-items-center p-2 mb-3">
+                                <span class="text-cyan"><i class="bi bi-cpu me-2"></i>@room.MachineCapacity BORNES</span>
+                                <span class="text-pink fw-bold">@room.Price.ToString("C2", new System.Globalization.CultureInfo("fr-FR"))</span>
+                            </div>
+                        </div>
+
+                        <div class="card-actions-cyber mt-auto">
+                            <div class="d-grid gap-2 mb-3">
+                                <button class="btn-cyber w-100" @onclick='() => Nav.NavigateTo($"/rooms/details/{room.Id}")'>
+                                    <i class="bi bi-eye me-2"></i>VOIR MACHINES & AVIS
+                                </button>
+
+                                <AuthorizeView Roles="User">
+                                    <Authorized>
+                                        <button class="btn-cyber btn-cyber-pink w-100" @onclick='() => Nav.NavigateTo($"/booking/add?roomId={room.Id}&price={room.Price}")'>
+                                            <i class="bi bi-calendar-plus me-2"></i>RÉSERVER SESSION
+                                        </button>
+                                    </Authorized>
+                                    <NotAuthorized>
+                                        <button class="btn-cyber btn-disabled w-100" disabled>
+                                            <i class="bi bi-lock me-2"></i>RÉSERVÉ AUX JOUEURS
+                                        </button>
+                                    </NotAuthorized>
+                                </AuthorizeView>
+                            </div>
+
+                            <AuthorizeView Roles="Manager">
+                                <div class="d-flex gap-2 pt-2 border-top-cyber">
+                                    <button class="btn-cyber btn-mini flex-grow-1" @onclick='() => Nav.NavigateTo($"/rooms/update/{room.Id}")'>
+                                        <i class="bi bi-pencil-square me-1"></i> MODIFIER
+                                    </button>
+                                    <button class="btn-cyber btn-cyber-pink btn-mini flex-grow-1 btn-delete-alarm" @onclick="() => OpenDeleteModal(room)">
+                                        <i class="bi bi-trash3 me-1"></i> EFFACER
+                                    </button>
+                                </div>
+                            </AuthorizeView>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@if (showDeleteModal)
+{
+    <div class="cyber-modal-overlay">
+        <div class="cyber-modal-container">
+            <div class="cyber-modal-content text-center">
+                <h3 class="text-pink mb-4">CONFIRMATION</h3>
+                <p>Voulez-vous supprimer définitivement la salle :</p>
+                <p class="text-cyan fw-bold mt-2">[@roomToDelete?.Name]</p>
+
+                <div class="d-flex gap-3 mt-5">
+                    <button class="btn-cyber flex-grow-1" @onclick="CloseDeleteModal">ANNULER</button>
+                    <button class="btn-cyber btn-cyber-pink flex-grow-1" @onclick="ConfirmDelete">EFFACER</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

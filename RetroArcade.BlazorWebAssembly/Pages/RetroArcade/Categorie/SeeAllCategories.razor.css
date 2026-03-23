@@ -1,0 +1,124 @@
+﻿/* --- LISIBILITÉ & STYLE --- */
+.category-name {
+    font-weight: 600;
+    color: #f0f0f0;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.category-row {
+    padding: 15px 25px;
+    border-left: 4px solid var(--neon-blue);
+    transition: all 0.3s ease;
+    background: rgba(20, 0, 40, 0.4);
+}
+
+    .category-row:hover {
+        border-left-color: var(--neon-pink);
+        background: rgba(255, 0, 255, 0.05);
+        transform: translateX(10px);
+    }
+
+.category-icon-box {
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid var(--neon-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+/* --- MODALE STYLE --- */
+.cyber-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 2, 20, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.cyber-modal-container {
+    width: 90%;
+    max-width: 450px;
+    background: var(--dark-bg);
+    border: 2px solid var(--neon-pink);
+    padding: 35px;
+    box-shadow: 0 0 35px rgba(255, 0, 85, 0.4);
+    animation: modalPop 0.25s ease-out;
+    position: relative;
+}
+
+.blur-content {
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.btn-delete-alarm:hover {
+    animation: shake 0.2s infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px);
+    }
+
+    50% {
+        transform: translate(-1px, -1px);
+    }
+
+    100% {
+        transform: translate(1px, -1px);
+    }
+}
+
+/* --- UTILS --- */
+.text-cyan {
+    color: var(--neon-blue);
+}
+
+.text-pink {
+    color: var(--neon-pink);
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 0;
+}
+
+.cyber-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid transparent;
+    border-top-color: var(--neon-blue);
+    border-bottom-color: var(--neon-pink);
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

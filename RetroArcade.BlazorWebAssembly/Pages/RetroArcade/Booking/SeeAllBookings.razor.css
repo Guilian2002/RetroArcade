@@ -1,0 +1,170 @@
+﻿/* Container global */
+.cyber-container {
+    padding: 20px;
+    background: rgba(13, 2, 33, 0.7);
+    border-radius: 12px;
+}
+
+/* Tableau Cyber */
+.cyber-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    color: var(--text-main);
+}
+
+    .cyber-table th {
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        color: var(--neon-blue);
+        padding: 15px;
+        border-bottom: 1px solid var(--neon-blue);
+    }
+
+    .cyber-table tr {
+        background: var(--card-bg);
+        transition: 0.3s;
+    }
+
+        .cyber-table tr:hover {
+            background: rgba(0, 255, 255, 0.05);
+            box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.1);
+        }
+
+    .cyber-table td {
+        padding: 15px;
+        border-top: 1px solid rgba(0, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+/* Typographie spécifique */
+.cell-primary {
+    font-weight: bold;
+    color: #fff;
+}
+
+.cell-secondary {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.room-name {
+    color: var(--neon-blue);
+    font-weight: 600;
+}
+
+.price-tag {
+    color: var(--cyber-yellow);
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+}
+
+/* Badges */
+.cyber-badge {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    border-radius: 4px;
+    border: 1px solid;
+    font-weight: bold;
+}
+
+.ongoing {
+    border-color: #00ff00;
+    color: #00ff00;
+    background: rgba(0, 255, 0, 0.1);
+}
+
+/* Boutons d'actions compacts */
+.btn-action {
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    margin-left: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+    .btn-action:hover {
+        background: var(--neon-blue);
+        color: var(--dark-bg);
+    }
+
+.btn-edit {
+    border-color: var(--cyber-yellow);
+    color: var(--cyber-yellow);
+}
+
+    .btn-edit:hover {
+        background: var(--cyber-yellow);
+    }
+
+.btn-delete {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+}
+
+    .btn-delete:hover {
+        background: var(--neon-pink);
+        color: #fff;
+    }
+
+/* Modale */
+.cyber-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.cyber-modal {
+    background: var(--dark-bg);
+    border: 2px solid var(--neon-pink);
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+}
+
+.modal-header-cyber {
+    border-bottom: 1px solid var(--neon-pink);
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+}
+
+.modal-footer-cyber {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 2rem;
+}
+
+/* Spinner Cyber */
+.cyber-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--neon-blue);
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

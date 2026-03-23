@@ -1,0 +1,147 @@
+﻿/* --- TYPOGRAPHIE & LISIBILITÉ --- */
+.machine-name {
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+.game-title {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+.label-mini {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--neon-blue);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+/* --- DESIGN DES COMPOSANTS --- */
+.game-info {
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 2px solid var(--neon-pink);
+    border-radius: 0 4px 4px 0;
+}
+
+.badge-neon {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    border-radius: 4px;
+}
+
+.card-header-cyber {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- BOUTONS & MODALE --- */
+.btn-mini {
+    font-size: 0.75rem;
+    padding: 10px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cyber-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 2, 20, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+.cyber-modal-container {
+    width: 90%;
+    max-width: 400px;
+    background: #0d0221;
+    border: 2px solid var(--neon-pink);
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+    animation: modalPop 0.2s ease-out;
+}
+
+.blur-content {
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.btn-delete-alarm:hover {
+    animation: shake 0.2s infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px);
+    }
+
+    50% {
+        transform: translate(-1px, -1px);
+    }
+
+    100% {
+        transform: translate(1px, -1px);
+    }
+}
+
+/* --- UTILS --- */
+.text-cyan {
+    color: var(--neon-blue);
+}
+
+.text-pink {
+    color: var(--neon-pink);
+}
+
+.no-decoration {
+    text-decoration: none;
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 0;
+}
+
+.cyber-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid transparent;
+    border-top-color: var(--neon-blue);
+    border-bottom-color: var(--neon-pink);
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

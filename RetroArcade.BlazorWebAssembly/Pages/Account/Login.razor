@@ -1,0 +1,59 @@
+﻿@page "/Account/Login"
+@namespace RetroArcade.BlazorWebAssembly.Pages.Account
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="text-center mb-5">
+            <h1 class="retro-title" style="font-size: 2.5rem;">> CONNEXION</h1>
+            <div class="role-manager small mt-2">[ VEUILLEZ_CHARGER_VOTRE_PROFIL ]</div>
+        </div>
+
+        <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+
+            @if (!string.IsNullOrEmpty(error))
+            {
+                <div class="alert alert-cyber mb-4">
+                    <i class="bi bi-exclamation-octagon me-2"></i> @error
+                </div>
+            }
+
+            <div class="mb-4">
+                <label class="role-user small">> IDENTIFIANT_EMAIL</label>
+                <div class="input-group-cyber">
+                    <InputText @bind-Value="loginModel.Email" class="form-control-cyber" placeholder="JOUEUR@RETRO.COM" />
+                </div>
+                <ValidationMessage For="@(() => loginModel.Email)" />
+            </div>
+
+            <div class="mb-5">
+                <label class="role-user small">> CODE_ACCÈS</label>
+                <div class="input-group-cyber">
+                    <InputText @bind-Value="loginModel.Password" type="@passwordType" class="form-control-cyber" placeholder="********" />
+                    <button type="button" class="btn-eye" @onclick="TogglePassword" tabindex="-1">
+                        <i class="bi @(showPassword ? "bi-eye-slash" : "bi-eye")" style="color: var(--neon-blue)"></i>
+                    </button>
+                </div>
+                <ValidationMessage For="@(() => loginModel.Password)" />
+            </div>
+
+            <button type="submit" class="btn-neon-submit w-100" disabled="@isSubmitting">
+                @if (isSubmitting)
+                {
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    <span>CHARGEMENT...</span>
+                }
+                else
+                {
+                    <span>INITIALISER_SESSION</span>
+                }
+            </button>
+
+            <div class="mt-5 text-center">
+                <a href="Account/Create" class="text-neon-pink small text-decoration-none hover-glow">
+                    [ CRÉER_UN_NOUVEAU_COMPTE ]
+                </a>
+            </div>
+        </EditForm>
+    </div>
+</div>

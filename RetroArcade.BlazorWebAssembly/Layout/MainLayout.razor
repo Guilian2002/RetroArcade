@@ -1,0 +1,32 @@
+﻿@using RetroArcade.BlazorWebAssembly.Pages
+@inherits LayoutComponentBase
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <div class="header-left">
+                <div class="cyber-scanner"></div>
+                <span class="system-status">SYSTÈME_ACTIF</span>
+            </div>
+
+            <div class="header-center">
+                <h1 class="retro-arcade-title">Retro<span>Arcade</span></h1>
+            </div>
+
+            <div class="header-right">
+                <div class="neon-separator"></div>
+                <div class="user-status-light"></div>
+            </div>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<RetroArcade.BlazorWebAssembly.Components.CookieConsent />

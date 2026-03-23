@@ -1,0 +1,68 @@
+﻿/* Conteneur principal */
+.cookie-wrapper {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    right: 25px;
+    z-index: 10000;
+    animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* La carte stylisée (on utilise ::deep pour cibler .sab-card si elle vient du app.css) */
+::deep .sab-card.cookie-box {
+    background: rgba(13, 2, 33, 0.98) !important;
+    border-left: 5px solid var(--neon-blue) !important;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.terminal-text {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background-color: var(--neon-blue);
+    margin-left: 5px;
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    from, to {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+    ::deep .sab-card.cookie-box {
+        flex-direction: column;
+        text-align: center;
+    }
+}

@@ -1,0 +1,163 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Blazored.LocalStorage
+@inject AuthenticationStateProvider AuthProvider
+@inject AuthentificationAPIClient AuthClient
+@inject NavigationManager Nav
+@inject ILocalStorageService LocalStorage
+
+<div class="top-row ps-3 navbar navbar-dark bg-retro-dark shadow-neon">
+    <div class="container-fluid">
+        @* --- LOGO ET TITRE --- *@
+        <a class="navbar-brand d-flex align-items-center" href="">
+            <span class="retro-title">RETRO ARCADE</span>
+        </a>
+        <button title="Menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column mt-2">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <i class="bi bi-house-door-fill me-2"></i> ACCUEIL
+            </NavLink>
+        </div>
+
+        <AuthorizeView Context="authContext">
+            <Authorized>
+                @* --- ADMINISTRATION --- *@
+                <AuthorizeView Roles="Admin" Context="adminContext">
+                    <div class="nav-header px-4 mt-3 text-danger small fw-bold"><i class="bi bi-shield-lock me-1"></i> ADMIN</div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="admin/accounts">
+                            <i class="bi bi-people-fill me-2"></i> UTILISATEURS
+                        </NavLink>
+                    </div>
+                </AuthorizeView>
+
+                @* --- GESTION (MANAGER) --- *@
+                <AuthorizeView Roles="Manager" Context="managerContext">
+                    <div class="nav-header px-4 mt-3 text-warning small fw-bold"><i class="bi bi-gear-fill me-1"></i> GESTION</div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="buildings">
+                            <i class="bi bi-building-fill me-2"></i> BÂTIMENTS
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="categories/list">
+                            <i class="bi bi-tags-fill me-2"></i> CATÉGORIES
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="arcademachines">
+                            <i class="bi bi-joystick me-2"></i> CATALOGUE BORNES
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="manager/bookings">
+                            <i class="bi bi-calendar-event-fill me-2"></i> RÉSERVATIONS
+                        </NavLink>
+                    </div>
+                </AuthorizeView>
+
+                @* --- JOUEUR (USER) --- *@
+                <AuthorizeView Roles="User" Context="userContext">
+                    <div class="nav-header px-4 mt-3 text-info small fw-bold"><i class="bi bi-controller me-1"></i> JOUEUR</div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="buildings">
+                            <i class="bi bi-geo-alt-fill me-2"></i> TROUVER UNE SALLE
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="my-bookings">
+                            <i class="bi bi-ticket-perforated-fill me-2"></i> MES SESSIONS
+                        </NavLink>
+                    </div>
+                </AuthorizeView>
+
+                <div class="nav-item px-3 mt-4 pt-3 border-top border-secondary">
+                    <button class="btn btn-outline-danger w-100 btn-sm shadow-sm" @onclick="HandleLogout">
+                        <i class="bi bi-power me-2"></i> QUITTER (@authContext.User.Identity?.Name)
+                    </button>
+                </div>
+            </Authorized>
+
+            <NotAuthorized>
+                <div class="nav-item px-3 mt-3">
+                    <NavLink class="nav-link" href="Account/Login">
+                        <i class="bi bi-person-fill me-2"></i> CONNEXION
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link text-info fw-bold" href="Account/Create">
+                        <i class="bi bi-person-plus-fill me-2"></i> NOUS REJOINDRE
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+    </nav>
+</div>
+
+<style>
+    .bg-retro-dark {
+        background-color: #0d0221 !important;
+        border-bottom: 2px solid #ff00ff;
+    }
+
+    .shadow-neon {
+        box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+    }
+
+    .retro-title {
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        color: #00ffff;
+        text-shadow: 0 0 8px #00ffff;
+        letter-spacing: 1.5px;
+        font-size: 1.2rem;
+    }
+
+    .arcade-logo {
+        width: 32px;
+        height: 32px;
+        filter: drop-shadow(0 0 5px #ff00ff);
+    }
+
+    .nav-link {
+        color: #d1d1d1 !important;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(0, 255, 255, 0.1) !important;
+            color: #00ffff !important;
+            border-left: 4px solid #ff00ff;
+        }
+
+    .nav-header {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        opacity: 0.9;
+    }
+</style>
+
+@code {
+    private bool collapseNavMenu = true;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private void ToggleNavMenu() => collapseNavMenu = !collapseNavMenu;
+
+    private async Task HandleLogout()
+    {
+        try
+        {
+            await AuthClient.LogoutAsync();
+            await LocalStorage.RemoveItemAsync("SessionAccount");
+            if (AuthProvider is CustomAuthenticationStateProvider customProvider)
+                customProvider.NotifyUserChanged();
+            Nav.NavigateTo("/", forceLoad: true);
+        }
+        catch { Nav.NavigateTo("/"); }
+    }
+}

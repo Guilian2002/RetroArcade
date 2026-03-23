@@ -1,0 +1,95 @@
+﻿@page "/my-bookings"
+@namespace RetroArcade.BlazorWebAssembly.Pages.RetroArcade.Booking
+
+<div class="cyber-container mt-4">
+    <h2 class="retro-title mb-4"><i class="bi bi-cpu me-2"></i>Mes Réservations</h2>
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="alert-cyber mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> @_errorMessage
+        </div>
+    }
+
+    @if (_isLoading)
+    {
+        <div class="text-center py-5">
+            <div class="cyber-spinner"></div>
+            <p class="mt-2 text-muted">CHARGEMENT DES DONNÉES...</p>
+        </div>
+    }
+    else if (_bookings == null || !_bookings.Any())
+    {
+        <div class="sab-card text-center py-5">
+            <p class="mb-4">AUCUN FLUX DE RÉSERVATION DÉTECTÉ.</p>
+            <a href="/buildings" class="btn-cyber">RECHERCHER UNE UNITÉ</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="cyber-table">
+                <thead>
+                    <tr>
+                        <th>DATE & HEURE</th>
+                        <th>GROUPE</th>
+                        <th>PRIX</th>
+                        <th>STATUT</th>
+                        <th class="text-end">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var b in _bookings)
+                    {
+                        <tr>
+                            <td class="cell-primary">
+                                @b.BeginDate.ToString("dd/MM/yyyy") <br />
+                                <span class="cell-secondary">@b.BeginDate.ToString("HH:mm") - @b.EndDate.ToString("HH:mm")</span>
+                            </td>
+                            <td><i class="bi bi-people me-1"></i> @b.GroupSize</td>
+                            <td class="price-tag">@b.Price.ToString("C2", new System.Globalization.CultureInfo("fr-FR"))</td>
+                            <td>
+                                <span class="cyber-badge @(b.Status.ToString().ToLower())">
+                                    @b.Status.ToString().ToUpper()
+                                </span>
+                            </td>
+                            <td class="text-end">
+                                <a href="/bookings/details/@b.Id" class="btn-action" title="Détails">
+                                    <i class="bi bi-eye"></i> VOIR
+                                </a>
+                                @if (b.Status == Status.OnGoing)
+                                {
+                                    <a href="/bookings/update/@b.Id" class="btn-action btn-edit" title="Modifier">
+                                        <i class="bi bi-pencil"></i> ÉDITER
+                                    </a>
+                                    <button class="btn-action btn-delete" @onclick="() => ShowDeleteModal(b.Id)" title="Annuler">
+                                        <i class="bi bi-trash"></i> ANNULER
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@if (_showDeleteModal)
+{
+    <div class="cyber-modal-overlay">
+        <div class="cyber-modal">
+            <div class="modal-header-cyber">
+                <span class="retro-title">ALERTE SYSTÈME</span>
+            </div>
+            <div class="modal-body-cyber">
+                <p>Souhaitez-vous vraiment désactiver cette réservation ?</p>
+                <small class="text-muted">Cette action est irréversible dans le flux actuel.</small>
+            </div>
+            <div class="modal-footer-cyber">
+                <button class="btn-cyber" @onclick="CloseDeleteModal">ANNULER</button>
+                <button class="btn-cyber btn-cyber-pink" @onclick="ConfirmCancel">CONFIRMER LA SUPPRESSION</button>
+            </div>
+        </div>
+    </div>
+}

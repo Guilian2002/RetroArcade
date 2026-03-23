@@ -1,0 +1,51 @@
+﻿@model IEnumerable<RetroArcade.ASPCore.Models.RetroArcade.BuildingViewModel>
+
+@{
+    ViewData["Title"] = "Liste des salles d'arcades";
+}
+
+<div class="container">
+    <h1 class="arcade-title blink">Batiment.exe</h1>
+
+    @foreach (var item in Model)
+    {
+        <div class="arcade-card">
+            <h2 style="color: var(--retro-orange); border-bottom: 2px solid var(--neon-cyan); padding-bottom: 10px;">
+                @item.Name
+            </h2>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <p>
+                        <span class="retro-label">Ouvert > Fermé:</span>
+                        <span style="color: white; font-size: 20px;">
+                            @item.OpeningHour.ToString(@"hh\:mm") > @item.ClosingHour.ToString(@"hh\:mm")
+                        </span>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        <span class="retro-label">Coordonnées:</span>
+                        <span style="color: var(--neon-cyan); font-size: 14px;">
+                            @item.FullAddress
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-5 d-flex justify-content-center">
+                <a asp-controller="Room"
+                   asp-action="Index"
+                   asp-route-buildingId="@item.Id"
+                   class="btn-arcade"
+                   style="text-decoration: none;">
+                    VOIR LES PIECES DISPONIBLES >
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <div class="scanlines"></div>
+}

@@ -1,0 +1,18 @@
+﻿CREATE TABLE [dbo].[RoomFeedback]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+	[Stars] INT NOT NULL,
+	[CommentDate] DATETIME2 NOT NULL,
+	[Comment] NVARCHAR(256) NOT NULL,
+	[Username] NVARCHAR(64) NOT NULL,
+	[RoomId] UNIQUEIDENTIFIER NOT NULL,
+
+	CONSTRAINT [PK_RoomFeedback] PRIMARY KEY ([Id]),
+
+	CONSTRAINT [FK_RoomFeedback_Room]
+        FOREIGN KEY ([RoomId])
+        REFERENCES [Room]([Id])
+        ON DELETE CASCADE,
+
+	CONSTRAINT [CK_RoomFeedback_Stars] CHECK ([Stars] BETWEEN 1 AND 5)
+)

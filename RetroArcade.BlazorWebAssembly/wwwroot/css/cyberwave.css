@@ -1,0 +1,155 @@
+﻿/* --- 1. VARIABLES & THÈME --- */
+:root {
+    --neon-blue: #00ffff;
+    --neon-pink: #ff00ff;
+    --cyber-yellow: #fff200;
+    --dark-bg: #0d0221;
+    --card-bg: rgba(20, 0, 40, 0.6);
+    --text-main: #f0f0f0;
+    --text-muted: #a0a0a0;
+    --grid-color: rgba(0, 255, 255, 0.05);
+}
+
+/* --- 2. STYLE GÉNÉRAL --- */
+body {
+    background-color: var(--dark-bg);
+    /* Grille rétro discrète */
+    background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: var(--text-main);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Suppression de la barre blanche Bootstrap par défaut */
+/*.top-row {
+    display: none !important;
+}*/
+
+/* --- 3. NAVBAR & TITRES --- */
+.bg-retro-dark {
+    background-color: var(--dark-bg) !important;
+    border-bottom: 2px solid var(--neon-blue);
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+}
+
+.retro-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px var(--neon-blue);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.arcade-logo {
+    width: 32px;
+    height: 32px;
+    filter: drop-shadow(0 0 5px var(--neon-blue));
+}
+
+.nav-header {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 1.5rem;
+}
+
+/* --- 4. CARTES & CONTENEURS --- */
+.sab-card {
+    background: var(--card-bg);
+    border: 1px solid var(--neon-blue);
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px); /* Effet verre dépoli moderne */
+}
+
+    .sab-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--neon-pink);
+        box-shadow: 0 8px 25px rgba(255, 0, 255, 0.2), inset 0 0 10px rgba(255, 0, 255, 0.1);
+    }
+
+/* --- 5. BOUTONS CYBER --- */
+.btn-cyber {
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    transition: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+}
+
+    .btn-cyber:hover {
+        background: var(--neon-blue);
+        color: var(--dark-bg);
+        box-shadow: 0 0 20px var(--neon-blue);
+        transform: scale(1.02);
+    }
+
+.btn-cyber-pink {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+}
+
+    .btn-cyber-pink:hover {
+        background: var(--neon-pink);
+        color: #fff;
+        box-shadow: 0 0 20px var(--neon-pink);
+    }
+
+/* --- 6. FORMULAIRES & INPUTS --- */
+.form-control {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--neon-blue) !important;
+    color: white !important;
+    border-radius: 4px;
+}
+
+    .form-control:focus {
+        border-color: var(--neon-pink) !important;
+        box-shadow: 0 0 10px rgba(255, 0, 255, 0.3) !important;
+    }
+
+/* --- 7. ÉTATS & RÔLES --- */
+.role-admin {
+    color: #ff3333;
+    text-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
+    font-weight: bold;
+}
+
+.role-manager {
+    color: var(--neon-blue);
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    font-weight: bold;
+}
+
+.role-user {
+    color: var(--cyber-yellow);
+    text-shadow: 0 0 5px rgba(255, 242, 0, 0.5);
+    font-weight: bold;
+}
+
+/* --- 8. VALIDATION & ALERTES --- */
+.validation-message {
+    color: var(--cyber-yellow);
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.alert-cyber {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid #ff3333;
+    color: #ffcccc;
+    border-radius: 4px;
+}

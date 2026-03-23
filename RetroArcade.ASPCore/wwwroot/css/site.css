@@ -1,0 +1,205 @@
+/* VARIABLES RETROWAVE */
+:root {
+    --neon-cyan: #00f3ff;
+    --neon-magenta: #ff00ff;
+    --deep-purple: #240b36;
+    --retro-orange: #ff9d00;
+    --dark-bg: #0d0221;
+    --arcade-font: 'Press Start 2P', cursive;
+}
+
+/* BASE & LAYOUT AVEC FIXATION */
+body {
+    background-color: var(--dark-bg);
+    background-image: linear-gradient(transparent 0%, rgba(255, 0, 255, 0.05) 50%, transparent 100%), linear-gradient(90deg, rgba(255, 0, 255, 0.05) 0%, transparent 50%, rgba(255, 0, 255, 0.05) 100%);
+    background-size: 50px 50px;
+    color: white;
+    font-family: var(--arcade-font);
+    line-height: 1.8;
+    font-size: 18px;
+    margin: 0;
+    padding-top: 110px;
+    padding-bottom: 90px;
+    min-height: 100vh;
+}
+
+/* CUSTOM SCROLLBAR NÉON */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--neon-magenta);
+    border: 3px solid var(--dark-bg);
+    box-shadow: 0 0 10px var(--neon-magenta);
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--neon-cyan);
+    }
+
+/* SCANLINES AMÉLIORÉES */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 3px, 3px 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* NAVBAR FIXE */
+.arcade-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2000;
+    background: linear-gradient(180deg, #000 0%, var(--deep-purple) 100%) !important;
+    border-bottom: 4px solid var(--neon-magenta);
+    padding: 20px 0;
+    box-shadow: 0 5px 20px rgba(255, 0, 255, 0.4);
+}
+
+.arcade-brand {
+    font-size: 20px !important;
+    color: var(--retro-orange) !important;
+    text-shadow: 2px 2px #000;
+}
+
+.arcade-link {
+    font-size: 14px;
+    color: var(--neon-cyan) !important;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+/* FOOTER FIXE */
+.arcade-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.95);
+    border-top: 3px solid var(--neon-cyan);
+    padding: 15px 0;
+    font-size: 10px;
+    box-shadow: 0 -5px 20px rgba(0, 243, 255, 0.3);
+}
+
+/* CARDS XXL */
+.arcade-card {
+    background: rgba(13, 2, 33, 0.85);
+    border: 6px double var(--neon-magenta);
+    padding: 50px;
+    box-shadow: 0 0 30px var(--neon-magenta), inset 0 0 20px var(--deep-purple);
+    margin: 40px auto;
+    max-width: 900px;
+    backdrop-filter: blur(5px);
+}
+
+.arcade-title {
+    color: var(--neon-cyan);
+    text-shadow: 4px 4px 0px var(--neon-magenta), 8px 8px 0px rgba(0,0,0,0.5);
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    letter-spacing: 5px;
+}
+
+/* FORMULAIRES */
+.retro-label {
+    display: block;
+    margin-bottom: 15px;
+    color: var(--retro-orange);
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.retro-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    border: 3px solid var(--neon-cyan);
+    color: #fff;
+    padding: 18px;
+    font-family: var(--arcade-font);
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    transition: 0.3s;
+}
+
+    .retro-input:focus {
+        outline: none;
+        border-color: var(--neon-magenta);
+        box-shadow: 0 0 20px var(--neon-magenta);
+        transform: translateY(-2px);
+    }
+
+/* BOUTONS */
+.btn-arcade {
+    font-size: 18px;
+    padding: 20px 40px;
+    border: 4px solid var(--neon-cyan);
+    background: transparent;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 5px var(--neon-cyan);
+    box-shadow: 4px 4px 0px var(--neon-magenta);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+    .btn-arcade:hover {
+        background: var(--neon-cyan);
+        color: #000;
+        box-shadow: 0px 0px 0px transparent;
+        transform: translate(4px, 4px);
+    }
+
+/* ERREURS */
+.text-error {
+    color: #ffff00;
+    font-size: 12px;
+    background: rgba(255, 0, 0, 0.2);
+    padding: 5px;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* ANIMATIONS */
+.blink {
+    animation: blink-anim 1s infinite alternate;
+}
+
+@keyframes blink-anim {
+    from {
+        opacity: 1;
+        text-shadow: 0 0 10px var(--neon-cyan);
+    }
+
+    to {
+        opacity: 0.7;
+        text-shadow: 0 0 30px var(--neon-cyan);
+    }
+}
+
+
+/* LOGIN */
+.arcade-link:hover {
+    color: var(--neon-magenta) !important;
+    text-shadow: 0 0 10px var(--neon-magenta);
+}
+
+.text-danger.validation-summary-errors ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
